@@ -1,0 +1,27 @@
+:root {
+  --header-color: rgb(42, 40, 40);
+  --highlight-color: rgb(246, 118, 27);
+}
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.header {
+  text-transform: uppercase;
+  color: var(--header-color);
+  letter-spacing:.17em;
+  /* font-size: 12.5vw; */
+  font-size: 10vw;
+}
