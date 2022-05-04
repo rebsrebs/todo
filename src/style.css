@@ -10,10 +10,11 @@ body {
 }
 
 #content {
-  display: flex;
-  flex-direction: column;
+  align-items: center; 
   justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 150px auto 40px;
   padding: 0px;
   margin: 0px;
 }
@@ -22,6 +23,6 @@ body {
   text-transform: uppercase;
   color: var(--header-color);
   letter-spacing:.17em;
-  /* font-size: 12.5vw; */
   font-size: 10vw;
+  grid-column: 1 / 3;
 }
