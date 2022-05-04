@@ -1,7 +1,7 @@
 import './style.css';
 import { header } from './header.js';
 import { sidebar } from './sidebar.js';
-import { ui } from './ui.js';
+import { npform } from './newprojectform.js';
 
 const content = document.getElementById('content');
 content.appendChild(header());
@@ -12,8 +12,10 @@ content.appendChild(sidebar());
   const main = document.createElement('div');
   main.classList.add('main');
   main.id = 'main';
-  main.textContent = 'test';
+  // main.textContent = 'test';
 
+  main.appendChild(npform());
   content.appendChild(main);
+  
 
 
