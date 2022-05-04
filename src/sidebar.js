@@ -1,9 +1,11 @@
 function sidebar() {
+
+  // SIDEBAR CONTAINER
   const sidebar = document.createElement('div');
   sidebar.classList.add('sidebar');
   sidebar.id = 'sidebar';
 
-  // SIDEBAR CONTAINER
+  // NAV
   const nav = document.createElement('nav');
   nav.classList.add('nav');
   nav.id = 'nav';
@@ -29,11 +31,34 @@ function sidebar() {
   randomTask.id = 'randomtask';
   randomTask.textContent = "Random Task";
 
+  // PROJECTS SECTION
+  const projects = document.createElement('h3');
+  projects.classList.add('projectsnavsection');
+  projects.id = 'projectsnavsection';
+  projects.textContent = "Projects";
+
+  const defaultProject = document.createElement('a');
+  defaultProject.classList.add('navlink');
+  defaultProject.id = 'defaultproject';
+  defaultProject.textContent = "Default Project";
+
+  const addNewProject = document.createElement('a');
+  addNewProject.classList.add('navlink');
+  addNewProject.classList.add('newprojectadd');
+  addNewProject.textContent = '+ new project';
+  // make plus sign different color ?
+
+
   nav.appendChild(shortcuts);
   nav.appendChild(home);
   nav.appendChild(dueToday);
   nav.appendChild(randomTask);
+  nav.appendChild(projects);
+  nav.appendChild(defaultProject);
+  nav.appendChild(addNewProject);
   sidebar.appendChild(nav);
+
+
 
   return sidebar;
 }
