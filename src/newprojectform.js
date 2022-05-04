@@ -42,7 +42,7 @@ function npform() {
   const projectDueDate = document.createElement('input');
   projectDueDate.setAttribute("type", "date");
   projectDueDate.setAttribute("id", "pdate");
-  projectDescription.setAttribute("name", "pdate");
+  projectDueDate.setAttribute("name", "pdate");
   // submit button
   const newProjectSubmitButton = document.createElement('button');
   newProjectSubmitButton.classList.add('savebutton');
