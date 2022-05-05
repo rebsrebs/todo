@@ -1,3 +1,5 @@
+import { npform } from './newprojectform.js';
+
 function sidebar() {
 
   // SIDEBAR CONTAINER
@@ -48,6 +50,20 @@ function sidebar() {
   addNewProject.textContent = '+ new project';
   // make plus sign different color ?
 
+  // utility function to show a form
+  // const showForm = function(form, parent) {
+  //   parent.appendChild(form);
+  // }
+
+   // event listener for new project button
+  addNewProject.addEventListener('click', function() {
+    const main = document.getElementById('main');
+    main.appendChild(npform());
+  });
+
+
+
+
 
   nav.appendChild(shortcuts);
   nav.appendChild(home);
@@ -57,8 +73,6 @@ function sidebar() {
   nav.appendChild(defaultProject);
   nav.appendChild(addNewProject);
   sidebar.appendChild(nav);
-
-
 
   return sidebar;
 }

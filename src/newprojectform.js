@@ -1,3 +1,5 @@
+import { saveNewProject } from './projectmanager.js';
+
 function npform() {
 
   // New Project Form Container Div
@@ -36,16 +38,17 @@ function npform() {
   // due date label
   const projectDueDateLabel = document.createElement('label');
   projectDueDateLabel.classList.add('formlabel');
-  projectDueDateLabel.setAttribute("for","pdate");
+  projectDueDateLabel.setAttribute("for","pduedate");
   projectDueDateLabel.textContent = ('Due Date');
   // due date input
   const projectDueDate = document.createElement('input');
   projectDueDate.setAttribute("type", "date");
-  projectDueDate.setAttribute("id", "pdate");
-  projectDueDate.setAttribute("name", "pdate");
+  projectDueDate.setAttribute("id", "pduedate");
+  projectDueDate.setAttribute("name", "pduedate");
   // submit button
   const newProjectSubmitButton = document.createElement('button');
   newProjectSubmitButton.classList.add('savebutton');
+  newProjectSubmitButton.setAttribute("type", "button");
   newProjectSubmitButton.textContent = 'Save';
 
   newProjectForm.appendChild(projectTitleLabel);
@@ -57,6 +60,13 @@ function npform() {
   newProjectForm.appendChild(newProjectSubmitButton);
   npFormContainer.appendChild(npFormHeading);
   npFormContainer.appendChild(newProjectForm);
+
+  // event listener
+  newProjectSubmitButton.addEventListener("click", function(){
+    saveNewProject();
+    newProjectForm.reset();
+    npFormContainer.remove();
+  });
 
   return npFormContainer;
 }
