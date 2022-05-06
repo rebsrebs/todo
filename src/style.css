@@ -56,7 +56,7 @@ body {
 
 .navsection {
   display: block;
-  font-weight: bolder;
+  /* font-weight: bolder; */
   margin-top: 0px;
   margin-bottom: 12px;
 }
@@ -97,6 +97,14 @@ body {
   accent-color: red;
 }
 
+.taskform {
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto auto auto;
+  gap: 10px;
+  accent-color: red;
+}
+
 .formlabel {
   text-align: right;
 }
@@ -105,6 +113,11 @@ body {
   grid-column: 1 / span 2;
   width: 8ch;
   justify-self: center;
+  background-color: pink;
+  border-radius: 3px;
+  border: solid 1px gray;
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  /* x y blur spread */
 }
 
 .formheading {
@@ -120,12 +133,16 @@ body {
 
 a {
   cursor: pointer;
+  text-shadow: 1px 1px 3px rgba(248, 122, 243, 0.5);
 }
 
 a:hover, a:active {
   text-decoration: underline wavy red 1px;
+  text-shadow: 1px 1px 3px rgba(73, 220, 68, 0.5);
 }
 
 a:active {
   color: white;
 }
+
+

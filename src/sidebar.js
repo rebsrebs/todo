@@ -1,4 +1,5 @@
 import { npform } from './newprojectform.js';
+import { ntform } from './newtaskform.js';
 
 function sidebar() {
 
@@ -13,10 +14,18 @@ function sidebar() {
   nav.id = 'nav';
 
   // SHORTCUTS SECTION
+  const shortcutsDiv = document.createElement('div');
+  shortcutsDiv.classList.add('navsection');
   const shortcuts = document.createElement('h3');
   shortcuts.classList.add('navsection');
   shortcuts.id = 'shortcuts';
   shortcuts.textContent = "Shortcuts";
+
+  const addNewTask = document.createElement('a');
+  addNewTask.classList.add('navlink');
+  addNewTask.classList.add('newprojectadd');
+  addNewTask.textContent = '+ new task';
+  // make plus sign different color ?
 
   const home = document.createElement('a');
   home.classList.add('navlink');
@@ -34,6 +43,9 @@ function sidebar() {
   randomTask.textContent = "Random Task";
 
   // PROJECTS SECTION
+  const projectsDiv = document.createElement('div');
+  projectsDiv.classList.add('navsection');
+  projectsDiv.id = 'projectsdiv';
   const projects = document.createElement('h3');
   projects.classList.add('projectsnavsection');
   projects.id = 'projectsnavsection';
@@ -50,31 +62,36 @@ function sidebar() {
   addNewProject.textContent = '+ new project';
   // make plus sign different color ?
 
-  // utility function to show a form
-  // const showForm = function(form, parent) {
-  //   parent.appendChild(form);
-  // }
-
    // event listener for new project button
   addNewProject.addEventListener('click', function() {
     const main = document.getElementById('main');
     main.appendChild(npform());
   });
 
+  // event listener for new task button
+  addNewTask.addEventListener('click', function() {
+    const main = document.getElementById('main');
+    main.appendChild(ntform());
+  });
 
 
-
-
-  nav.appendChild(shortcuts);
-  nav.appendChild(home);
-  nav.appendChild(dueToday);
-  nav.appendChild(randomTask);
-  nav.appendChild(projects);
-  nav.appendChild(defaultProject);
-  nav.appendChild(addNewProject);
+  shortcutsDiv.appendChild(shortcuts);
+  shortcutsDiv.appendChild(addNewTask);
+  shortcutsDiv.appendChild(home);
+  shortcutsDiv.appendChild(dueToday);
+  shortcutsDiv.appendChild(randomTask);
+  projectsDiv.appendChild(projects);
+  projectsDiv.appendChild(addNewProject);
+  projectsDiv.appendChild(defaultProject);
+  nav.appendChild(shortcutsDiv);
+  nav.appendChild(projectsDiv);
   sidebar.appendChild(nav);
 
   return sidebar;
 }
+
+
+
+
 
 export { sidebar };
