@@ -2,6 +2,11 @@ import { npform } from './newprojectform.js';
 import { v4 as uuidv4 } from 'uuid';
 import { updateProjectNavLinks} from './sidebar.js';
 
+function removeChildElements(parent){
+   while (parent.firstChild) {
+      parent.firstChild.remove()
+   }
+}
 
 let projectIdCounter = 1;
 let taskIdCounter = 1;
@@ -144,9 +149,14 @@ function addProjectToSidebar(pTitle){
   projectsDiv.appendChild(projectLink);
 }
 
-function projectNavLinkClick(event){
-  let target = event.target;
+function projectNavLinkClick(project){
+  const main = document.getElementById('main');
+  removeChildElements(main);
+  const projectHeader = document.createElement('h2');
+  projectHeader.classList.add('mainprojectheader');
+  projectHeader.textContent = project.id;
+  main.appendChild(projectHeader);
 }
 
 
-export { saveNewProject, saveNewTask, projectArray };
+export { saveNewProject, saveNewTask, projectArray, projectNavLinkClick };

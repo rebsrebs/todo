@@ -2,6 +2,12 @@ import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
 import { projectArray } from './projectmanager.js';
 
+function removeChildElements(parent){
+  while (parent.firstChild) {
+     parent.firstChild.remove()
+  }
+}
+
 function sidebar() {
 
   // SIDEBAR CONTAINER
@@ -102,25 +108,37 @@ function sidebar() {
   return sidebar;
 }
 
+// FUNCTION to display project info in main area when project link is clicked
+function projectNavLinkClick(link){
+  const main = document.getElementById('main');
+  removeChildElements(main);
+  const projectHeader = document.createElement('h2');
+  projectHeader.classList.add('mainprojectheader');
+  var index = link.id.substring(5);
+  projectHeader.textContent = projectArray[index].pTitle;
+  main.appendChild(projectHeader);
+}
 
+// FUNCTION populate sidebar project links from projectArray
 function updateProjectNavLinks() {
+  // clear existing sidebar project links
   var pnavlinksection = document.getElementById('projectnavlinksection');
-
-  while (pnavlinksection.firstChild) {
-    pnavlinksection.firstChild.remove()
-  }
-
+  removeChildElements(pnavlinksection);
+  // create link for each project in projectArray
   for (var i = 0; i < projectArray.length; i++) {
     var currentLink = document.createElement('a');
     currentLink.classList.add('projectnavlink');
     currentLink.classList.add('navlink');
     currentLink.textContent = projectArray[i].pTitle;
+    currentLink.id = `link-${i}`;
+    // when each link is clicked, fill main area with project info
+    currentLink.addEventListener("click", function(){
+      projectNavLinkClick(currentLink);
+    });
+    // add project link to sidebar
     pnavlinksection.appendChild(currentLink);
   }
 }
-
-
-
 
 
 
