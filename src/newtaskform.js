@@ -2,6 +2,8 @@ import { saveNewTask, projectArray } from './projectmanager.js';
 
 function ntform() {
 
+  console.log(`Running the new task form function and the current projectArray is ${projectArray} and the first object in it is named ${projectArray[0].pTitle} and the length is ${projectArray.length}`);
+
   // New Task Form Container Div
   const ntFormContainer = document.createElement('div');
   ntFormContainer.classList.add('formcontainer');
@@ -38,22 +40,22 @@ function ntform() {
   // due date label
   const taskDueDateLabel = document.createElement('label');
   taskDueDateLabel.classList.add('formlabel');
-  taskDueDateLabel.setAttribute("for","tdate");
+  taskDueDateLabel.setAttribute("for","tduedate");
   taskDueDateLabel.textContent = ('Due Date');
   // due date input
   const taskDueDate = document.createElement('input');
   taskDueDate.setAttribute("type", "date");
-  taskDueDate.setAttribute("id", "tdate");
-  taskDueDate.setAttribute("name", "tdate");
+  taskDueDate.setAttribute("id", "tduedate");
+  taskDueDate.setAttribute("name", "tduedate");
   // associated project label
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
-  taskAssociatedProjectLabel.setAttribute("for","associatedproject");
+  taskAssociatedProjectLabel.setAttribute("for","tassociatedproject");
   taskAssociatedProjectLabel.textContent = ('Save to Project:');
   // associated project options
   const taskAssociatedProject = document.createElement('select');
-  taskAssociatedProject.setAttribute("id", "associatedproject");
-  taskAssociatedProject.setAttribute("name", "associatedproject");
+  taskAssociatedProject.setAttribute("id", "tassociatedproject");
+  taskAssociatedProject.setAttribute("name", "tassociatedproject");
   // const option1 = document.createElement('option');
   // option1.setAttribute("value", "option1");
   // option1.textContent = 'Default Project';
@@ -63,9 +65,10 @@ function ntform() {
   // taskAssociatedProject.appendChild(option1);
   // taskAssociatedProject.appendChild(option2);
   for (var i = 0; i < projectArray.length; i++) {
-    const currentOption = document.createElement('option');
-    currentOption.setAttribute("value", `option${i}`);
-    currentOption.textContent = projectArray[i].name;
+    var currentOption = document.createElement('option');
+    // currentOption.setAttribute("value", `option${i}`);
+    currentOption.setAttribute("value", `${projectArray[i].pTitle}`);
+    currentOption.textContent = projectArray[i].pTitle;
     taskAssociatedProject.appendChild(currentOption);
   }
 
@@ -74,6 +77,7 @@ function ntform() {
   const newTaskSubmitButton = document.createElement('button');
   newTaskSubmitButton.classList.add('savebutton');
   newTaskSubmitButton.textContent = 'Save';
+  newTaskSubmitButton.setAttribute("type", "button");
 
   newTaskForm.appendChild(taskTitleLabel);
   newTaskForm.appendChild(taskTitle);

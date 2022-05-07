@@ -1,5 +1,6 @@
 import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
+import { projectArray } from './projectmanager.js';
 
 function sidebar() {
 
@@ -23,22 +24,26 @@ function sidebar() {
 
   const addNewTask = document.createElement('a');
   addNewTask.classList.add('navlink');
+  addNewTask.classList.add('shortcutnavlink');
   addNewTask.classList.add('newprojectadd');
   addNewTask.textContent = '+ new task';
   // make plus sign different color ?
 
   const home = document.createElement('a');
   home.classList.add('navlink');
+  home.classList.add('shortcutnavlink');
   home.id = 'homenav';
   home.textContent = "Home";
 
   const dueToday = document.createElement('a');
   dueToday.classList.add('navlink');
+  dueToday.classList.add('shortcutnavlink');
   dueToday.id = 'duetodaynav';
   dueToday.textContent = "Due Today";
 
   const randomTask = document.createElement('a');
   randomTask.classList.add('navlink');
+  randomTask.classList.add('shortcutnavlink');
   randomTask.id = 'randomtask';
   randomTask.textContent = "Random Task";
 
@@ -51,16 +56,22 @@ function sidebar() {
   projects.id = 'projectsnavsection';
   projects.textContent = "Projects";
 
-  const defaultProject = document.createElement('a');
-  defaultProject.classList.add('navlink');
-  defaultProject.id = 'defaultproject';
-  defaultProject.textContent = "Default Project";
-
   const addNewProject = document.createElement('a');
   addNewProject.classList.add('navlink');
   addNewProject.classList.add('newprojectadd');
   addNewProject.textContent = '+ new project';
-  // make plus sign different color ?
+    // make plus sign different color ?
+
+  // const defaultProject = document.createElement('a');
+  // defaultProject.classList.add('navlink');
+  // defaultProject.classList.add('projectnavlink');
+  // defaultProject.id = 'defaultproject';
+  // defaultProject.textContent = "Default Project";
+
+  const projectNavLinkSection = document.createElement('div');
+  projectNavLinkSection.classList.add('projectnavlinksection');
+  projectNavLinkSection.id = 'projectnavlinksection';
+
 
    // event listener for new project button
   addNewProject.addEventListener('click', function() {
@@ -82,7 +93,8 @@ function sidebar() {
   shortcutsDiv.appendChild(randomTask);
   projectsDiv.appendChild(projects);
   projectsDiv.appendChild(addNewProject);
-  projectsDiv.appendChild(defaultProject);
+  projectsDiv.appendChild(projectNavLinkSection);
+  // projectsDiv.appendChild(defaultProject);
   nav.appendChild(shortcutsDiv);
   nav.appendChild(projectsDiv);
   sidebar.appendChild(nav);
@@ -91,7 +103,25 @@ function sidebar() {
 }
 
 
+function updateProjectNavLinks() {
+  var pnavlinksection = document.getElementById('projectnavlinksection');
+
+  while (pnavlinksection.firstChild) {
+    pnavlinksection.firstChild.remove()
+  }
+
+  for (var i = 0; i < projectArray.length; i++) {
+    var currentLink = document.createElement('a');
+    currentLink.classList.add('projectnavlink');
+    currentLink.classList.add('navlink');
+    currentLink.textContent = projectArray[i].pTitle;
+    pnavlinksection.appendChild(currentLink);
+  }
+}
 
 
 
-export { sidebar };
+
+
+
+export { sidebar, updateProjectNavLinks };

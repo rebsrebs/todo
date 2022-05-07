@@ -1,8 +1,11 @@
 import { npform } from './newprojectform.js';
 import { v4 as uuidv4 } from 'uuid';
+import { updateProjectNavLinks} from './sidebar.js';
 
 
-let projectIdCounter = 0;
+let projectIdCounter = 1;
+let taskIdCounter = 1;
+
 
 
 
@@ -46,11 +49,20 @@ class Project {
 }
 // END PROJECT CLASS
 
-// Define default project
+
+// CREATE DEFAULT CATCH ALL PROJECT
+
 const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project',undefined, 'open');
 projectIdCounter += 1;
+
+// END DEFAULT PROJECT
+
+// DEFINE PROJECT ARRAY
 let projectArray = [];
+// ADD DEFAULT PROJECT TO PROJET ARRAY
 projectArray.push(defaultProject);
+
+
 
 // TASK CLASS
 class Task {
@@ -98,7 +110,9 @@ const saveNewProject = function(){
   projectArray.push(project);
   console.log(project);
   console.log([projectArray]);
-  addProjectToSidebar(pTitle);
+  
+  // addProjectToSidebar(pTitle);
+  updateProjectNavLinks();
 }
 // END FUNCTION TO SAVE NEW PROJECT
 
@@ -112,7 +126,7 @@ const saveNewTask = function(){
   let tStatus = 'open';
   const task = new Task(tTitle, tDescription, tDueDate, tStatus, tAssociatedProject);
   taskIdCounter += taskIdCounter;
-  console.log(`taskIdCounter is now ${tasktIdCounter}`);
+  console.log(`taskIdCounter is now ${taskIdCounter}`);
   console.log(task);
 }
 // END FUNCTION TO SAVE NEW TASK
@@ -122,6 +136,7 @@ function addProjectToSidebar(pTitle){
   // create link element
   const projectLink = document.createElement('a');
   projectLink.classList.add('navlink');
+  projectLink.classList.add('projectnavlink');
   projectLink.id = `${pTitle}Link`;
   projectLink.textContent = pTitle;
   const projectsDiv = document.getElementById('projectsdiv');
@@ -129,6 +144,9 @@ function addProjectToSidebar(pTitle){
   projectsDiv.appendChild(projectLink);
 }
 
+function projectNavLinkClick(event){
+  let target = event.target;
+}
 
 
 export { saveNewProject, saveNewTask, projectArray };
