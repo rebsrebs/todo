@@ -1,4 +1,4 @@
-import { saveNewTask } from './projectmanager.js';
+import { saveNewTask, projectArray } from './projectmanager.js';
 
 function ntform() {
 
@@ -45,24 +45,29 @@ function ntform() {
   taskDueDate.setAttribute("type", "date");
   taskDueDate.setAttribute("id", "tdate");
   taskDueDate.setAttribute("name", "tdate");
-    // associated project label
+  // associated project label
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
   taskAssociatedProjectLabel.setAttribute("for","associatedproject");
-  taskAssociatedProjectLabel.textContent = ('Save to Project');
-  // associated date input
+  taskAssociatedProjectLabel.textContent = ('Save to Project:');
+  // associated project options
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "associatedproject");
   taskAssociatedProject.setAttribute("name", "associatedproject");
-  const option1 = document.createElement('option');
-  option1.setAttribute("value", "option1");
-  option1.textContent = 'Default Project';
-  const option2 = document.createElement('option');
-  option2.setAttribute("value", "option2");
-  option2.textContent = 'My Project';
-  taskAssociatedProject.appendChild(option1);
-  taskAssociatedProject.appendChild(option2);
-
+  // const option1 = document.createElement('option');
+  // option1.setAttribute("value", "option1");
+  // option1.textContent = 'Default Project';
+  // const option2 = document.createElement('option');
+  // option2.setAttribute("value", "option2");
+  // option2.textContent = 'My Project';
+  // taskAssociatedProject.appendChild(option1);
+  // taskAssociatedProject.appendChild(option2);
+  for (var i = 0; i < projectArray.length; i++) {
+    const currentOption = document.createElement('option');
+    currentOption.setAttribute("value", `option${i}`);
+    currentOption.textContent = projectArray[i].name;
+    taskAssociatedProject.appendChild(currentOption);
+  }
 
 
   // submit button
