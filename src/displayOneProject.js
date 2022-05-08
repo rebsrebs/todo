@@ -2,6 +2,7 @@ import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
 import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
+import { ntinpform } from './newtaskinprojectform';
 
 function removeChildElements(parent){
   while (parent.firstChild) {
@@ -12,11 +13,6 @@ function removeChildElements(parent){
 
 // FUNCTION to display project info in main area when project link is clicked
 function displayOneProject(project){
-
-  // get project info from argument
-  // console.log(link.id);
-  // var index = link.id.substring(5);
-  // console.log(index);
 
   // clear main content area
   const main = document.getElementById('main');
@@ -117,6 +113,16 @@ function displayOneProject(project){
   const addTaskButton = document.createElement('button');
   addTaskButton.classList.add('addtaskbutton');
   addTaskButton.textContent = 'Add task ...';
+  // this UUID is undefined!
+  addTaskButton.id = `addtoproject${project.UUID};`
+  // put ID of this button as something related to the project it's in
+  // event listener for new project button
+  addTaskButton.addEventListener('click', function() {
+    const main = document.getElementById('main');
+    main.appendChild(ntinpform(project));
+    const overlay = document.getElementById('overlay');
+    overlay.style.visibility = 'visible';
+  });
 
   // put plus sign and button inside row
   addTaskRow.appendChild(plusSignDiv);
@@ -128,5 +134,10 @@ function displayOneProject(project){
   // put task list in main area
   main.appendChild(mainTaskArea);
 }
+
+   
+
+
+
 
 export { displayOneProject };
