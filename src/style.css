@@ -150,8 +150,20 @@ a:active {
   grid-template-columns: 100%;
 }
 
-.maintaskitem {
+.maintaskrow {
   display:grid;
-  grid-template-columns: 4fr 1fr 1fr 1fr;
-  grid-template-rows: 10px;
+  grid-template-columns: 4ch 1fr 3fr 1fr;
+  grid-template-rows: max-content;
+  padding:4px;
+}
+
+.taskrowgriditem {
+  margin-right:4px;
+  padding:4px;
+  border: 1px solid red;
+  background-color:rgb(250, 246, 239);
+}
+
+.taskrowtitle {
+  color:rgba(118, 26, 63);
 }

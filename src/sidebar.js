@@ -119,10 +119,29 @@ function projectNavLinkClick(link){
   console.log(projectArray[index].taskArray);
   for (var i = 0; i < projectArray[index].taskArray.length; i++) {
     console.log('we are in the loop');
+    // create row for individual task
     var taskRow = document.createElement('div');
     taskRow.classList.add('maintaskrow');
-    taskRow.textContent = projectArray[index].taskArray[i].tTitle;
-    console.log(projectArray[index].taskArray[i].tTitle);
+    var taskCheckBox = document.createElement('div');
+    taskCheckBox.classList.add('taskrowgriditem')
+    taskCheckBox.classList.add('taskrowcheckbox')
+    var taskTitleDisplay = document.createElement('div');
+    taskTitleDisplay.classList.add('taskrowgriditem')
+    taskTitleDisplay.classList.add('taskrowtitle')
+    var taskDescriptionDisplay = document.createElement('div');
+    taskDescriptionDisplay.classList.add('taskrowgriditem')
+    taskDescriptionDisplay.classList.add('taskrowdescription')
+    var taskStatusDisplay = document.createElement('div');
+    taskStatusDisplay.classList.add('taskrowgriditem')
+    taskStatusDisplay.classList.add('taskrowstatus')
+    taskCheckBox.textContent = '*';
+    taskTitleDisplay.textContent = projectArray[index].taskArray[i].tTitle;
+    taskDescriptionDisplay.textContent = projectArray[index].taskArray[i].tDescription;
+    taskStatusDisplay.textContent = projectArray[index].taskArray[i].tStatus;
+    taskRow.appendChild(taskCheckBox);
+    taskRow.appendChild(taskTitleDisplay);
+    taskRow.appendChild(taskDescriptionDisplay);
+    taskRow.appendChild(taskStatusDisplay);
     mainTaskArea.appendChild(taskRow);
     main.appendChild(mainTaskArea);
     }
