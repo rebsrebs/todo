@@ -40,7 +40,7 @@ class Project {
   }
 
   addTask(task) {
-    task.associatedProject = this;
+    task.tAssociatedProject = this;
     this.taskArray.push(task);
   }
 }
@@ -118,7 +118,7 @@ const saveNewTask = function(){
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
   console.log(index);
   let tStatus = 'open';
-  const task = new Task(tTitle, tDescription, tDueDate, tStatus, tAssociatedProject);
+  const task = new Task(tTitle, tDescription, tDueDate, tStatus, projectArray[index]);
   projectArray[index].addTask(task);
   console.log(projectArray[index].taskArray);
 }

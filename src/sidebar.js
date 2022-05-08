@@ -117,9 +117,15 @@ function projectNavLinkClick(link){
   mainTaskArea.classList.add('maintaskarea');
   console.log(projectArray[index].pDescription);
   console.log(projectArray[index].taskArray);
-  // for every task in the project's task array
-  // create a task div, class: maintaskitem
-  // that's a grid with one row and 4 columns
+  for (var i = 0; i < projectArray[index].taskArray.length; i++) {
+    console.log('we are in the loop');
+    var taskRow = document.createElement('div');
+    taskRow.classList.add('maintaskrow');
+    taskRow.textContent = projectArray[index].taskArray[i].tTitle;
+    console.log(projectArray[index].taskArray[i].tTitle);
+    mainTaskArea.appendChild(taskRow);
+    main.appendChild(mainTaskArea);
+    }
 }
 
 // FUNCTION populate sidebar project links from projectArray
