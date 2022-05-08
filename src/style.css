@@ -149,16 +149,27 @@ a:active {
   color: white;
 }
 
+.mainprojectheader {
+  text-transform:uppercase;
+}
+
 .maintaskarea {
   display: grid;
   grid-template-columns: 100%;
 }
 
+.mainprojectdescription {
+  margin-bottom:10px;
+}
+
 .maintaskrow {
+  margin-top:1px;
+  margin-bottom:1px;
   display:grid;
-  grid-template-columns: 4ch 1fr 3fr 1fr;
-  grid-template-rows: max-content;
+  grid-template-columns: 4ch 3fr 1fr;
+  grid-template-rows: 30px;
   padding:4px;
+  background-color:rgba(154, 177, 247, 0.3);
 }
 
 .taskrowgriditem {
@@ -172,7 +183,7 @@ a:active {
   color:rgba(118, 26, 63);
 }
 
-.taskcheckboxlabel {
+.taskcheckboxlabel, .plussigndiv {
   justify-self: center;
   align-self: center;
 }

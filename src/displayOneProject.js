@@ -78,6 +78,7 @@ function displayOneProject(project){
     let taskDueDateDisplay = document.createElement('div');
     taskDueDateDisplay.classList.add('taskrowgriditem')
     taskDueDateDisplay.classList.add('taskrowduedate')
+    taskDueDateDisplay.textContent = project.taskArray[i].tDueDate;
 
     // event listener for checkbox toggles styling
     // eventually have it toggle status
