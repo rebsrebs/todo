@@ -1,4 +1,5 @@
 import { saveNewTask, projectArray } from './projectmanager.js';
+import { displayOneProject } from './displayOneProject.js';
 
 function ntform() {
 

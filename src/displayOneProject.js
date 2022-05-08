@@ -66,7 +66,7 @@ function displayOneProject(project){
     let taskTitleDisplay = document.createElement('div');
     taskTitleDisplay.classList.add('taskrowgriditem')
     taskTitleDisplay.classList.add('taskrowtitle')
-    taskTitleDisplay.textContent = projectArray[index].taskArray[i].tTitle;
+    taskTitleDisplay.textContent = project.taskArray[i].tTitle;
 
     // don't show description for now
     // let taskDescriptionDisplay = document.createElement('div');
@@ -98,7 +98,7 @@ function displayOneProject(project){
     taskCheckBoxLabel.appendChild(taskCheckBox);
     taskRow.appendChild(taskCheckBoxLabel);
     taskRow.appendChild(taskTitleDisplay);
-    taskRow.appendChild(taskDescriptionDisplay);
+    // taskRow.appendChild(taskDescriptionDisplay);
     taskRow.appendChild(taskDueDateDisplay);
     mainTaskArea.appendChild(taskRow);
     }

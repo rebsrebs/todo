@@ -1,6 +1,7 @@
 import { npform } from './newprojectform.js';
 import { v4 as uuidv4 } from 'uuid';
 import { updateProjectNavLinks} from './sidebar.js';
+import { displayOneProject } from './displayOneProject';
 
 function removeChildElements(parent){
    while (parent.firstChild) {
@@ -104,6 +105,7 @@ const saveNewProject = function(){
   
   // addProjectToSidebar(pTitle);
   updateProjectNavLinks();
+  displayOneProject(project);
 }
 // END FUNCTION TO SAVE NEW PROJECT
 
@@ -121,6 +123,7 @@ const saveNewTask = function(){
   const task = new Task(tTitle, tDescription, tDueDate, tStatus, projectArray[index]);
   projectArray[index].addTask(task);
   console.log(projectArray[index].taskArray);
+  displayOneProject(projectArray[index]);
 }
 // END FUNCTION TO SAVE NEW TASK
 
