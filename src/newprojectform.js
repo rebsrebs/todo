@@ -68,6 +68,8 @@ function npform() {
     saveNewProject();
     newProjectForm.reset();
     npFormContainer.remove();
+    const overlay = document.getElementById('overlay');
+    overlay.style.visibility = 'hidden';
   });
 
   return npFormContainer;

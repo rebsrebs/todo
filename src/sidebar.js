@@ -77,14 +77,20 @@ function sidebar() {
 
    // event listener for new project button
   addNewProject.addEventListener('click', function() {
+    // const content = document.getElementById('content');
+    // content.appendChild(npform());
     const main = document.getElementById('main');
     main.appendChild(npform());
+    const overlay = document.getElementById('overlay');
+    overlay.style.visibility = 'visible';
   });
 
   // event listener for new task button
   addNewTask.addEventListener('click', function() {
     const main = document.getElementById('main');
     main.appendChild(ntform());
+    const overlay = document.getElementById('overlay');
+    overlay.style.visibility = 'visible';
   });
 
 
@@ -129,24 +135,35 @@ function projectNavLinkClick(link){
     taskRow.classList.add('maintaskrow');
     let uniqueID = uuidv4();
     taskRow.id = `taskrow-${uniqueID}`;
-    var taskCheckBoxLabel = document.createElement('label');
+    let taskCheckBoxLabel = document.createElement('label');
     taskCheckBoxLabel.setAttribute("for", `checkbox-${uniqueID}`);
     taskCheckBoxLabel.classList.add('taskcheckboxlabel');
-    var taskCheckBox = document.createElement('input');
+    let taskCheckBox = document.createElement('input');
     taskCheckBox.setAttribute("type", "checkbox");
     taskCheckBox.id=`checkbox-${uniqueID}`;
     taskCheckBox.classList.add('taskrowgriditem')
     taskCheckBox.classList.add('taskrowcheckbox')
-    var taskTitleDisplay = document.createElement('div');
+    let taskTitleDisplay = document.createElement('div');
     taskTitleDisplay.classList.add('taskrowgriditem')
     taskTitleDisplay.classList.add('taskrowtitle')
-    var taskDescriptionDisplay = document.createElement('div');
+    let taskDescriptionDisplay = document.createElement('div');
     taskDescriptionDisplay.classList.add('taskrowgriditem')
     taskDescriptionDisplay.classList.add('taskrowdescription')
-    var taskDueDateDisplay = document.createElement('div');
+    let taskDueDateDisplay = document.createElement('div');
     taskDueDateDisplay.classList.add('taskrowgriditem')
     taskDueDateDisplay.classList.add('taskrowduedate')
     taskCheckBox.textContent = '*';
+    taskCheckBox.addEventListener('change', function() {
+      if (taskCheckBox.checked == true) {
+        console.log("Checkbox is checked..");
+        taskTitleDisplay.classList.remove('undone');
+        taskTitleDisplay.classList.add('completed')
+      } else {
+        taskTitleDisplay.classList.remove('completed');
+        taskTitleDisplay.classList.add('undone');
+        console.log("Checkbox is not checked..");
+      }
+    });
     taskTitleDisplay.textContent = projectArray[index].taskArray[i].tTitle;
     taskDescriptionDisplay.textContent = projectArray[index].taskArray[i].tDescrip
     taskCheckBoxLabel.appendChild(taskCheckBox);
@@ -179,6 +196,9 @@ function updateProjectNavLinks() {
     pnavlinksection.appendChild(currentLink);
   }
 }
+
+
+
 
 
 

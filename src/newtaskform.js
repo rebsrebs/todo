@@ -88,6 +88,8 @@ function ntform() {
     saveNewTask();
     newTaskForm.reset();
     ntFormContainer.remove();
+    const overlay = document.getElementById('overlay');
+    overlay.style.visibility = 'hidden';
   });
 
   return ntFormContainer;
