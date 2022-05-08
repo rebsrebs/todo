@@ -1,6 +1,8 @@
 import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
 import { projectArray } from './projectmanager.js';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function removeChildElements(parent){
   while (parent.firstChild) {
@@ -123,15 +125,16 @@ function projectNavLinkClick(link){
   console.log(projectArray[index].taskArray);
   for (var i = 0; i < projectArray[index].taskArray.length; i++) {
     console.log('we are in the loop');
-    // create row for individual task
-    var taskRow = document.createElement('div');
+    let taskRow = document.createElement('div');
     taskRow.classList.add('maintaskrow');
+    let uniqueID = uuidv4();
+    taskRow.id = `taskrow-${uniqueID}`;
     var taskCheckBoxLabel = document.createElement('label');
-    taskCheckBoxLabel.setAttribute("for", "statuscheckbox");
+    taskCheckBoxLabel.setAttribute("for", `checkbox-${uniqueID}`);
     taskCheckBoxLabel.classList.add('taskcheckboxlabel');
     var taskCheckBox = document.createElement('input');
     taskCheckBox.setAttribute("type", "checkbox");
-    taskCheckBox.id='statuscheckbox';
+    taskCheckBox.id=`checkbox-${uniqueID}`;
     taskCheckBox.classList.add('taskrowgriditem')
     taskCheckBox.classList.add('taskrowcheckbox')
     var taskTitleDisplay = document.createElement('div');
@@ -170,11 +173,6 @@ function updateProjectNavLinks() {
     currentLink.id = `link-${i}`;
     // when each link is clicked, fill main area with project info
     currentLink.addEventListener("click", function(){
-      // need to make sure I'm passing the right thing to this function:
-      // I think it's just passing the last created link to this! yep.
-      // need some kind of target to know which one was clicked.
-      // maybe better to put the listener on the whole area
-      // was just a matter of using let instead of var!
       projectNavLinkClick(currentLink);
     });
     // add project link to sidebar
