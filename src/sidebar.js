@@ -2,6 +2,7 @@ import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
 import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
+import { displayOneProject } from './displayOneProject.js'
 
 
 function removeChildElements(parent){
@@ -109,72 +110,6 @@ function sidebar() {
   return sidebar;
 }
 
-// FUNCTION to display project info in main area when project link is clicked
-function projectNavLinkClick(link){
-  console.log('I have clicked on a project on the nav');
-  // clear main content area
-  const main = document.getElementById('main');
-  removeChildElements(main);
-  console.log('I should have just cleared main content area');
-  // display project title
-  const projectHeader = document.createElement('h2');
-  projectHeader.classList.add('mainprojectheader');
-  console.log(link.id);
-  var index = link.id.substring(5);
-  console.log(index);
-  projectHeader.textContent = projectArray[index].pTitle;
-  main.appendChild(projectHeader);
-  // create container for all tasks - grid with 1 column
-  const mainTaskArea = document.createElement('div');
-  mainTaskArea.classList.add('maintaskarea');
-  console.log(projectArray[index].pDescription);
-  console.log(projectArray[index].taskArray);
-  for (var i = 0; i < projectArray[index].taskArray.length; i++) {
-    console.log('we are in the loop');
-    let taskRow = document.createElement('div');
-    taskRow.classList.add('maintaskrow');
-    let uniqueID = uuidv4();
-    taskRow.id = `taskrow-${uniqueID}`;
-    let taskCheckBoxLabel = document.createElement('label');
-    taskCheckBoxLabel.setAttribute("for", `checkbox-${uniqueID}`);
-    taskCheckBoxLabel.classList.add('taskcheckboxlabel');
-    let taskCheckBox = document.createElement('input');
-    taskCheckBox.setAttribute("type", "checkbox");
-    taskCheckBox.id=`checkbox-${uniqueID}`;
-    taskCheckBox.classList.add('taskrowgriditem')
-    taskCheckBox.classList.add('taskrowcheckbox')
-    let taskTitleDisplay = document.createElement('div');
-    taskTitleDisplay.classList.add('taskrowgriditem')
-    taskTitleDisplay.classList.add('taskrowtitle')
-    let taskDescriptionDisplay = document.createElement('div');
-    taskDescriptionDisplay.classList.add('taskrowgriditem')
-    taskDescriptionDisplay.classList.add('taskrowdescription')
-    let taskDueDateDisplay = document.createElement('div');
-    taskDueDateDisplay.classList.add('taskrowgriditem')
-    taskDueDateDisplay.classList.add('taskrowduedate')
-    taskCheckBox.textContent = '*';
-    taskCheckBox.addEventListener('change', function() {
-      if (taskCheckBox.checked == true) {
-        console.log("Checkbox is checked..");
-        taskTitleDisplay.classList.remove('undone');
-        taskTitleDisplay.classList.add('completed')
-      } else {
-        taskTitleDisplay.classList.remove('completed');
-        taskTitleDisplay.classList.add('undone');
-        console.log("Checkbox is not checked..");
-      }
-    });
-    taskTitleDisplay.textContent = projectArray[index].taskArray[i].tTitle;
-    taskDescriptionDisplay.textContent = projectArray[index].taskArray[i].tDescrip
-    taskCheckBoxLabel.appendChild(taskCheckBox);
-    taskRow.appendChild(taskCheckBoxLabel);
-    taskRow.appendChild(taskTitleDisplay);
-    taskRow.appendChild(taskDescriptionDisplay);
-    taskRow.appendChild(taskDueDateDisplay);
-    mainTaskArea.appendChild(taskRow);
-    main.appendChild(mainTaskArea);
-    }
-}
 
 // FUNCTION populate sidebar project links from projectArray
 function updateProjectNavLinks() {
@@ -190,7 +125,8 @@ function updateProjectNavLinks() {
     currentLink.id = `link-${i}`;
     // when each link is clicked, fill main area with project info
     currentLink.addEventListener("click", function(){
-      projectNavLinkClick(currentLink);
+      var index = currentLink.id.substring(5);
+      displayOneProject(projectArray[index]);
     });
     // add project link to sidebar
     pnavlinksection.appendChild(currentLink);
