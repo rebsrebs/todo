@@ -103,13 +103,17 @@ function sidebar() {
 
 // FUNCTION to display project info in main area when project link is clicked
 function projectNavLinkClick(link){
+  console.log('I have clicked on a project on the nav');
   // clear main content area
   const main = document.getElementById('main');
   removeChildElements(main);
+  console.log('I should have just cleared main content area');
   // display project title
   const projectHeader = document.createElement('h2');
   projectHeader.classList.add('mainprojectheader');
+  console.log(link.id);
   var index = link.id.substring(5);
+  console.log(index);
   projectHeader.textContent = projectArray[index].pTitle;
   main.appendChild(projectHeader);
   // create container for all tasks - grid with 1 column
@@ -122,7 +126,12 @@ function projectNavLinkClick(link){
     // create row for individual task
     var taskRow = document.createElement('div');
     taskRow.classList.add('maintaskrow');
-    var taskCheckBox = document.createElement('div');
+    var taskCheckBoxLabel = document.createElement('label');
+    taskCheckBoxLabel.setAttribute("for", "statuscheckbox");
+    taskCheckBoxLabel.classList.add('taskcheckboxlabel');
+    var taskCheckBox = document.createElement('input');
+    taskCheckBox.setAttribute("type", "checkbox");
+    taskCheckBox.id='statuscheckbox';
     taskCheckBox.classList.add('taskrowgriditem')
     taskCheckBox.classList.add('taskrowcheckbox')
     var taskTitleDisplay = document.createElement('div');
@@ -131,17 +140,17 @@ function projectNavLinkClick(link){
     var taskDescriptionDisplay = document.createElement('div');
     taskDescriptionDisplay.classList.add('taskrowgriditem')
     taskDescriptionDisplay.classList.add('taskrowdescription')
-    var taskStatusDisplay = document.createElement('div');
-    taskStatusDisplay.classList.add('taskrowgriditem')
-    taskStatusDisplay.classList.add('taskrowstatus')
+    var taskDueDateDisplay = document.createElement('div');
+    taskDueDateDisplay.classList.add('taskrowgriditem')
+    taskDueDateDisplay.classList.add('taskrowduedate')
     taskCheckBox.textContent = '*';
     taskTitleDisplay.textContent = projectArray[index].taskArray[i].tTitle;
-    taskDescriptionDisplay.textContent = projectArray[index].taskArray[i].tDescription;
-    taskStatusDisplay.textContent = projectArray[index].taskArray[i].tStatus;
-    taskRow.appendChild(taskCheckBox);
+    taskDescriptionDisplay.textContent = projectArray[index].taskArray[i].tDescrip
+    taskCheckBoxLabel.appendChild(taskCheckBox);
+    taskRow.appendChild(taskCheckBoxLabel);
     taskRow.appendChild(taskTitleDisplay);
     taskRow.appendChild(taskDescriptionDisplay);
-    taskRow.appendChild(taskStatusDisplay);
+    taskRow.appendChild(taskDueDateDisplay);
     mainTaskArea.appendChild(taskRow);
     main.appendChild(mainTaskArea);
     }
@@ -153,14 +162,19 @@ function updateProjectNavLinks() {
   var pnavlinksection = document.getElementById('projectnavlinksection');
   removeChildElements(pnavlinksection);
   // create link for each project in projectArray
-  for (var i = 0; i < projectArray.length; i++) {
-    var currentLink = document.createElement('a');
+  for (let i = 0; i < projectArray.length; i++) {
+    let currentLink = document.createElement('a');
     currentLink.classList.add('projectnavlink');
     currentLink.classList.add('navlink');
     currentLink.textContent = projectArray[i].pTitle;
     currentLink.id = `link-${i}`;
     // when each link is clicked, fill main area with project info
     currentLink.addEventListener("click", function(){
+      // need to make sure I'm passing the right thing to this function:
+      // I think it's just passing the last created link to this! yep.
+      // need some kind of target to know which one was clicked.
+      // maybe better to put the listener on the whole area
+      // was just a matter of using let instead of var!
       projectNavLinkClick(currentLink);
     });
     // add project link to sidebar

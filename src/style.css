@@ -167,3 +167,8 @@ a:active {
 .taskrowtitle {
   color:rgba(118, 26, 63);
 }
+
+.taskcheckboxlabel {
+  justify-self: center;
+  align-self: center;
+}
