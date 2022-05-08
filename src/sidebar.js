@@ -68,12 +68,6 @@ function sidebar() {
   addNewProject.textContent = '+ new project';
     // make plus sign different color ?
 
-  // const defaultProject = document.createElement('a');
-  // defaultProject.classList.add('navlink');
-  // defaultProject.classList.add('projectnavlink');
-  // defaultProject.id = 'defaultproject';
-  // defaultProject.textContent = "Default Project";
-
   const projectNavLinkSection = document.createElement('div');
   projectNavLinkSection.classList.add('projectnavlinksection');
   projectNavLinkSection.id = 'projectnavlinksection';
@@ -100,7 +94,6 @@ function sidebar() {
   projectsDiv.appendChild(projects);
   projectsDiv.appendChild(addNewProject);
   projectsDiv.appendChild(projectNavLinkSection);
-  // projectsDiv.appendChild(defaultProject);
   nav.appendChild(shortcutsDiv);
   nav.appendChild(projectsDiv);
   sidebar.appendChild(nav);
@@ -110,13 +103,23 @@ function sidebar() {
 
 // FUNCTION to display project info in main area when project link is clicked
 function projectNavLinkClick(link){
+  // clear main content area
   const main = document.getElementById('main');
   removeChildElements(main);
+  // display project title
   const projectHeader = document.createElement('h2');
   projectHeader.classList.add('mainprojectheader');
   var index = link.id.substring(5);
   projectHeader.textContent = projectArray[index].pTitle;
   main.appendChild(projectHeader);
+  // create container for all tasks - grid with 1 column
+  const mainTaskArea = document.createElement('div');
+  mainTaskArea.classList.add('maintaskarea');
+  console.log(projectArray[index].pDescription);
+  console.log(projectArray[index].taskArray);
+  // for every task in the project's task array
+  // create a task div, class: maintaskitem
+  // that's a grid with one row and 4 columns
 }
 
 // FUNCTION populate sidebar project links from projectArray

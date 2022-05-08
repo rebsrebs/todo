@@ -56,19 +56,11 @@ function ntform() {
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "tassociatedproject");
   taskAssociatedProject.setAttribute("name", "tassociatedproject");
-  // const option1 = document.createElement('option');
-  // option1.setAttribute("value", "option1");
-  // option1.textContent = 'Default Project';
-  // const option2 = document.createElement('option');
-  // option2.setAttribute("value", "option2");
-  // option2.textContent = 'My Project';
-  // taskAssociatedProject.appendChild(option1);
-  // taskAssociatedProject.appendChild(option2);
   for (var i = 0; i < projectArray.length; i++) {
     var currentOption = document.createElement('option');
-    // currentOption.setAttribute("value", `option${i}`);
-    currentOption.setAttribute("value", `${projectArray[i].pTitle}`);
+    currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
     currentOption.textContent = projectArray[i].pTitle;
+    currentOption.id = `option-${i}`;
     taskAssociatedProject.appendChild(currentOption);
   }
 

@@ -8,8 +8,6 @@ function removeChildElements(parent){
    }
 }
 
-let projectIdCounter = 1;
-let taskIdCounter = 1;
 
 
 
@@ -18,13 +16,11 @@ let taskIdCounter = 1;
 
 // PROJECT CLASS
 class Project {
-  taskIdCounter;
   taskArray = [];
   pTitle;
   pDescription;
   pDueDate;
   pStatus;
-  projectID;
   projectUUID;
 
   constructor (pTitle, pDescription, pDueDate, pStatus) {
@@ -32,7 +28,6 @@ class Project {
     this.pDescription = pDescription;
     this.pDueDate = pDueDate;
     this.pStatus = pStatus;
-    this.projectID = projectIdCounter;
     this.projectUUID = uuidv4();
   }
 
@@ -45,12 +40,9 @@ class Project {
   }
 
   addTask(task) {
-    task.taskID = `${this.name}-Task-${taskIdCounter}`;
-    taskIdCounter += taskIdCounter;
-    task.associatedProject = this.pTitle;
+    task.associatedProject = this;
     this.taskArray.push(task);
   }
-  
 }
 // END PROJECT CLASS
 
@@ -58,8 +50,6 @@ class Project {
 // CREATE DEFAULT CATCH ALL PROJECT
 
 const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project',undefined, 'open');
-projectIdCounter += 1;
-
 // END DEFAULT PROJECT
 
 // DEFINE PROJECT ARRAY
@@ -75,7 +65,6 @@ class Task {
   tDescription;
   tDueDate;
   tStatus;
-  taskID;
   taskUUID;
 
   constructor (tTitle, tDescription, tDueDate, tStatus, tAssociatedProject) {
@@ -84,7 +73,6 @@ class Task {
     this.tDueDate = tDueDate;
     this.tStatus = tStatus;
     this.tAssociatedProject = tAssociatedProject;
-    this.taskID = taskIdCounter;
     this.taskUUID = uuidv4();
   }
 
@@ -110,8 +98,6 @@ const saveNewProject = function(){
   const pDueDate = document.getElementById('pduedate').value;
   let pStatus = 'open';
   const project = new Project(pTitle, pDescription, pDueDate, pStatus);
-  projectIdCounter += projectIdCounter;
-  console.log(`projectIdCounter is now ${projectIdCounter}`);
   projectArray.push(project);
   console.log(project);
   console.log([projectArray]);
@@ -128,35 +114,19 @@ const saveNewTask = function(){
   const tDescription = document.getElementById('tdescription').value;
   const tDueDate = document.getElementById('tduedate').value;
   const tAssociatedProject = document.getElementById('tassociatedproject').value;
+  console.log(tAssociatedProject);
+  const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
+  console.log(index);
   let tStatus = 'open';
   const task = new Task(tTitle, tDescription, tDueDate, tStatus, tAssociatedProject);
-  taskIdCounter += taskIdCounter;
-  console.log(`taskIdCounter is now ${taskIdCounter}`);
-  console.log(task);
+  projectArray[index].addTask(task);
+  console.log(projectArray[index].taskArray);
 }
 // END FUNCTION TO SAVE NEW TASK
 
 
-function addProjectToSidebar(pTitle){
-  // create link element
-  const projectLink = document.createElement('a');
-  projectLink.classList.add('navlink');
-  projectLink.classList.add('projectnavlink');
-  projectLink.id = `${pTitle}Link`;
-  projectLink.textContent = pTitle;
-  const projectsDiv = document.getElementById('projectsdiv');
-  // add link to projectsDiv in sidebar
-  projectsDiv.appendChild(projectLink);
-}
-
-function projectNavLinkClick(project){
-  const main = document.getElementById('main');
-  removeChildElements(main);
-  const projectHeader = document.createElement('h2');
-  projectHeader.classList.add('mainprojectheader');
-  projectHeader.textContent = project.id;
-  main.appendChild(projectHeader);
-}
 
 
-export { saveNewProject, saveNewTask, projectArray, projectNavLinkClick };
+
+
+export { saveNewProject, saveNewTask, projectArray };

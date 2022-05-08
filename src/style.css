@@ -145,4 +145,13 @@ a:active {
   color: white;
 }
 
+.maintaskarea {
+  display: grid;
+  grid-template-columns: 100%;
+}
 
+.maintaskitem {
+  display:grid;
+  grid-template-columns: 4fr 1fr 1fr 1fr;
+  grid-template-rows: 10px;
+}
