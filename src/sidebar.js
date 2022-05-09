@@ -2,7 +2,8 @@ import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
 import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
-import { displayOneProject } from './displayOneProject.js'
+import { displayOneProject } from './displayOneProject.js';
+import { displayRandomTask } from './displayrandomtask.js';
 
 
 function removeChildElements(parent){
@@ -55,6 +56,10 @@ function sidebar() {
   randomTask.classList.add('shortcutnavlink');
   randomTask.id = 'randomtask';
   randomTask.textContent = "Random Task";
+
+  randomTask.addEventListener('click', function() {
+    displayRandomTask();
+  });
 
   // PROJECTS SECTION
   const projectsDiv = document.createElement('div');
@@ -132,10 +137,5 @@ function updateProjectNavLinks() {
     pnavlinksection.appendChild(currentLink);
   }
 }
-
-
-
-
-
 
 export { sidebar, updateProjectNavLinks };

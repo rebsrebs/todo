@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { updateProjectNavLinks} from './sidebar.js';
 import { displayOneProject } from './displayOneProject';
 
+let allTasksArray = [];
+
 function removeChildElements(parent){
    while (parent.firstChild) {
       parent.firstChild.remove()
@@ -122,8 +124,10 @@ const saveNewTask = function(){
   let tStatus = 'open';
   const task = new Task(tTitle, tDescription, tDueDate, tStatus, projectArray[index]);
   projectArray[index].addTask(task);
+  allTasksArray.push(task);
   console.log(projectArray[index].taskArray);
   displayOneProject(projectArray[index]);
+  console.log(allTasksArray);
 }
 // END FUNCTION TO SAVE NEW TASK
 
@@ -132,4 +136,4 @@ const saveNewTask = function(){
 
 
 
-export { saveNewProject, saveNewTask, projectArray };
+export { saveNewProject, saveNewTask, projectArray, allTasksArray };
