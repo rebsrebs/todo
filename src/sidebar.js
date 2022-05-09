@@ -4,6 +4,7 @@ import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
 import { displayOneProject } from './displayOneProject.js';
 import { displayRandomTask } from './displayrandomtask.js';
+import { displayARandomTask } from './displays.js';
 
 
 function removeChildElements(parent){
@@ -58,7 +59,8 @@ function sidebar() {
   randomTask.textContent = "Random Task";
 
   randomTask.addEventListener('click', function() {
-    displayRandomTask();
+    // displayRandomTask();
+    displayARandomTask();
   });
 
   // PROJECTS SECTION

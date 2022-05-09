@@ -72,11 +72,6 @@ function displayRandomTask() {
   taskCheckBoxLabel.appendChild(taskCheckBox);
   taskRow.appendChild(taskTitleDisplay);
   taskRow.appendChild(taskDueDateDisplay);
-
-
 }
-
-
-
 
 export { displayRandomTask };

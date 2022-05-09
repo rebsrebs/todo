@@ -16,6 +16,7 @@ function ntinpform(project) {
   // New Task Form
   const newTaskForm = document.createElement('form');
   newTaskForm.classList.add('taskform');
+  newTaskForm.classList.add('form');
   newTaskForm.id = 'newtaskform';
   // create task title label
   const taskTitleLabel = document.createElement('label');

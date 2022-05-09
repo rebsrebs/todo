@@ -1,6 +1,33 @@
 import { saveNewTask, projectArray } from './projectmanager.js';
 import { displayOneProject } from './displayOneProject.js';
 
+function removeChildElements(parent){
+  while (parent.firstChild) {
+     parent.firstChild.remove()
+  }
+}
+
+function cancelButton() {
+  const cancelButton = document.createElement('button');
+  cancelButton.classList.add('cancelbutton');
+  cancelButton.textContent = 'Cancel';
+  cancelButton.setAttribute("type", "button");
+  cancelButton.addEventListener('click', function(){
+    cancelForm();
+    const overlay = document.getElementById('overlay');
+    overlay.style.visibility = 'hidden';
+  })
+  return cancelButton;
+}
+
+
+function cancelForm() {
+  let form = document.querySelector('.form')
+  form.reset();
+  let formcontainer = document.querySelector('.formcontainer');
+  formcontainer.remove();
+}
+
 function ntform() {
 
   console.log(`Running the new task form function and the current projectArray is ${projectArray} and the first object in it is named ${projectArray[0].pTitle} and the length is ${projectArray.length}`);
@@ -15,6 +42,7 @@ function ntform() {
   // New Task Form
   const newTaskForm = document.createElement('form');
   newTaskForm.classList.add('taskform');
+  newTaskForm.classList.add('form');
   newTaskForm.id = 'newtaskform';
   // create task title label
   const taskTitleLabel = document.createElement('label');
@@ -72,6 +100,13 @@ function ntform() {
   newTaskSubmitButton.textContent = 'Save';
   newTaskSubmitButton.setAttribute("type", "button");
 
+  // buttons div
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('buttons');
+
+
+
+
   newTaskForm.appendChild(taskTitleLabel);
   newTaskForm.appendChild(taskTitle);
   newTaskForm.appendChild(taskDescriptionLabel);
@@ -80,7 +115,9 @@ function ntform() {
   newTaskForm.appendChild(taskDueDate);
   newTaskForm.appendChild(taskAssociatedProjectLabel);
   newTaskForm.appendChild(taskAssociatedProject);
-  newTaskForm.appendChild(newTaskSubmitButton);
+  newTaskForm.appendChild(buttonsDiv);
+  buttonsDiv.appendChild(newTaskSubmitButton);
+  buttonsDiv.appendChild(cancelButton());
   ntFormContainer.appendChild(ntFormHeading);
   ntFormContainer.appendChild(newTaskForm);
 
