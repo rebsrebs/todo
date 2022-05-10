@@ -1,6 +1,6 @@
 import { allTasksArray } from "./projectmanager";
 import { v4 as uuidv4 } from 'uuid';
-import { ntinpform } from "./newtaskinprojectform";
+import { ntinpform } from "./forms";
 
 const main = document.getElementById('main');
 

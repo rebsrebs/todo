@@ -1,13 +1,4 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
-import { startOfToday } from 'date-fns';
-import { removeChildElements } from './ui.js';
-
-// function removeChildElements(parent){
-//   while (parent.firstChild) {
-//      parent.firstChild.remove()
-//   }
-// }
-
 
 function cancelButton() {
   const cancelButton = document.createElement('button');
@@ -48,13 +39,14 @@ function npform() {
   const projectTitleLabel = document.createElement('label');
   projectTitleLabel.classList.add('formlabel');
   projectTitleLabel.setAttribute("for","ptitle");
-  projectTitleLabel.textContent = ('Title');
+  projectTitleLabel.textContent = ('* Title');
   // create input for project title
   const projectTitle = document.createElement('input');
   projectTitle.setAttribute("type", "text");
   projectTitle.setAttribute("name", "ptitle");
   projectTitle.setAttribute("id", "ptitle");
   projectTitle.setAttribute("placeholder", "title");
+  projectTitle.setAttribute("required","required");
   // description label
   const projectDescriptionLabel = document.createElement('label');
   projectDescriptionLabel.classList.add('formlabel');
@@ -84,13 +76,25 @@ function npform() {
   newProjectSubmitButton.setAttribute("type", "button");
   newProjectSubmitButton.textContent = 'Save';
 
+  // buttons div
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('buttons');
+
+  // required note
+  const requiredNote = document.createElement('p');
+  requiredNote.classList.add('requirednote');
+  requiredNote.textContent = '* = required';
+
   newProjectForm.appendChild(projectTitleLabel);
   newProjectForm.appendChild(projectTitle);
   newProjectForm.appendChild(projectDescriptionLabel);
   newProjectForm.appendChild(projectDescription);
   newProjectForm.appendChild(projectDueDateLabel);
   newProjectForm.appendChild(projectDueDate);
-  newProjectForm.appendChild(newProjectSubmitButton);
+  newProjectForm.appendChild(buttonsDiv);
+  newProjectForm.appendChild(requiredNote);
+  buttonsDiv.appendChild(newProjectSubmitButton);
+  buttonsDiv.appendChild(cancelButton());
   npFormContainer.appendChild(npFormHeading);
   npFormContainer.appendChild(newProjectForm);
 
@@ -146,7 +150,6 @@ function ntform() {
   taskDescription.setAttribute("id", "tdescription");
   taskDescription.setAttribute("placeholder", "description");
   // due date label
-  var today = startOfToday()
   const taskDueDateLabel = document.createElement('label');
   taskDueDateLabel.classList.add('formlabel');
   taskDueDateLabel.setAttribute("for","tduedate");
@@ -245,13 +248,14 @@ function ntinpform(project) {
   const taskTitleLabel = document.createElement('label');
   taskTitleLabel.classList.add('formlabel');
   taskTitleLabel.setAttribute("for","ttitle");
-  taskTitleLabel.textContent = ('Title');
+  taskTitleLabel.textContent = ('* Title');
   // create input for project title
   const taskTitle = document.createElement('input');
   taskTitle.setAttribute("type", "text");
   taskTitle.setAttribute("name", "ttitle");
   taskTitle.setAttribute("id", "ttitle");
   taskTitle.setAttribute("placeholder", "title");
+  taskTitle.setAttribute("required", "required");
   // description label
   const taskDescriptionLabel = document.createElement('label');
   taskDescriptionLabel.classList.add('formlabel');
@@ -296,14 +300,25 @@ function ntinpform(project) {
   ntinpSubmitButton.textContent = 'Save';
   ntinpSubmitButton.setAttribute("type", "button");
 
+  // buttons div
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('buttons');
+
+  // required note
+  const requiredNote = document.createElement('p');
+  requiredNote.classList.add('requirednote');
+  requiredNote.textContent = '* = required';
+
   newTaskForm.appendChild(taskTitleLabel);
   newTaskForm.appendChild(taskTitle);
   newTaskForm.appendChild(taskDescriptionLabel);
   newTaskForm.appendChild(taskDescription);
   newTaskForm.appendChild(taskDueDateLabel);
   newTaskForm.appendChild(taskDueDate);
-  newTaskForm.appendChild(taskAssociatedProjectLabel);
-  newTaskForm.appendChild(ntinpSubmitButton);
+  newTaskForm.appendChild(buttonsDiv);
+  newTaskForm.appendChild(requiredNote);
+  buttonsDiv.appendChild(ntinpSubmitButton);
+  buttonsDiv.appendChild(cancelButton());
   ntFormContainer.appendChild(ntFormHeading);
   ntFormContainer.appendChild(newTaskForm);
 
