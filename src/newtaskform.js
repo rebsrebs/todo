@@ -1,5 +1,5 @@
 import { saveNewTask, projectArray } from './projectmanager.js';
-import { v4 as uuidv4 } from 'uuid';
+import { startOfToday } from 'date-fns';
 
 
 function removeChildElements(parent){
@@ -69,6 +69,7 @@ function ntform() {
   taskDescription.setAttribute("id", "tdescription");
   taskDescription.setAttribute("placeholder", "description");
   // due date label
+  var today = startOfToday()
   const taskDueDateLabel = document.createElement('label');
   taskDueDateLabel.classList.add('formlabel');
   taskDueDateLabel.setAttribute("for","tduedate");
@@ -78,6 +79,8 @@ function ntform() {
   taskDueDate.setAttribute("type", "date");
   taskDueDate.setAttribute("id", "tduedate");
   taskDueDate.setAttribute("name", "tduedate");
+  const dueDateMin = new Date().toISOString().split('T')[0];
+  taskDueDate.setAttribute("min", dueDateMin);
   // associated project label
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
