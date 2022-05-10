@@ -2,6 +2,7 @@
   --header-color: rgb(42, 40, 40);
   --highlight-color: rgb(246, 118, 27);
   --border-color: rgb(216, 245, 135);
+  --button-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -56,9 +57,12 @@ body {
 
 .navsection {
   display: block;
-  /* font-weight: bolder; */
+  margin-bottom: 20px;
+}
+
+.navsectionheader {
   margin-top: 0px;
-  margin-bottom: 12px;
+  margin-bottom: 7px;
 }
 
 .navlink {
@@ -75,6 +79,12 @@ body {
   height: 100vh;
   border-top:1px solid var(--border-color);
   padding: 15px 35px 20px 35px;
+}
+
+.maindescription {
+  margin-bottom: 20px;
+  margin-left: 15px;
+  font-style: italic;
 }
 
 .formcontainer {
@@ -104,7 +114,7 @@ body {
 .taskform {
   display:grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
   gap: 10px;
   accent-color: red;
 }
@@ -120,6 +130,12 @@ body {
   grid-template-rows: fit-content;
 }
 
+.requirednote {
+  grid-column: 2 / 3;
+  grid-row: 6 / 7;
+  text-align: end;
+}
+
 .savebutton {
   grid-column: 1 / 2;
   width: 8ch;
@@ -127,7 +143,7 @@ body {
   background-color: pink;
   border-radius: 3px;
   border: solid 1px gray;
-  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--button-box-shadow);
   /* x y blur spread */
 }
 
@@ -139,7 +155,7 @@ body {
   border: solid 1px gray;
   color: brown;
   justify-self: center;
-  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--button-box-shadow);
 }
 
 .formheading {
@@ -187,14 +203,15 @@ a:active {
   grid-template-columns: 4ch 3fr 1fr;
   grid-template-rows: 30px;
   padding:4px;
-  background-color:rgba(154, 177, 247, 0.3);
+  /* background-color:rgba(154, 177, 247, 0.3); */
+  border-bottom: 1px pink solid;
 }
 
 .taskrowgriditem {
   margin-right:4px;
   padding:4px;
-  border: 1px solid red;
-  background-color:rgb(250, 246, 239);
+  /* border: 1px solid red;
+  background-color:rgb(250, 246, 239); */
 }
 
 .taskrowtitle {
@@ -230,5 +247,23 @@ a:active {
 
 .addtaskbutton {
   width: fit-content;
+  padding: 2px 15px 2px 15px;
+  background-color: var(--border-color);
+  border-radius: 30px;
+  border-style:none;
+  box-shadow: var(--button-box-shadow);
+}
+
+input { width : 100%;
+border: 1px solid #333;
+box-sizing: border-box;
+}
+
+input:invalid {
+box-shadow: 0 0 5px 1px orange;
+}
+
+input:focus:invalid {
+box-shadow: none;
 }
 

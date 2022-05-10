@@ -25,8 +25,8 @@ function sidebar() {
   // SHORTCUTS SECTION
   const shortcutsDiv = document.createElement('div');
   shortcutsDiv.classList.add('navsection');
-  const shortcuts = document.createElement('h3');
-  shortcuts.classList.add('navsection');
+  const shortcuts = document.createElement('h4');
+  shortcuts.classList.add('navsectionheader');
   shortcuts.id = 'shortcuts';
   shortcuts.textContent = "Shortcuts";
 
@@ -64,8 +64,8 @@ function sidebar() {
   const projectsDiv = document.createElement('div');
   projectsDiv.classList.add('navsection');
   projectsDiv.id = 'projectsdiv';
-  const projects = document.createElement('h3');
-  projects.classList.add('projectsnavsection');
+  const projects = document.createElement('h4');
+  projects.classList.add('navsectionheader');
   projects.id = 'projectsnavsection';
   projects.textContent = "Projects";
 

@@ -1,5 +1,6 @@
 import { saveNewTask, projectArray } from './projectmanager.js';
-import { displayOneProject } from './ui.js';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function removeChildElements(parent){
   while (parent.firstChild) {
@@ -48,12 +49,13 @@ function ntform() {
   const taskTitleLabel = document.createElement('label');
   taskTitleLabel.classList.add('formlabel');
   taskTitleLabel.setAttribute("for","ttitle");
-  taskTitleLabel.textContent = ('Title');
+  taskTitleLabel.textContent = ('* Title');
   // create input for project title
   const taskTitle = document.createElement('input');
   taskTitle.setAttribute("type", "text");
   taskTitle.setAttribute("name", "ttitle");
   taskTitle.setAttribute("id", "ttitle");
+  taskTitle.setAttribute("required", "required");
   taskTitle.setAttribute("placeholder", "title");
   // description label
   const taskDescriptionLabel = document.createElement('label');
@@ -104,6 +106,11 @@ function ntform() {
   const buttonsDiv = document.createElement('div');
   buttonsDiv.classList.add('buttons');
 
+  // required note
+  const requiredNote = document.createElement('p');
+  requiredNote.classList.add('requirednote');
+  requiredNote.textContent = '* = required';
+
 
 
 
@@ -116,6 +123,7 @@ function ntform() {
   newTaskForm.appendChild(taskAssociatedProjectLabel);
   newTaskForm.appendChild(taskAssociatedProject);
   newTaskForm.appendChild(buttonsDiv);
+  newTaskForm.appendChild(requiredNote);
   buttonsDiv.appendChild(newTaskSubmitButton);
   buttonsDiv.appendChild(cancelButton());
   ntFormContainer.appendChild(ntFormHeading);
@@ -123,6 +131,7 @@ function ntform() {
 
   // event listener
   newTaskSubmitButton.addEventListener("click", function(){
+    // first put checkForRequired function here
     saveNewTask();
     newTaskForm.reset();
     ntFormContainer.remove();

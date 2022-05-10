@@ -19,7 +19,7 @@ function mainProjectLayout() {
   removeChildElements(main);
   const mainHeader = document.createElement('h2');
   mainHeader.classList.add('mainheader');
-  const mainDescription = document.createElement('maindescription');
+  const mainDescription = document.createElement('div');
   mainDescription.classList.add('maindescription');
   const mainTaskArea = document.createElement('div');
   mainTaskArea.classList.add('maintaskarea');
