@@ -288,6 +288,7 @@ function ntinpform(project) {
   // associated project
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
+  taskAssociatedProjectLabel.classList.add('hiddenformlabel');
   taskAssociatedProjectLabel.setAttribute("for","tassociatedproject");
   // associated project options
   const taskAssociatedProject = document.createElement('select');
@@ -320,6 +321,7 @@ function ntinpform(project) {
   newTaskForm.appendChild(taskDescription);
   newTaskForm.appendChild(taskDueDateLabel);
   newTaskForm.appendChild(taskDueDate);
+  newTaskForm.appendChild(taskAssociatedProjectLabel);
   newTaskForm.appendChild(buttonsDiv);
   newTaskForm.appendChild(requiredNote);
   buttonsDiv.appendChild(ntinpSubmitButton);

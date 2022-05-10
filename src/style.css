@@ -267,3 +267,6 @@ input:focus:invalid {
 box-shadow: none;
 }
 
+.hiddenformlabel {
+  display:none;
+}
