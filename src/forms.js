@@ -216,24 +216,33 @@ function ntform() {
   newTaskSubmitButton.addEventListener("click", function(){
     const tTitle = document.getElementById('ttitle').value;
 
+    // If title is blank
     if (tTitle == '') {
+
+      // alert user
       alert('please fill out the title!');
+
+    // If title is filled in
+    } else {
+
+      // save input values as variables
+      const tDescription = document.getElementById('tdescription').value;
+      let tDueDate = document.getElementById('tduedate').value;
+      console.log(tDueDate);
+      if (tDueDate == '') {
+        tDueDate = 'No due date';
+        console.log(tDueDate);
+      };
+      const tAssociatedProject = document.getElementById('tassociatedproject').value;
+
+      // pass variables to save new task function
+      saveNewTask(tTitle, tDescription, tDueDate, tAssociatedProject);
+      newTaskForm.reset();
+      ntFormContainer.remove();
+      const overlay = document.getElementById('overlay');
+      overlay.style.visibility = 'hidden';
     };
-
-    if (taskDueDate.value == '') {
-      taskDueDate.value = 'No due date';
-    };
-
-  	const tDescription = document.getElementById('tdescription').value;
-  	const tDueDate = document.getElementById('tduedate').value;
-    const tAssociatedProject = document.getElementById('tassociatedproject').value;
-
-    saveNewTask(tTitle, tDescription, tDueDate, tAssociatedProject);
-    newTaskForm.reset();
-    ntFormContainer.remove();
-    const overlay = document.getElementById('overlay');
-    overlay.style.visibility = 'hidden';
-  });
+    });
 
   return ntFormContainer;
 }
