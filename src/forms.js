@@ -215,16 +215,24 @@ function ntform() {
   // event listener
   newTaskSubmitButton.addEventListener("click", function(){
     const tTitle = document.getElementById('ttitle').value;
+
     if (tTitle == '') {
       alert('please fill out the title!');
-      return;
-    } else {
-    saveNewTask();
+    };
+
+    if (taskDueDate.value == '') {
+      taskDueDate.value = 'No due date';
+    };
+
+  	const tDescription = document.getElementById('tdescription').value;
+  	const tDueDate = document.getElementById('tduedate').value;
+    const tAssociatedProject = document.getElementById('tassociatedproject').value;
+
+    saveNewTask(tTitle, tDescription, tDueDate, tAssociatedProject);
     newTaskForm.reset();
     ntFormContainer.remove();
     const overlay = document.getElementById('overlay');
     overlay.style.visibility = 'hidden';
-    }
   });
 
   return ntFormContainer;
@@ -331,8 +339,13 @@ function ntinpform(project) {
 
   // event listener
   ntinpSubmitButton.addEventListener("click", function(){
-    console.log(option.value);
-    saveNewTask();
+    
+    const tTitle = document.getElementById('ttitle').value;
+  	const tDescription = document.getElementById('tdescription').value;
+  	const tDueDate = document.getElementById('tduedate').value;
+ 	  const tAssociatedProject = project.projectUUID;
+
+    saveNewTask(tTitle, tDescription, tDueDate, tAssociatedProject);
     newTaskForm.reset();
     ntFormContainer.remove();
     const overlay = document.getElementById('overlay');

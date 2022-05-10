@@ -112,13 +112,8 @@ const saveNewProject = function(){
 // END FUNCTION TO SAVE NEW PROJECT
 
 // FUNCTION TO SAVE NEW TASK
-const saveNewTask = function(){
+const saveNewTask = function(tTitle, tDescription, tDueDate, tAssociatedProject){
   console.log('saveNewTask function has started');
-  const tTitle = document.getElementById('ttitle').value;
-  const tDescription = document.getElementById('tdescription').value;
-  const tDueDate = document.getElementById('tduedate').value;
-  const tAssociatedProject = document.getElementById('tassociatedproject').value;
-  console.log(tAssociatedProject);
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
   console.log(index);
   let tStatus = 'open';
@@ -130,10 +125,5 @@ const saveNewTask = function(){
   console.log(allTasksArray);
 }
 // END FUNCTION TO SAVE NEW TASK
-
-
-
-
-
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray };
