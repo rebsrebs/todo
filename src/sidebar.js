@@ -1,5 +1,5 @@
-import { npform } from './newprojectform.js';
-import { ntform } from './newtaskform.js';
+import { npform } from './forms.js';
+import { ntform } from './forms.js';
 import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
 import { displayOneProject } from './ui.js';
