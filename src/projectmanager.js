@@ -1,7 +1,6 @@
-import { npform } from './newprojectform.js';
 import { v4 as uuidv4 } from 'uuid';
 import { updateProjectNavLinks} from './sidebar.js';
-import { displayOneProject } from './displayOneProject';
+import { displayOneProject } from './ui.js';
 import {format} from 'date-fns';
 
 let allTasksArray = [];

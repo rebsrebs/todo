@@ -1,5 +1,5 @@
 import { saveNewTask, projectArray } from './projectmanager.js';
-import { displayOneProject } from './displayOneProject.js';
+import { displayOneProject } from './ui.js';
 
 function removeChildElements(parent){
   while (parent.firstChild) {

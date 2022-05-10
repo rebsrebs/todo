@@ -1,6 +1,4 @@
 import { saveNewProject } from './projectmanager.js';
-import { projectArray } from './projectmanager.js';
-import { sidebar } from './sidebar.js';
 
 function npform() {
 

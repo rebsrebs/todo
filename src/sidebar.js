@@ -2,16 +2,13 @@ import { npform } from './newprojectform.js';
 import { ntform } from './newtaskform.js';
 import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
-import { displayOneProject } from './displayOneProject.js';
-import { displayRandomTask } from './displayrandomtask.js';
-import { displayARandomTask } from './displays.js';
+import { displayOneProject } from './ui.js';
+import { pickRandomTask } from './ui.js'
+import { displayARandomTask } from './ui.js'
+import { removeChildElements } from './ui.js'
 
 
-function removeChildElements(parent){
-  while (parent.firstChild) {
-     parent.firstChild.remove()
-  }
-}
+
 
 function sidebar() {
 
@@ -132,6 +129,7 @@ function updateProjectNavLinks() {
     currentLink.id = `link-${i}`;
     // when each link is clicked, fill main area with project info
     currentLink.addEventListener("click", function(){
+      console.log('a project was clicked');
       var index = currentLink.id.substring(5);
       displayOneProject(projectArray[index]);
     });
