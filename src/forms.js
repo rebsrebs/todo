@@ -214,12 +214,17 @@ function ntform() {
 
   // event listener
   newTaskSubmitButton.addEventListener("click", function(){
-    // first put checkForRequired function here
+    const tTitle = document.getElementById('ttitle').value;
+    if (tTitle == '') {
+      alert('please fill out the title!');
+      return;
+    } else {
     saveNewTask();
     newTaskForm.reset();
     ntFormContainer.remove();
     const overlay = document.getElementById('overlay');
     overlay.style.visibility = 'hidden';
+    }
   });
 
   return ntFormContainer;

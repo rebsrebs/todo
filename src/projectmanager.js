@@ -115,11 +115,6 @@ const saveNewProject = function(){
 const saveNewTask = function(){
   console.log('saveNewTask function has started');
   const tTitle = document.getElementById('ttitle').value;
-  // check for required
-  if (tTitle == '') {
-    alert('Please fill out all fields')
-  } else {
-
   const tDescription = document.getElementById('tdescription').value;
   const tDueDate = document.getElementById('tduedate').value;
   const tAssociatedProject = document.getElementById('tassociatedproject').value;
@@ -133,7 +128,6 @@ const saveNewTask = function(){
   console.log(projectArray[index].taskArray);
   displayOneProject(projectArray[index]);
   console.log(allTasksArray);
-  }
 }
 // END FUNCTION TO SAVE NEW TASK
 
