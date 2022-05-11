@@ -110,6 +110,8 @@ function npform() {
   return npFormContainer;
 }
 
+
+// NEW TASK FORM
 function ntform() {
 
   console.log(`Running the new task form function and the current projectArray is ${projectArray} and the first object in it is named ${projectArray[0].pTitle} and the length is ${projectArray.length}`);
@@ -177,26 +179,19 @@ function ntform() {
     currentOption.id = `option-${i}`;
     taskAssociatedProject.appendChild(currentOption);
   }
-
-
   // submit button
   const newTaskSubmitButton = document.createElement('button');
   newTaskSubmitButton.classList.add('savebutton');
   newTaskSubmitButton.textContent = 'Save';
   newTaskSubmitButton.setAttribute("type", "button");
-
   // buttons div
   const buttonsDiv = document.createElement('div');
   buttonsDiv.classList.add('buttons');
-
   // required note
   const requiredNote = document.createElement('p');
   requiredNote.classList.add('requirednote');
   requiredNote.textContent = '* = required';
-
-
-
-
+  // put it together
   newTaskForm.appendChild(taskTitleLabel);
   newTaskForm.appendChild(taskTitle);
   newTaskForm.appendChild(taskDescriptionLabel);
@@ -211,27 +206,26 @@ function ntform() {
   buttonsDiv.appendChild(cancelButton());
   ntFormContainer.appendChild(ntFormHeading);
   ntFormContainer.appendChild(newTaskForm);
-
-  // event listener
+  // event listener for when form is submitted
   newTaskSubmitButton.addEventListener("click", function(){
     const tTitle = document.getElementById('ttitle').value;
-
     // If title is blank
     if (tTitle == '') {
-
       // alert user
       alert('please fill out the title!');
-
     // If title is filled in
     } else {
-
       // save input values as variables
       const tDescription = document.getElementById('tdescription').value;
       let tDueDate = document.getElementById('tduedate').value;
       console.log(tDueDate);
+      console.log(typeof tDueDate);
       if (tDueDate == '') {
-        tDueDate = 'No due date';
+        tDueDate = String('No due date');
         console.log(tDueDate);
+        console.log(typeof tDueDate);
+      } else {
+        tDueDate = (new Date(tDueDate)).toDateString();
       };
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
 

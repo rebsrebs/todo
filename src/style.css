@@ -200,7 +200,7 @@ a:active {
   margin-top:1px;
   margin-bottom:1px;
   display:grid;
-  grid-template-columns: 4ch 3fr 1fr;
+  grid-template-columns: 4ch 3fr 1fr 4ch;
   grid-template-rows: 30px;
   padding:4px;
   /* background-color:rgba(154, 177, 247, 0.3); */

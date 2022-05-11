@@ -1,6 +1,7 @@
 import { allTasksArray } from "./projectmanager";
 import { v4 as uuidv4 } from 'uuid';
 import { ntinpform } from "./forms";
+import { deleteTask } from "./projectmanager.js";
 
 const main = document.getElementById('main');
 
@@ -85,8 +86,18 @@ function createTaskRow(task) {
   let taskDueDateDisplay = document.createElement('div');
   taskDueDateDisplay.classList.add('taskrowgriditem')
   taskDueDateDisplay.classList.add('taskrowduedate')
-  const readableDate = (new Date(task.tDueDate)).toDateString();
-  taskDueDateDisplay.textContent = readableDate;
+  taskDueDateDisplay.textContent = task.tDueDate;
+
+  // X Out
+  let taskDelete = document.createElement('div');
+  taskDelete.classList.add('delete');
+  taskDelete.textContent='X';
+
+  taskDelete.addEventListener('click', function() {
+    deleteTask(task);
+  });
+  
+
 
   // put it together
   mainTaskArea.appendChild(taskRow);
@@ -94,6 +105,7 @@ function createTaskRow(task) {
   taskCheckBoxLabel.appendChild(taskCheckBox);
   taskRow.appendChild(taskTitleDisplay);
   taskRow.appendChild(taskDueDateDisplay);
+  taskRow.appendChild(taskDelete);
 }
 
 // RANDOM TASK

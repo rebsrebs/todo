@@ -79,6 +79,10 @@ class Task {
     this.taskUUID = uuidv4();
   }
 
+  getAssociatedProject(){
+    return this.tAssociatedProjectStatus;
+  }
+
   setStatus(tStatus) {
     this.tStatus = tStatus;
   }
@@ -126,16 +130,23 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tAssociatedProject)
 }
 // END FUNCTION TO SAVE NEW TASK
 
-export { saveNewProject, saveNewTask, projectArray, allTasksArray };
-
 const deleteTask = function(task) {
+  console.log('delete task function has started');
   // delete task from allTasksArray
+  console.log(allTasksArray);
   const indexA = allTasksArray.map(e => e.taskUUID).indexOf(task.taskUUID);
+  // hmmm I got -1 for this once.
+  console.log(indexA);
   allTasksArray.splice(indexA,1);
+  console.log(allTasksArray);
   // delete task from task.tAssociatedProject.taskArray
-  const indexB = task.tAssociatedProject.taskArray.map(e => e.projectUUID).indexOf(tAssociatedProject.projectUUID);
-  task.tAssociatedProject.taskArray.splice(indexB,1);
-  Object.keys(task).forEach(task => {
-    task[key] = null;
-  });
+
+  // const indexB = task.tAssociatedProject.taskArray.map(e => e.projectUUID).indexOf(tAssociatedProject.projectUUID);
+  // task.tAssociatedProject.taskArray.splice(indexB,1);
+  // Object.keys(task).forEach(task => {
+  //   task[key] = null;
+  // });
 }
+
+export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask };
+
