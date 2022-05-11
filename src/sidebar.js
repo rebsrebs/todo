@@ -8,8 +8,6 @@ import { displayARandomTask } from './ui.js'
 import { removeChildElements } from './ui.js'
 
 
-
-
 function sidebar() {
 
   // SIDEBAR CONTAINER
@@ -93,7 +91,8 @@ function sidebar() {
   // event listener for new task button
   addNewTask.addEventListener('click', function() {
     const main = document.getElementById('main');
-    main.appendChild(ntform());
+    main.appendChild(ntform(projectArray[0]));
+    console.log(projectArray);
     const overlay = document.getElementById('overlay');
     overlay.style.visibility = 'visible';
   });

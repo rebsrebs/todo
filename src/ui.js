@@ -1,6 +1,6 @@
 import { allTasksArray } from "./projectmanager";
 import { v4 as uuidv4 } from 'uuid';
-import { ntinpform } from "./forms";
+import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
 
 const main = document.getElementById('main');
@@ -169,7 +169,7 @@ function displayOneProject(project){
   // event listener for new project button
   addTaskButton.addEventListener('click', function() {
     const main = document.getElementById('main');
-    main.appendChild(ntinpform(project));
+    main.appendChild(ntform(project));
     const overlay = document.getElementById('overlay');
     overlay.style.visibility = 'visible';
   });
