@@ -127,3 +127,15 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tAssociatedProject)
 // END FUNCTION TO SAVE NEW TASK
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray };
+
+const deleteTask = function(task) {
+  // delete task from allTasksArray
+  const indexA = allTasksArray.map(e => e.taskUUID).indexOf(task.taskUUID);
+  allTasksArray.splice(indexA,1);
+  // delete task from task.tAssociatedProject.taskArray
+  const indexB = task.tAssociatedProject.taskArray.map(e => e.projectUUID).indexOf(tAssociatedProject.projectUUID);
+  task.tAssociatedProject.taskArray.splice(indexB,1);
+  Object.keys(task).forEach(task => {
+    task[key] = null;
+  });
+}
