@@ -151,10 +151,14 @@ const deleteTask = function(task) {
   console.log(indexA);
   allTasksArray.splice(indexA,1);
   console.log(`Now all tasks array is ${allTasksArray}`);
-  // delete data in task
-  // Object.keys(task).forEach(task => {
-  //   task[key] = null;
-  // });
+  // clear the values for all keys in task
+  console.log(Object.keys(task));
+  console.log(task.tTitle); // shows title
+  Object.keys(task).forEach(key => {
+    task[key] = null;
+  });
+  console.log(Object.keys(task));
+  console.log(task.tTitle); // shows null
 }
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask };
