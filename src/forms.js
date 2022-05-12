@@ -207,11 +207,10 @@ function ntform(project) {
     currentOption.textContent = projectArray[i].pTitle;
     currentOption.id = `option-${i}`;
     // if the currentOption is the same as passed project, make it preselected
-    if (currentOption.id == project.projectUUID) {
+    if (projectArray[i].projectUUID == project.projectUUID) {
       console.log('this is the project');
       currentOption.setAttribute("selected", "selected");
     };
-
     taskAssociatedProject.appendChild(currentOption);
   }
   // submit button
