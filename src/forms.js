@@ -163,6 +163,35 @@ function ntform(project) {
   taskDueDate.setAttribute("name", "tduedate");
   const dueDateMin = new Date().toISOString().split('T')[0];
   taskDueDate.setAttribute("min", dueDateMin);
+  // priority label
+  const taskPriorityLabel = document.createElement('label');
+  taskPriorityLabel.classList.add('formlabel');
+  taskPriorityLabel.setAttribute("for","tpriority");
+  taskPriorityLabel.textContent = ('Priority:');
+  // priority
+  const taskPriority = document.createElement('select');
+  taskPriority.setAttribute("id", "tpriority");
+  taskPriority.setAttribute("name","tpriority");
+  const taskPriority1 = document.createElement('option');
+  taskPriority1.setAttribute("value","p1");
+  taskPriority1.setAttribute("id","p1");
+  taskPriority1.textContent = 'Highest';
+  const taskPriority2 = document.createElement('option');
+  taskPriority2.setAttribute("value","p2");
+  taskPriority2.setAttribute("id","p2");
+  taskPriority2.textContent = 'High';
+  const taskPriority3 = document.createElement('option');
+  taskPriority3.setAttribute("value","p3");
+  taskPriority3.setAttribute("id","p3");
+  taskPriority3.textContent = 'Medium';
+  const taskPriority4 = document.createElement('option');
+  taskPriority4.setAttribute("value","p4");
+  taskPriority4.setAttribute("id","p4");
+  taskPriority4.textContent = 'Low';
+  taskPriority.appendChild(taskPriority1);
+  taskPriority.appendChild(taskPriority2);
+  taskPriority.appendChild(taskPriority3);
+  taskPriority.appendChild(taskPriority4);
   // associated project label
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
@@ -204,6 +233,8 @@ function ntform(project) {
   newTaskForm.appendChild(taskDescription);
   newTaskForm.appendChild(taskDueDateLabel);
   newTaskForm.appendChild(taskDueDate);
+  newTaskForm.appendChild(taskPriorityLabel);
+  newTaskForm.appendChild(taskPriority);
   newTaskForm.appendChild(taskAssociatedProjectLabel);
   newTaskForm.appendChild(taskAssociatedProject);
   newTaskForm.appendChild(buttonsDiv);
@@ -233,11 +264,13 @@ function ntform(project) {
       } else {
         tDueDate = (new Date(tDueDate)).toDateString();
       };
+      // save priority
+      const tPriority = document.getElementById('tpriority').value;
       // save associated project which is the UUID
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
 
       // pass variables to save new task function
-      saveNewTask(tTitle, tDescription, tDueDate, tAssociatedProject);
+      saveNewTask(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject);
       newTaskForm.reset();
       ntFormContainer.remove();
       const overlay = document.getElementById('overlay');

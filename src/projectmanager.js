@@ -67,13 +67,15 @@ class Task {
   tTitle;
   tDescription;
   tDueDate;
+  tPriority;
   tStatus;
   taskUUID;
 
-  constructor (tTitle, tDescription, tDueDate, tStatus, tAssociatedProject) {
+  constructor (tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject) {
     this.tTitle = tTitle;
     this.tDescription = tDescription;
     this.tDueDate = tDueDate;
+    this.tPriority = tPriority;
     this.tStatus = tStatus;
     this.tAssociatedProject = tAssociatedProject;
     this.taskUUID = uuidv4();
@@ -116,12 +118,12 @@ const saveNewProject = function(){
 // END FUNCTION TO SAVE NEW PROJECT
 
 // FUNCTION TO SAVE NEW TASK
-const saveNewTask = function(tTitle, tDescription, tDueDate, tAssociatedProject){
+const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject){
   console.log('saveNewTask function has started');
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
   console.log(index);
   let tStatus = 'open';
-  const task = new Task(tTitle, tDescription, tDueDate, tStatus, projectArray[index]);
+  const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, projectArray[index]);
   projectArray[index].addTask(task);
   allTasksArray.push(task);
   console.log(projectArray[index].taskArray);
