@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { updateProjectNavLinks} from './sidebar.js';
 import { displayOneProject } from './ui.js';
-import {format} from 'date-fns';
 
 let allTasksArray = [];
 
@@ -75,6 +74,7 @@ class Task {
   tPriority;
   tStatus;
   taskUUID;
+  tRowID;
 
   constructor (tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject) {
     this.tTitle = tTitle;
@@ -97,6 +97,10 @@ class Task {
   getStatus() {
     return this.tStatus;
   }  
+
+  // setTaskRowID(tRowID) {
+  //   this.tRowID = tRowID;
+  // }
 }
 // END TASK CLASS
 
@@ -151,6 +155,8 @@ const deleteTask = function(task) {
   console.log(indexA);
   allTasksArray.splice(indexA,1);
   console.log(`Now all tasks array is ${allTasksArray}`);
+  // remove task row from DOM
+  document.getElementById(`taskrow-${task.tRowID}`).remove();
   // clear the values for all keys in task
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows title
@@ -159,6 +165,8 @@ const deleteTask = function(task) {
   });
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows null
+  
+
 }
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask };

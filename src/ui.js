@@ -51,6 +51,9 @@ function createTaskRow(task) {
   taskRow.classList.add('maintaskrow');
   const uniqueID = uuidv4();
   taskRow.id = `taskrow-${uniqueID}`;
+  task.tRowID = uniqueID;
+  console.log(task.tRowID);
+
 
   // task checkbox
   let taskCheckBoxLabel = document.createElement('label');
