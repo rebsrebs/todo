@@ -46,6 +46,11 @@ class Project {
     task.tAssociatedProject = this;
     this.taskArray.push(task);
   }
+
+  removeTask(task, index) {
+    task.tAssociatedProject = this;
+    this.taskArray.splice(index, 1);
+  }
 }
 // END PROJECT CLASS
 
@@ -134,17 +139,19 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssocia
 
 const deleteTask = function(task) {
   console.log('delete task function has started');
+  // delete task from associated project array
+  console.log(task.tAssociatedProject.taskArray);
+  const indexB = task.tAssociatedProject.taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
+  task.tAssociatedProject.removeTask(task,indexB);
+  // task.tAssociatedProject.taskArray.splice(indexB,1);
+  console.log(`Now the associated project array is ${task.tAssociatedProject.taskArray}`);  
   // delete task from allTasksArray
-  console.log(allTasksArray);
+  console.log(`All tasks array was ${allTasksArray}`);
   const indexA = allTasksArray.map(e => e.taskUUID).indexOf(task.taskUUID);
-  // hmmm I got -1 for this once.
   console.log(indexA);
   allTasksArray.splice(indexA,1);
-  console.log(allTasksArray);
-  // delete task from task.tAssociatedProject.taskArray
-
-  // const indexB = task.tAssociatedProject.taskArray.map(e => e.projectUUID).indexOf(tAssociatedProject.projectUUID);
-  // task.tAssociatedProject.taskArray.splice(indexB,1);
+  console.log(`Now all tasks array is ${allTasksArray}`);
+  // delete data in task
   // Object.keys(task).forEach(task => {
   //   task[key] = null;
   // });

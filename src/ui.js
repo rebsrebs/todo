@@ -94,6 +94,7 @@ function createTaskRow(task) {
   taskDelete.textContent='X';
 
   taskDelete.addEventListener('click', function() {
+    console.log('X was clicked');
     deleteTask(task);
   });
   
