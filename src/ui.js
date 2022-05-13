@@ -2,6 +2,7 @@ import { allTasksArray } from "./projectmanager";
 import { v4 as uuidv4 } from 'uuid';
 import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
+import Trash from './images/trash-2.svg';
 
 const main = document.getElementById('main');
 
@@ -91,10 +92,13 @@ function createTaskRow(task) {
   taskDueDateDisplay.classList.add('taskrowduedate')
   taskDueDateDisplay.textContent = task.tDueDate;
 
-  // X Out
+  const myTrash = new Image();
+  myTrash.src = Trash;
+  myTrash.classList.add('icon');
+
+  // Delete icon
   let taskDelete = document.createElement('div');
-  taskDelete.classList.add('delete');
-  taskDelete.textContent='X';
+  taskDelete.appendChild(myTrash);
 
   taskDelete.addEventListener('click', function() {
     console.log('X was clicked');
