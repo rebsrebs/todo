@@ -209,7 +209,7 @@ a:active {
   display:grid;
   width: 80%;
   grid-template-columns: 4ch 5fr 1fr 4ch;
-  grid-template-rows: 30px;
+  grid-template-rows: 30px max-content;
   padding:4px;
   /* background-color:rgba(154, 177, 247, 0.3); */
   border-bottom: 1px pink solid;
@@ -285,5 +285,42 @@ box-shadow: none;
 }
 
 .hiddenformlabel {
-  display:none;
+  display: none;
 }
+
+/* .hidden {
+  display: none;
+} */
+
+.taskdetailarea {
+  margin-left: 20px;
+  grid-column: 1 / 5;
+  grid-row: 2 / 3;
+  background-color:rgb(167, 30, 30);
+}
+
+.detailtitle {
+  padding: 0px;
+  margin: 0px 0px 10px 0px;
+}
+
+.taskdetailgrid {
+  display: grid;
+  padding: 0px;
+  margin: 0px;
+  grid-template-columns: 13ch auto;
+  grid-template-rows: 20px 20px 20px 20px;
+}
+
+.detaillabel {
+  padding: 0px;
+  margin: 0px;
+  grid-column: 1 / 2;
+}
+
+.detailvalue {
+  padding-left: 5px;
+  margin: 0px;
+  grid-column: 2 / 3;
+}
+

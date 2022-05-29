@@ -105,8 +105,58 @@ function createTaskRow(task) {
     console.log('X was clicked');
     deleteTask(task);
   });
-  
 
+  // Detail Area - starts out hidden
+  let taskDetailArea = document.createElement('div');
+  taskDetailArea.classList.add('taskdetailarea');
+  taskDetailArea.classList.add('hidden');
+  taskDetailArea.id = `detailarea-${uniqueID}`;
+  // Title Row
+  let detailTitle = document.createElement('h4');
+  detailTitle.classList.add('detailtitle');
+  detailTitle.textContent = task.tTitle;
+  // Task Detail Grid
+  let taskDetailGrid = document.createElement('div');
+  taskDetailGrid.classList.add('taskdetailgrid');
+  // Date Row
+  let detailDateLabel = document.createElement('p');
+  detailDateLabel.classList.add('detaillabel');
+  detailDateLabel.textContent = 'Due Date:';
+  let detailDate = document.createElement('p');
+  detailDate.classList.add('detailvalue');
+  detailDate.textContent = task.tDueDate;
+  // Description Row
+  let detailDescriptionLabel = document.createElement('p');
+  detailDescriptionLabel.classList.add('detaillabel');
+  detailDescriptionLabel.textContent = 'Description:';
+  let detailDescription = document.createElement('p');
+  detailDescription.classList.add('detailvalue');
+  detailDescription.textContent = task.tDescription;
+  // Priority Row
+  let detailPriorityLabel = document.createElement('p');
+  detailPriorityLabel.classList.add('detaillabel');
+  detailPriorityLabel.textContent = 'Priority:';
+  let detailPriority = document.createElement('p');
+  detailPriority.classList.add('detailvalue');
+  detailPriority.textContent = task.tPriority;
+  // Project Row
+  let detailProjectLabel = document.createElement('p');
+  detailProjectLabel.classList.add('detaillabel');
+  detailProjectLabel.textContent = 'Project:';
+  let detailProject = document.createElement('p');
+  detailProject.classList.add('detailvalue');
+  detailProject.textContent = task.tAssociatedProject.pTitle;
+  // put detail area together
+  taskDetailArea.appendChild(detailTitle);
+  taskDetailArea.appendChild(taskDetailGrid);
+  taskDetailGrid.appendChild(detailDateLabel);
+  taskDetailGrid.appendChild(detailDate);
+  taskDetailGrid.appendChild(detailDescriptionLabel);
+  taskDetailGrid.appendChild(detailDescription);
+  taskDetailGrid.appendChild(detailPriorityLabel);
+  taskDetailGrid.appendChild(detailPriority);
+  taskDetailGrid.appendChild(detailProjectLabel);
+  taskDetailGrid.appendChild(detailProject);
 
   // put it together
   mainTaskArea.appendChild(taskRow);
@@ -115,6 +165,7 @@ function createTaskRow(task) {
   taskRow.appendChild(taskTitleDisplay);
   taskRow.appendChild(taskDueDateDisplay);
   taskRow.appendChild(taskDelete);
+  taskRow.appendChild(taskDetailArea);
 }
 
 // RANDOM TASK
@@ -190,6 +241,13 @@ function displayOneProject(project){
   // put row at the end of task list
   mainTaskArea.appendChild(addTaskRow);
 
+}
+
+// TASK DETAIL VIEW
+
+function displayTaskDetails(task){
+  // add a row to the row task?
+  // or it should already have one but it's hidden!
 }
 
 
