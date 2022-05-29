@@ -204,22 +204,32 @@ a:active {
 }
 
 .maintaskrow {
-  margin-top:1px;
-  margin-bottom:1px;
   display:grid;
-  width: 80%;
   grid-template-columns: 4ch 5fr 1fr 4ch;
   grid-template-rows: 30px max-content;
-  padding:4px;
-  /* background-color:rgba(154, 177, 247, 0.3); */
+  width: 80%;
   border-bottom: 1px pink solid;
+  padding: 0px;
+  margin: 0px;
+}
+
+.addtaskrow {
+  /* display:grid;
+  grid-template-columns: 4ch 5fr 1fr 4ch;
+  grid-template-rows: 30px max-content; */
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 80%;
+  border-bottom: 1px pink solid;
+  padding: 0px;
+  margin: 0px;
 }
 
 .taskrowgriditem {
-  margin-right:10px;
-  padding:4px;
-  /* border: 1px solid red;
-  background-color:rgb(250, 246, 239); */
+  margin: 0px 0px 0px 10px;
+  justify-self: flex-start;
+  padding: 2px 0px 2px 0px;
 }
 
 .taskrowtitle {
@@ -260,15 +270,6 @@ a:active {
   display: grid;
   grid-template-columns: 4ch 1fr 3fr 1fr;
   grid-template-rows: max-content;
-}
-
-.addtaskbutton {
-  width: fit-content;
-  padding: 2px 15px 2px 15px;
-  background-color: var(--border-color);
-  border-radius: 30px;
-  border-style:none;
-  box-shadow: var(--button-box-shadow);
 }
 
 input { width : 100%;
@@ -322,5 +323,11 @@ box-shadow: none;
   padding-left: 5px;
   margin: 0px;
   grid-column: 2 / 3;
+}
+
+.addtaskrow:hover {
+  background-color: pink;
+  margin:0px;
+  cursor: pointer;
 }
 

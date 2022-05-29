@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
 import Trash from './images/trash-2.svg';
+import Plus from './images/plus-circle-black.svg';
+// import PlusRed from './images/plus-circle.red.svg';
 
 const main = document.getElementById('main');
 
@@ -214,20 +216,23 @@ function displayOneProject(project){
   // add row with an add task button that saves task to this project
   const addTaskRow = document.createElement('div');
   addTaskRow.classList.add('maintaskrow');
+  addTaskRow.classList.add('addtaskrow');
 
   // inside row, add plus sign on the left
-  const plusSignDiv = document.createElement('p');
-  plusSignDiv.classList.add('plussigndiv');
-  plusSignDiv.textContent = '+';
+  const myPlus = new Image();
+  myPlus.src = Plus;
+  myPlus.classList.add('icon');
+  myPlus.classList.add('taskrowgriditem');
 
   // add add task button
-  const addTaskButton = document.createElement('button');
-  addTaskButton.classList.add('addtaskbutton');
-  addTaskButton.textContent = 'Add task ...';
-  addTaskButton.id = `addtoproject${project.projectUUID};`
-  // put ID of this button as something related to the project it's in
-  // event listener for new project button
-  addTaskButton.addEventListener('click', function() {
+  const addTaskText = document.createElement('p');
+  addTaskText.classList.add('addtaskp');
+  addTaskText.classList.add('taskrowgriditem');
+  addTaskText.textContent = 'Add task ...';
+  addTaskText.id = `addtoproject${project.projectUUID};`
+
+  // event listener for adding a task
+  addTaskRow.addEventListener('click', function() {
     const main = document.getElementById('main');
     main.appendChild(ntform(project));
     const overlay = document.getElementById('overlay');
@@ -235,8 +240,8 @@ function displayOneProject(project){
   });
 
   // put plus sign and button inside row
-  addTaskRow.appendChild(plusSignDiv);
-  addTaskRow.appendChild(addTaskButton);
+  addTaskRow.appendChild(myPlus);
+  addTaskRow.appendChild(addTaskText);
 
   // put row at the end of task list
   mainTaskArea.appendChild(addTaskRow);
