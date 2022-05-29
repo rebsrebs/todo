@@ -1,8 +1,11 @@
 :root {
   --header-color: rgb(42, 40, 40);
   --highlight-color: rgb(246, 118, 27);
-  --border-color: rgb(216, 245, 135);
+  --border-color: rgb(247, 192, 231);
   --button-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --task-title-color: rgb(53, 50, 50);
+  --task-date-color: rgb(167, 30, 30);
+  --main-bg-color: rgb(255, 255, 255);
 }
 
 body {
@@ -74,7 +77,7 @@ body {
 .main {
   grid-column: 2 / 3;
   grid-row: 2 / 4;
-  background-color: beige;
+  background-color: var(--main-bg-color);
   align-self:flex-start;
   height: 100vh;
   border-top:1px solid var(--border-color);
@@ -204,7 +207,8 @@ a:active {
   margin-top:1px;
   margin-bottom:1px;
   display:grid;
-  grid-template-columns: 4ch 3fr 1fr 4ch;
+  width: 80%;
+  grid-template-columns: 4ch 5fr 1fr 4ch;
   grid-template-rows: 30px;
   padding:4px;
   /* background-color:rgba(154, 177, 247, 0.3); */
@@ -212,19 +216,28 @@ a:active {
 }
 
 .taskrowgriditem {
-  margin-right:4px;
+  margin-right:10px;
   padding:4px;
   /* border: 1px solid red;
   background-color:rgb(250, 246, 239); */
 }
 
 .taskrowtitle {
-  color:rgba(118, 26, 63);
+  color: var(--task-title-color);
 }
 
 .taskcheckboxlabel, .plussigndiv {
   justify-self: center;
   align-self: center;
+}
+
+.taskrowduedate {
+  white-space:pre;
+  color: var(--task-date-color);
+}
+
+.taskrowtrash {
+  align-self: right;
 }
 
 .completed {

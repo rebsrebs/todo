@@ -98,6 +98,7 @@ function createTaskRow(task) {
 
   // Delete icon
   let taskDelete = document.createElement('div');
+  taskDelete.classList.add('taskrowtrash');
   taskDelete.appendChild(myTrash);
 
   taskDelete.addEventListener('click', function() {
