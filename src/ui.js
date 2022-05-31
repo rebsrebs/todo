@@ -176,6 +176,13 @@ function createTaskRow(task) {
   let detailProject = document.createElement('p');
   detailProject.classList.add('detailvalue');
   detailProject.textContent = task.tAssociatedProject.pTitle;
+  // Button row
+  let taskDetailSave = document.createElement('button');
+  taskDetailSave.classList.add('taskdetailbutton');
+  taskDetailSave.textContent = 'Save';
+  let taskDetailCancel = document.createElement('button');
+  taskDetailCancel.classList.add('taskdetailbutton');
+  taskDetailCancel.textContent = 'Cancel';
   // put detail area together
   taskDetailArea.appendChild(detailTitle);
   taskDetailArea.appendChild(taskDetailGrid);
@@ -187,6 +194,8 @@ function createTaskRow(task) {
   taskDetailGrid.appendChild(detailPriority);
   taskDetailGrid.appendChild(detailProjectLabel);
   taskDetailGrid.appendChild(detailProject);
+  taskDetailGrid.appendChild(taskDetailSave);
+  taskDetailGrid.appendChild(taskDetailCancel);
 
   // put it together
   mainTaskArea.appendChild(taskBox);
