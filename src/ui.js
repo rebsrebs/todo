@@ -49,24 +49,32 @@ function createTaskRow(task) {
 
   const mainTaskArea = document.querySelector('.maintaskarea');
 
+  // task box
+  const taskBox = document.createElement('div');
+  taskBox.classList.add('maintaskbox');
+  const uniqueID = uuidv4();
+
   // task rows
   const taskRow = document.createElement('div');
   taskRow.classList.add('maintaskrow');
-  const uniqueID = uuidv4();
   taskRow.id = `taskrow-${uniqueID}`;
   task.tRowID = uniqueID;
   console.log(task.tRowID);
 
 
-  // task checkbox
+  // task checkbox div
+  let taskCheckBoxDiv = document.createElement('div');
+  taskCheckBoxDiv.classList.add('taskrowgriditem');
+  taskCheckBoxDiv.classList.add('taskcheckboxdiv');
+  // task checkbox label
   let taskCheckBoxLabel = document.createElement('label');
   taskCheckBoxLabel.setAttribute("for", `checkbox-${uniqueID}`);
   taskCheckBoxLabel.classList.add('taskcheckboxlabel');
+  // taskcheckbox
   let taskCheckBox = document.createElement('input');
   taskCheckBox.setAttribute("type", "checkbox");
   taskCheckBox.id=`checkbox-${uniqueID}`;
-  taskCheckBox.classList.add('taskrowgriditem')
-  taskCheckBox.classList.add('taskrowcheckbox')
+  taskCheckBox.classList.add('taskcheckbox');
 
   taskCheckBox.addEventListener('change', function() {
     if (taskCheckBox.checked == true) {
@@ -161,13 +169,15 @@ function createTaskRow(task) {
   taskDetailGrid.appendChild(detailProject);
 
   // put it together
-  mainTaskArea.appendChild(taskRow);
-  taskRow.appendChild(taskCheckBoxLabel);
+  mainTaskArea.appendChild(taskBox);
+  taskBox.appendChild(taskRow);
+  taskRow.appendChild(taskCheckBoxDiv);
+  taskCheckBoxDiv.appendChild(taskCheckBoxLabel);
   taskCheckBoxLabel.appendChild(taskCheckBox);
   taskRow.appendChild(taskTitleDisplay);
   taskRow.appendChild(taskDueDateDisplay);
   taskRow.appendChild(taskDelete);
-  taskRow.appendChild(taskDetailArea);
+  taskBox.appendChild(taskDetailArea);
 }
 
 // RANDOM TASK

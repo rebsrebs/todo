@@ -203,56 +203,7 @@ a:active {
   margin-bottom:10px;
 }
 
-.maintaskrow {
-  display:grid;
-  grid-template-columns: 4ch 5fr 1fr 4ch;
-  grid-template-rows: 30px max-content;
-  width: 80%;
-  border-bottom: 1px pink solid;
-  padding: 0px;
-  margin: 0px;
-}
 
-.addtaskrow {
-  /* display:grid;
-  grid-template-columns: 4ch 5fr 1fr 4ch;
-  grid-template-rows: 30px max-content; */
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  width: 80%;
-  border-bottom: 1px pink solid;
-  padding: 0px;
-  margin: 0px;
-}
-
-.taskrowgriditem {
-  margin: 0px 0px 0px 10px;
-  justify-self: flex-start;
-  padding: 2px 0px 2px 0px;
-}
-
-.taskrowtitle {
-  color: var(--task-title-color);
-}
-
-.taskcheckboxlabel, .plussigndiv {
-  justify-self: center;
-  align-self: center;
-}
-
-.taskrowduedate {
-  white-space:pre;
-  color: var(--task-date-color);
-}
-
-.taskrowtrash {
-  align-self: right;
-}
-
-.completed {
-  color: gray;
-}
 
 #overlay {
   background-color:rgba(0, 0, 0, 0.2);
@@ -285,19 +236,70 @@ input:focus:invalid {
 box-shadow: none;
 }
 
-.hiddenformlabel {
+/* TASK ROWS IN MAIN AREA */
+
+.maintaskrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+  border-bottom: 1px pink solid;
+  padding: 0px;
+  margin: 0px;
+}
+
+
+
+.taskrowtitle {
+  color: var(--task-title-color);
+}
+
+.plussigndiv {
+  justify-self: center;
+  align-self: center;
+}
+
+.taskrowduedate {
+  white-space:pre;
+  color: var(--task-date-color);
+}
+
+.taskrowtrash {
+  align-self: flex-end;
+  justify-self: right;
+}
+
+.completed {
+  color: gray;
+}
+
+/* ADD TASK ROW */
+
+.addtaskrow {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 80%;
+  border-bottom: 1px pink solid;
+  padding: 0px;
+  margin: 0px;
+}
+
+.addtaskrow:hover, .maintaskrow:hover {
+  background-color: pink;
+  margin:0px;
+  cursor: pointer;
+}
+
+/* TASK DETAIL AREA */
+
+.hidden {
   display: none;
 }
 
-/* .hidden {
-  display: none;
-} */
-
 .taskdetailarea {
   margin-left: 20px;
-  grid-column: 1 / 5;
-  grid-row: 2 / 3;
-  background-color:rgb(167, 30, 30);
+  background-color:rgb(231, 184, 184);
 }
 
 .detailtitle {
@@ -325,9 +327,31 @@ box-shadow: none;
   grid-column: 2 / 3;
 }
 
-.addtaskrow:hover {
-  background-color: pink;
-  margin:0px;
-  cursor: pointer;
+
+.icon {
+  height: 2ch;
 }
 
+.taskrowgriditem {
+  margin: 0px 0px 0px 10px;
+  justify-self: flex-start;
+  padding: 2px 0px 2px 0px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.taskcheckboxdiv {
+  width: fit-content;
+}
+
+.taskcheckbox {
+  align-self: center;
+  justify-self: center;
+} 
+
+ .taskchecklabel {
+   padding: 0px;
+  align-self: center;
+  justify-self: center;
+}
