@@ -74,7 +74,7 @@ class Task {
   tPriority;
   tStatus;
   taskUUID;
-  tRowID;
+  tBoxID;
 
   constructor (tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject) {
     this.tTitle = tTitle;
@@ -97,10 +97,6 @@ class Task {
   getStatus() {
     return this.tStatus;
   }  
-
-  // setTaskRowID(tRowID) {
-  //   this.tRowID = tRowID;
-  // }
 }
 // END TASK CLASS
 
@@ -156,7 +152,7 @@ const deleteTask = function(task) {
   allTasksArray.splice(indexA,1);
   console.log(`Now all tasks array is ${allTasksArray}`);
   // remove task row from DOM
-  document.getElementById(`taskrow-${task.tRowID}`).remove();
+  document.getElementById(`taskbox-${task.tBoxID}`).remove();
   // clear the values for all keys in task
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows title

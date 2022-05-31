@@ -4,6 +4,8 @@ import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
 import Trash from './images/trash-2.svg';
 import Plus from './images/plus-circle-black.svg';
+import Edit from './images/edit.svg';
+
 // import PlusRed from './images/plus-circle.red.svg';
 
 const main = document.getElementById('main');
@@ -53,18 +55,18 @@ function createTaskRow(task) {
   const taskBox = document.createElement('div');
   taskBox.classList.add('maintaskbox');
   const uniqueID = uuidv4();
+  taskBox.id = `taskbox-${uniqueID}`;
+  task.tBoxID = uniqueID;
+  console.log(task.tBoxID);
+  
 
   // task rows
   const taskRow = document.createElement('div');
   taskRow.classList.add('maintaskrow');
-  taskRow.id = `taskrow-${uniqueID}`;
-  task.tRowID = uniqueID;
-  console.log(task.tRowID);
 
 
   // task checkbox div
   let taskCheckBoxDiv = document.createElement('div');
-  taskCheckBoxDiv.classList.add('taskrowgriditem');
   taskCheckBoxDiv.classList.add('taskcheckboxdiv');
   // task checkbox label
   let taskCheckBoxLabel = document.createElement('label');
@@ -90,6 +92,11 @@ function createTaskRow(task) {
     }
   });
 
+  // task item grid
+  let taskItemGrid = document.createElement('div');
+  taskItemGrid.classList.add('taskitemgrid');
+
+
   // task title
   let taskTitleDisplay = document.createElement('div');
   taskTitleDisplay.classList.add('taskrowgriditem')
@@ -102,18 +109,31 @@ function createTaskRow(task) {
   taskDueDateDisplay.classList.add('taskrowduedate')
   taskDueDateDisplay.textContent = task.tDueDate;
 
+
+  // Delete icon
   const myTrash = new Image();
   myTrash.src = Trash;
   myTrash.classList.add('icon');
-
-  // Delete icon
+  myTrash.classList.add('taskrowgriditem');
   let taskDelete = document.createElement('div');
   taskDelete.classList.add('taskrowtrash');
   taskDelete.appendChild(myTrash);
-
   taskDelete.addEventListener('click', function() {
     console.log('X was clicked');
     deleteTask(task);
+  });
+
+  // Edit icon
+  const myEdit = new Image();
+  myEdit.src = Edit;
+  myEdit.classList.add('icon');
+  myEdit.classList.add('taskrowgriditem');
+  let taskEdit = document.createElement('div');
+  taskEdit.classList.add('taskrowedit');
+  taskEdit.appendChild(myEdit);
+  taskEdit.addEventListener('click', function() {
+    console.log('Edit was clicked');
+    taskDetailArea.classList.remove('hidden');
   });
 
   // Detail Area - starts out hidden
@@ -174,9 +194,11 @@ function createTaskRow(task) {
   taskRow.appendChild(taskCheckBoxDiv);
   taskCheckBoxDiv.appendChild(taskCheckBoxLabel);
   taskCheckBoxLabel.appendChild(taskCheckBox);
-  taskRow.appendChild(taskTitleDisplay);
-  taskRow.appendChild(taskDueDateDisplay);
-  taskRow.appendChild(taskDelete);
+  taskRow.appendChild(taskItemGrid);
+  taskItemGrid.appendChild(taskTitleDisplay);
+  taskItemGrid.appendChild(taskDueDateDisplay);
+  taskItemGrid.appendChild(taskEdit);
+  taskItemGrid.appendChild(taskDelete);
   taskBox.appendChild(taskDetailArea);
 }
 

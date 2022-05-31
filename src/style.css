@@ -244,8 +244,9 @@ box-shadow: none;
   justify-content: flex-start;
   width: 80%;
   border-bottom: 1px pink solid;
-  padding: 0px;
+  padding: 0px 10px 0px 0px;
   margin: 0px;
+  box-sizing: border-box;
 }
 
 
@@ -264,9 +265,10 @@ box-shadow: none;
   color: var(--task-date-color);
 }
 
-.taskrowtrash {
-  align-self: flex-end;
+.taskrowtrash, .taskrowedit {
+  align-self: center;
   justify-self: right;
+  cursor: pointer;
 }
 
 .completed {
@@ -281,14 +283,20 @@ box-shadow: none;
   justify-content: start;
   width: 80%;
   border-bottom: 1px pink solid;
-  padding: 0px;
+  padding: 0px 10px 0px 0px;
   margin: 0px;
+  height: 30px;
 }
 
-.addtaskrow:hover, .maintaskrow:hover {
+.addtaskrow:hover {
   background-color: pink;
   margin:0px;
   cursor: pointer;
+}
+
+.maintaskrow:hover {
+  background-color: pink;
+  margin:0px;
 }
 
 /* TASK DETAIL AREA */
@@ -298,8 +306,11 @@ box-shadow: none;
 }
 
 .taskdetailarea {
-  margin-left: 20px;
   background-color:rgb(231, 184, 184);
+  padding-left: 28px;
+  width: 80%;
+  box-sizing: border-box;
+  /* margin-top: -30px; */
 }
 
 .detailtitle {
@@ -332,6 +343,16 @@ box-shadow: none;
   height: 2ch;
 }
 
+.taskitemgrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto 16ch 30px 30px;
+  grid-template-rows: minmax(30px, auto);
+  margin-left: 10px;
+  padding: 2px 0px 2px 0px;
+  box-sizing:content-box;
+}
+
 .taskrowgriditem {
   margin: 0px 0px 0px 10px;
   justify-self: flex-start;
@@ -341,9 +362,7 @@ box-shadow: none;
   justify-items: center;
 }
 
-.taskcheckboxdiv {
-  width: fit-content;
-}
+
 
 .taskcheckbox {
   align-self: center;
@@ -351,7 +370,13 @@ box-shadow: none;
 } 
 
  .taskchecklabel {
-   padding: 0px;
+  padding: 0px;
   align-self: center;
   justify-self: center;
 }
+
+.taskcheckboxdiv {
+  margin-left: 10px;
+  padding: 0px;
+}
+
