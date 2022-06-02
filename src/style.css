@@ -6,6 +6,10 @@
   --task-title-color: rgb(53, 50, 50);
   --task-date-color: rgb(167, 30, 30);
   --main-bg-color: rgb(255, 255, 255);
+  --p1-color: rgb(235, 13, 13);
+  --p2-color: rgb(206, 100, 8);
+  --p3-color: rgb(43, 163, 10);
+  --p4-color: rgb(19, 70, 236);
 }
 
 body {
@@ -251,19 +255,19 @@ box-shadow: none;
 
 
 
-.taskrowtitle {
+/* .taskrowtitle {
   color: var(--task-title-color);
-}
+} */
 
 .plussigndiv {
   justify-self: center;
   align-self: center;
 }
 
-.taskrowduedate {
+/* .taskrowduedate {
   white-space:pre;
   color: var(--task-date-color);
-}
+} */
 
 .taskrowtrash, .taskrowedit {
   align-self: center;
@@ -286,6 +290,7 @@ box-shadow: none;
   padding: 0px 10px 0px 0px;
   margin: 0px;
   height: 30px;
+  color: var(--task-title-color);
 }
 
 .addtaskrow:hover {
@@ -383,3 +388,20 @@ box-shadow: none;
 .taskdetailbutton {
   width: 9ch;
 }
+
+.p1 {
+  color: var(--p1-color)
+}
+
+.p2 {
+  color: var(--p2-color)
+}
+
+.p3 {
+  color: var(--p3-color)
+}
+
+.p4 {
+  color: var(--p4-color)
+}
+

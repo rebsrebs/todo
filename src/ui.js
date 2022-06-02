@@ -64,6 +64,21 @@ function createTaskRow(task) {
   const taskRow = document.createElement('div');
   taskRow.classList.add('maintaskrow');
 
+  // assign color based on priority
+  switch (task.tPriority) {
+    case 'p1':
+      taskRow.classList.add('p1');
+      break;
+    case 'p2':
+      taskRow.classList.add('p2');
+      break;
+    case 'p3':
+      taskRow.classList.add('p3');
+        break;
+    case 'p4':
+      taskRow.classList.add('p4');
+        break;
+  }
 
   // task checkbox div
   let taskCheckBoxDiv = document.createElement('div');
@@ -209,7 +224,14 @@ function createTaskRow(task) {
   taskItemGrid.appendChild(taskEdit);
   taskItemGrid.appendChild(taskDelete);
   taskBox.appendChild(taskDetailArea);
+
+  // event listener for cancel button
+  taskDetailCancel.addEventListener('click', function() {
+    taskDetailArea.classList.add('hidden');
+  });
 }
+
+//END TASK DETAIL
 
 // RANDOM TASK
 function pickRandomTask() {
