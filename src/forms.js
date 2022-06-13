@@ -280,7 +280,192 @@ function ntform(project) {
   return ntFormContainer;
 }
 
+// END NEW TASK FORM
 
 
 
-export { npform, ntform };
+
+// EDIT TASK FORM
+function editTaskForm(task) {
+
+  console.log(`Running the edit task form function and the current projectArray is ${projectArray}`);
+
+  // Get task box container
+  const uniqueID = task.tBoxID;
+  const detailArea = getElementById(`detailarea-${uniqueID}`);
+
+  // Edit Task Form Container Div
+  const editTaskFormContainer = document.createElement('div');
+  editTaskFormContainer.classList.add('formcontainer');
+  // Header Title
+  const editTaskFormHeading = document.createElement('h4');
+  editTaskFormHeading.textContent = 'Edit Task:'
+  editTaskFormHeading.classList.add('formheading');
+  // Edit Task Form
+  const editTaskForm = document.createElement('form');
+  editTaskForm.classList.add('taskform');
+  editTaskForm.classList.add('form');
+  // create task title label
+  const taskTitleLabel = document.createElement('label');
+  taskTitleLabel.classList.add('formlabel');
+  taskTitleLabel.setAttribute("for","ttitle");
+  taskTitleLabel.textContent = ('* Title');
+  // create input for project title
+  const taskTitle = document.createElement('input');
+  taskTitle.setAttribute("type", "text");
+  taskTitle.setAttribute("name", "ttitle");
+  taskTitle.setAttribute("id", "ttitle");
+  taskTitle.setAttribute("required", "required");
+  taskTitle.setAttribute("placeholder", task.tTitle);
+  // description label
+  const taskDescriptionLabel = document.createElement('label');
+  taskDescriptionLabel.classList.add('formlabel');
+  taskDescriptionLabel.setAttribute("for","tdescription");
+  taskDescriptionLabel.textContent = ('Description');
+  // description input
+  const taskDescription = document.createElement('textarea');
+  taskDescription.setAttribute("type", "text");
+  taskDescription.setAttribute("name", "tdescription");
+  taskDescription.setAttribute("id", "tdescription");
+  taskDescription.setAttribute("placeholder", task.tDescription);
+  // due date label
+  const taskDueDateLabel = document.createElement('label');
+  taskDueDateLabel.classList.add('formlabel');
+  taskDueDateLabel.setAttribute("for","tduedate");
+  taskDueDateLabel.textContent = ('Due Date');
+  // due date input
+  const taskDueDate = document.createElement('input');
+  taskDueDate.setAttribute("type", "date");
+  taskDueDate.setAttribute("id", "tduedate");
+  taskDueDate.setAttribute("name", "tduedate");
+  // const dueDateMin = new Date().toISOString().split('T')[0];
+  // taskDueDate.setAttribute("min", dueDateMin);
+  // priority label
+  const taskPriorityLabel = document.createElement('label');
+  taskPriorityLabel.classList.add('formlabel');
+  taskPriorityLabel.setAttribute("for","tpriority");
+  taskPriorityLabel.textContent = ('Priority:');
+  // priority
+  const taskPriority = document.createElement('select');
+  taskPriority.setAttribute("id", "tpriority");
+  taskPriority.setAttribute("name","tpriority");
+  const taskPriority1 = document.createElement('option');
+  taskPriority1.setAttribute("value","p1");
+  taskPriority1.setAttribute("id","p1");
+  taskPriority1.textContent = 'Highest';
+  const taskPriority2 = document.createElement('option');
+  taskPriority2.setAttribute("value","p2");
+  taskPriority2.setAttribute("id","p2");
+  taskPriority2.textContent = 'High';
+  const taskPriority3 = document.createElement('option');
+  taskPriority3.setAttribute("value","p3");
+  taskPriority3.setAttribute("id","p3");
+  taskPriority3.textContent = 'Medium';
+  const taskPriority4 = document.createElement('option');
+  taskPriority4.setAttribute("value","p4");
+  taskPriority4.setAttribute("id","p4");
+  taskPriority4.textContent = 'Low';
+  taskPriority.appendChild(taskPriority1);
+  taskPriority.appendChild(taskPriority2);
+  taskPriority.appendChild(taskPriority3);
+  taskPriority.appendChild(taskPriority4);
+  // associated project label
+  const taskAssociatedProjectLabel = document.createElement('label');
+  taskAssociatedProjectLabel.classList.add('formlabel');
+  taskAssociatedProjectLabel.setAttribute("for","tassociatedproject");
+  taskAssociatedProjectLabel.textContent = ('Save to Project:');
+  // associated project options
+  const taskAssociatedProject = document.createElement('select');
+  taskAssociatedProject.setAttribute("id", "tassociatedproject");
+  taskAssociatedProject.setAttribute("name", "tassociatedproject");
+  for (var i = 0; i < projectArray.length; i++) {
+    var currentOption = document.createElement('option');
+    currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
+    currentOption.textContent = projectArray[i].pTitle;
+    currentOption.id = `option-${i}`;
+    // if the currentOption is the same as passed project, make it preselected
+    if (projectArray[i].projectUUID == project.projectUUID) {
+      console.log('this is the project');
+      currentOption.setAttribute("selected", "selected");
+    };
+    taskAssociatedProject.appendChild(currentOption);
+  }
+  // submit button
+  const editTaskSubmitButton = document.createElement('button');
+  editTaskSubmitButton.classList.add('savebutton');
+  editTaskSubmitButton.textContent = 'Save';
+  editTaskSubmitButton.setAttribute("type", "button");
+  // buttons div
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('buttons');
+  // required note
+  const requiredNote = document.createElement('p');
+  requiredNote.classList.add('requirednote');
+  requiredNote.textContent = '* = required';
+  // put it together
+  editTaskForm.appendChild(taskTitleLabel);
+  editTaskForm.appendChild(taskTitle);
+  editTaskForm.appendChild(taskDescriptionLabel);
+  editTaskForm.appendChild(taskDescription);
+  editTaskForm.appendChild(taskDueDateLabel);
+  editTaskForm.appendChild(taskDueDate);
+  editTaskForm.appendChild(taskPriorityLabel);
+  editTaskForm.appendChild(taskPriority);
+  editTaskForm.appendChild(taskAssociatedProjectLabel);
+  editTaskForm.appendChild(taskAssociatedProject);
+  editTaskForm.appendChild(buttonsDiv);
+  editTaskForm.appendChild(requiredNote);
+  buttonsDiv.appendChild(editTaskSubmitButton);
+  buttonsDiv.appendChild(cancelButton());
+  editTaskFormContainer.appendChild(editTaskFormHeading);
+  editTaskFormContainer.appendChild(editTaskForm);
+  detailArea.appendChild(editTaskFormContainer);
+  // event listener for when form is submitted
+  editTaskSubmitButton.addEventListener("click", function(){
+    const tTitle = document.getElementById('ttitle').value;
+    // If title is blank
+    if (tTitle == '') {
+      // alert user
+      alert('please fill out the title!');
+    // If title is filled in
+    } else {
+      // save input values as variables
+      // save description
+      const tDescription = document.getElementById('tdescription').value;
+      // save due date
+      let tDueDate = document.getElementById('tduedate').value;
+      // if due date is blank, update to No due date
+      if (tDueDate == '') {
+        tDueDate = String('No due date');
+      // otherwise convert it to nicer format
+      } else {
+        tDueDate = (new Date(tDueDate)).toDateString();
+      };
+      // save priority
+      const tPriority = document.getElementById('tpriority').value;
+      // save associated project which is the UUID
+      const tAssociatedProject = document.getElementById('tassociatedproject').value;
+
+
+      task.tTitle = tTitle;
+      task.tDescription = tDescription;
+      task.tAssociatedProject = tAssociatedProject;
+      task.tDueDate = tDueDate;
+      task.tPriority = tPriority;
+
+      editTaskForm.reset();
+      editTaskFormContainer.remove();
+      // const overlay = document.getElementById('overlay');
+      // overlay.style.visibility = 'hidden';
+    };
+    });
+
+  return editTaskFormContainer;
+}
+
+// END EDIT TASK FORM
+
+
+
+
+export { npform, ntform, editTaskForm };

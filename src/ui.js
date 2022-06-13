@@ -5,7 +5,7 @@ import { deleteTask } from "./projectmanager.js";
 import Trash from './images/trash-2.svg';
 import Plus from './images/plus-circle-black.svg';
 import Edit from './images/edit.svg';
-
+import Magnify from './images/zoom-in.svg';
 // import PlusRed from './images/plus-circle.red.svg';
 
 const main = document.getElementById('main');
@@ -138,6 +138,19 @@ function createTaskRow(task) {
     deleteTask(task);
   });
 
+    // Magnifying icon
+    const myMagnify = new Image();
+    myMagnify.src = Magnify;
+    myMagnify.classList.add('icon');
+    myMagnify.classList.add('taskrowgriditem');
+    let taskMagnify = document.createElement('div');
+    taskMagnify.classList.add('taskrowedit');
+    taskMagnify.appendChild(myMagnify);
+    taskMagnify.addEventListener('click', function() {
+      console.log('Magnify was clicked');
+      taskDetailArea.classList.remove('hidden');
+    });
+
   // Edit icon
   const myEdit = new Image();
   myEdit.src = Edit;
@@ -221,6 +234,7 @@ function createTaskRow(task) {
   taskRow.appendChild(taskItemGrid);
   taskItemGrid.appendChild(taskTitleDisplay);
   taskItemGrid.appendChild(taskDueDateDisplay);
+  taskItemGrid.appendChild(taskMagnify);
   taskItemGrid.appendChild(taskEdit);
   taskItemGrid.appendChild(taskDelete);
   taskBox.appendChild(taskDetailArea);
