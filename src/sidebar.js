@@ -3,8 +3,8 @@ import { ntform } from './forms.js';
 import { projectArray } from './projectmanager.js';
 import { v4 as uuidv4 } from 'uuid';
 import { displayOneProject } from './ui.js';
-import { pickRandomTask } from './ui.js'
-import { displayARandomTask } from './ui.js'
+// import { pickRandomTask } from './ui.js'
+// import { displayARandomTask } from './ui.js'
 import { removeChildElements } from './ui.js'
 
 
@@ -47,16 +47,15 @@ function sidebar() {
   dueToday.id = 'duetodaynav';
   dueToday.textContent = "Due Today";
 
-  const randomTask = document.createElement('a');
-  randomTask.classList.add('navlink');
-  randomTask.classList.add('shortcutnavlink');
-  randomTask.id = 'randomtask';
-  randomTask.textContent = "Random Task";
+  // const randomTask = document.createElement('a');
+  // randomTask.classList.add('navlink');
+  // randomTask.classList.add('shortcutnavlink');
+  // randomTask.id = 'randomtask';
+  // randomTask.textContent = "Random Task";
 
-  randomTask.addEventListener('click', function() {
-    // displayRandomTask();
-    displayARandomTask();
-  });
+  // randomTask.addEventListener('click', function() {
+  //   displayARandomTask();
+  // });
 
   // PROJECTS SECTION
   const projectsDiv = document.createElement('div');
@@ -102,7 +101,7 @@ function sidebar() {
   shortcutsDiv.appendChild(addNewTask);
   shortcutsDiv.appendChild(home);
   shortcutsDiv.appendChild(dueToday);
-  shortcutsDiv.appendChild(randomTask);
+  // shortcutsDiv.appendChild(randomTask);
   projectsDiv.appendChild(projects);
   projectsDiv.appendChild(addNewProject);
   projectsDiv.appendChild(projectNavLinkSection);

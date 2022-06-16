@@ -310,11 +310,16 @@ box-shadow: none;
   display: none;
 }
 
-.taskdetailarea {
+.taskdetailarea, .edittaskformarea {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   background-color:rgb(231, 184, 184);
   padding-left: 28px;
   width: 80%;
   box-sizing: border-box;
+  padding:10px;
   /* margin-top: -30px; */
 }
 
@@ -405,3 +410,7 @@ box-shadow: none;
   color: var(--p4-color)
 }
 
+.maintaskbox {
+  display:flex;
+  flex-direction:column;
+}

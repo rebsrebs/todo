@@ -288,15 +288,14 @@ function ntform(project) {
 // EDIT TASK FORM
 function editTaskForm(task) {
 
-  console.log(`Running the edit task form function and the current projectArray is ${projectArray}`);
+  console.log('Running the edit task form function');
 
   // Get task box container
   const uniqueID = task.tBoxID;
-  const detailArea = getElementById(`detailarea-${uniqueID}`);
 
   // Edit Task Form Container Div
-  const editTaskFormContainer = document.createElement('div');
-  editTaskFormContainer.classList.add('formcontainer');
+  let editTaskFormContainer = document.createElement('div');
+  editTaskFormContainer.id = (`edittaskformcontainer-${uniqueID}`);
   // Header Title
   const editTaskFormHeading = document.createElement('h4');
   editTaskFormHeading.textContent = 'Edit Task:'
@@ -305,6 +304,7 @@ function editTaskForm(task) {
   const editTaskForm = document.createElement('form');
   editTaskForm.classList.add('taskform');
   editTaskForm.classList.add('form');
+  editTaskForm.Id = `edittaskform-${uniqueID}`;
   // create task title label
   const taskTitleLabel = document.createElement('label');
   taskTitleLabel.classList.add('formlabel');
@@ -378,18 +378,18 @@ function editTaskForm(task) {
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "tassociatedproject");
   taskAssociatedProject.setAttribute("name", "tassociatedproject");
-  for (var i = 0; i < projectArray.length; i++) {
-    var currentOption = document.createElement('option');
-    currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
-    currentOption.textContent = projectArray[i].pTitle;
-    currentOption.id = `option-${i}`;
+  // for (var i = 0; i < projectArray.length; i++) {
+  //   var currentOption = document.createElement('option');
+  //   currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
+  //   currentOption.textContent = projectArray[i].pTitle;
+  //   currentOption.id = `option-${i}`;
     // if the currentOption is the same as passed project, make it preselected
-    if (projectArray[i].projectUUID == project.projectUUID) {
-      console.log('this is the project');
-      currentOption.setAttribute("selected", "selected");
-    };
-    taskAssociatedProject.appendChild(currentOption);
-  }
+  //   if (projectArray[i].projectUUID == project.projectUUID) {
+  //     console.log('this is the project');
+  //     currentOption.setAttribute("selected", "selected");
+  //   };
+  //   taskAssociatedProject.appendChild(currentOption);
+  // }
   // submit button
   const editTaskSubmitButton = document.createElement('button');
   editTaskSubmitButton.classList.add('savebutton');
@@ -403,6 +403,7 @@ function editTaskForm(task) {
   requiredNote.classList.add('requirednote');
   requiredNote.textContent = '* = required';
   // put it together
+  editTaskFormContainer.appendChild(editTaskFormHeading);
   editTaskForm.appendChild(taskTitleLabel);
   editTaskForm.appendChild(taskTitle);
   editTaskForm.appendChild(taskDescriptionLabel);
@@ -417,9 +418,9 @@ function editTaskForm(task) {
   editTaskForm.appendChild(requiredNote);
   buttonsDiv.appendChild(editTaskSubmitButton);
   buttonsDiv.appendChild(cancelButton());
-  editTaskFormContainer.appendChild(editTaskFormHeading);
   editTaskFormContainer.appendChild(editTaskForm);
-  detailArea.appendChild(editTaskFormContainer);
+  
+  // taskBox.appendChild(editTaskFormContainer);
   // event listener for when form is submitted
   editTaskSubmitButton.addEventListener("click", function(){
     const tTitle = document.getElementById('ttitle').value;
@@ -446,15 +447,24 @@ function editTaskForm(task) {
       // save associated project which is the UUID
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
 
-
+      // Update Task Data
       task.tTitle = tTitle;
       task.tDescription = tDescription;
       task.tAssociatedProject = tAssociatedProject;
       task.tDueDate = tDueDate;
       task.tPriority = tPriority;
 
+      // Update Task Row Display
+      let taskRowTitle = document.getElementById(`taskrowtitle-${uniqueID}`);
+      taskRowTitle.textContent = tTitle;
+      let taskRowDueDate = document.getElementById(`taskrowduedate-${uniqueID}`);
+      taskRowDueDate = tDueDate;
+      // still need to update priority color
+
       editTaskForm.reset();
-      editTaskFormContainer.remove();
+      // editTaskForm.remove();
+      // const detailArea = document.getElementById(`detailarea-${uniqueID}`);
+      // detailArea.classList.remove('hidden');
       // const overlay = document.getElementById('overlay');
       // overlay.style.visibility = 'hidden';
     };

@@ -2,6 +2,7 @@ import { allTasksArray } from "./projectmanager";
 import { v4 as uuidv4 } from 'uuid';
 import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
+import { editTaskForm } from "./forms";
 import Trash from './images/trash-2.svg';
 import Plus from './images/plus-circle-black.svg';
 import Edit from './images/edit.svg';
@@ -33,34 +34,44 @@ function mainProjectLayout() {
   main.appendChild(mainDescription);
   main.appendChild(mainTaskArea);
 }
+// END MAIN PROJECT LAYOUT
 
 // FILL MAIN HEADER
 function fillMainHeader(text) {
   const mainHeader = document.querySelector('.mainheader');
   mainHeader.textContent = text;
 }
+// END FILL MAIN HEADER
 
 // FILL DESCRIPTION
 function fillMainDescription(text) {
   const mainDescription = document.querySelector('.maindescription');
   mainDescription.textContent = text;
 }
+// END FILL DESCRIPTION
+
+// DISPLAY TASK IN MAIN AREA
+function displayTask(task) {
+  // get main area
+  const mainTaskArea = document.querySelector('.maintaskarea');
+  // create task box
+  const taskBox = document.createElement('div');
+  taskBox.classList.add('maintaskbox');
+  console.log(task.taskUUID);
+  taskBox.id = `taskbox-${task.taskUUID}`;
+  // put task row inside task box
+  taskBox.appendChild(createTaskRow(task));
+  // put task detail area inside task box
+  taskBox.appendChild(createTaskDetailArea(task));
+  // put edit task form area inside task box
+  taskBox.appendChild(createEditTaskFormArea(task));
+  // put task box in main task area
+  mainTaskArea.appendChild(taskBox);
+}
 
 // MAKE A TASK ROW
 function createTaskRow(task) {
-
-  const mainTaskArea = document.querySelector('.maintaskarea');
-
-  // task box
-  const taskBox = document.createElement('div');
-  taskBox.classList.add('maintaskbox');
-  const uniqueID = uuidv4();
-  taskBox.id = `taskbox-${uniqueID}`;
-  task.tBoxID = uniqueID;
-  console.log(task.tBoxID);
-  
-
-  // task rows
+  // create task row
   const taskRow = document.createElement('div');
   taskRow.classList.add('maintaskrow');
 
@@ -80,17 +91,17 @@ function createTaskRow(task) {
         break;
   }
 
-  // task checkbox div
+  // create task checkbox div inside task row
   let taskCheckBoxDiv = document.createElement('div');
   taskCheckBoxDiv.classList.add('taskcheckboxdiv');
   // task checkbox label
   let taskCheckBoxLabel = document.createElement('label');
-  taskCheckBoxLabel.setAttribute("for", `checkbox-${uniqueID}`);
+  taskCheckBoxLabel.setAttribute("for", `checkbox-${task.taskUUID}`);
   taskCheckBoxLabel.classList.add('taskcheckboxlabel');
   // taskcheckbox
   let taskCheckBox = document.createElement('input');
   taskCheckBox.setAttribute("type", "checkbox");
-  taskCheckBox.id=`checkbox-${uniqueID}`;
+  taskCheckBox.id=`checkbox-${task.taskUUID}`;
   taskCheckBox.classList.add('taskcheckbox');
 
   taskCheckBox.addEventListener('change', function() {
@@ -111,19 +122,19 @@ function createTaskRow(task) {
   let taskItemGrid = document.createElement('div');
   taskItemGrid.classList.add('taskitemgrid');
 
-
   // task title
-  let taskTitleDisplay = document.createElement('div');
+  let taskTitleDisplay = document.createElement('p');
   taskTitleDisplay.classList.add('taskrowgriditem')
   taskTitleDisplay.classList.add('taskrowtitle')
+  taskTitleDisplay.id = `taskrowtitle-${task.taskUUID}`;
   taskTitleDisplay.textContent = task.tTitle;
 
   // task due date
-  let taskDueDateDisplay = document.createElement('div');
+  let taskDueDateDisplay = document.createElement('p');
   taskDueDateDisplay.classList.add('taskrowgriditem')
   taskDueDateDisplay.classList.add('taskrowduedate')
+  taskDueDateDisplay.id = `taskrowduedate-${task.taskUUID}`;
   taskDueDateDisplay.textContent = task.tDueDate;
-
 
   // Delete icon
   const myTrash = new Image();
@@ -138,18 +149,18 @@ function createTaskRow(task) {
     deleteTask(task);
   });
 
-    // Magnifying icon
-    const myMagnify = new Image();
-    myMagnify.src = Magnify;
-    myMagnify.classList.add('icon');
-    myMagnify.classList.add('taskrowgriditem');
-    let taskMagnify = document.createElement('div');
-    taskMagnify.classList.add('taskrowedit');
-    taskMagnify.appendChild(myMagnify);
-    taskMagnify.addEventListener('click', function() {
-      console.log('Magnify was clicked');
-      taskDetailArea.classList.remove('hidden');
-    });
+  // Magnifying icon
+  const myMagnify = new Image();
+  myMagnify.src = Magnify;
+  myMagnify.classList.add('icon');
+  myMagnify.classList.add('taskrowgriditem');
+  let taskMagnify = document.createElement('div');
+  taskMagnify.classList.add('taskrowedit');
+  taskMagnify.appendChild(myMagnify);
+  taskMagnify.addEventListener('click', function() {
+    console.log('Magnify was clicked');
+    taskDetailArea.classList.remove('hidden');
+  });
 
   // Edit icon
   const myEdit = new Image();
@@ -161,14 +172,31 @@ function createTaskRow(task) {
   taskEdit.appendChild(myEdit);
   taskEdit.addEventListener('click', function() {
     console.log('Edit was clicked');
-    taskDetailArea.classList.remove('hidden');
+    taskEditFormContainer.classList.remove('hidden');
   });
 
+  // put the row together
+  taskRow.appendChild(taskCheckBoxDiv);
+  taskCheckBoxDiv.appendChild(taskCheckBoxLabel);
+  taskCheckBoxLabel.appendChild(taskCheckBox);
+  taskRow.appendChild(taskItemGrid);
+  taskItemGrid.appendChild(taskTitleDisplay);
+  taskItemGrid.appendChild(taskDueDateDisplay);
+  taskItemGrid.appendChild(taskMagnify);
+  taskItemGrid.appendChild(taskEdit);
+  taskItemGrid.appendChild(taskDelete);
+
+return taskRow;
+}
+// END MAKE A TASK ROW
+
+// CREATE TASK DETAIL AREA
+function createTaskDetailArea(task) {
   // Detail Area - starts out hidden
   let taskDetailArea = document.createElement('div');
   taskDetailArea.classList.add('taskdetailarea');
-  taskDetailArea.classList.add('hidden');
-  taskDetailArea.id = `detailarea-${uniqueID}`;
+  // taskDetailArea.classList.add('hidden');
+  taskDetailArea.id = `detailarea-${task.taskUUID}`;
   // Title Row
   let detailTitle = document.createElement('h4');
   detailTitle.classList.add('detailtitle');
@@ -205,12 +233,24 @@ function createTaskRow(task) {
   detailProject.classList.add('detailvalue');
   detailProject.textContent = task.tAssociatedProject.pTitle;
   // Button row
-  let taskDetailSave = document.createElement('button');
-  taskDetailSave.classList.add('taskdetailbutton');
-  taskDetailSave.textContent = 'Save';
-  let taskDetailCancel = document.createElement('button');
-  taskDetailCancel.classList.add('taskdetailbutton');
-  taskDetailCancel.textContent = 'Cancel';
+  let taskDetailEdit = document.createElement('button');
+  taskDetailEdit.classList.add('taskdetailbutton');
+  taskDetailEdit.textContent = 'Edit';
+  let taskDetailClose = document.createElement('button');
+  taskDetailClose.classList.add('taskdetailbutton');
+  taskDetailClose.textContent = 'Close';
+  // event listeners
+      // event listener for edit button
+      taskDetailEdit.addEventListener('click', function() {
+        console.log('Task detail edit button was clicked');
+        taskDetailArea.classList.add('hidden');
+        taskBox.appendChild(editTaskForm(task));
+      });
+    
+      // event listener for cancel button
+      taskDetailClose.addEventListener('click', function() {
+        taskDetailArea.classList.add('hidden');
+      });
   // put detail area together
   taskDetailArea.appendChild(detailTitle);
   taskDetailArea.appendChild(taskDetailGrid);
@@ -222,53 +262,24 @@ function createTaskRow(task) {
   taskDetailGrid.appendChild(detailPriority);
   taskDetailGrid.appendChild(detailProjectLabel);
   taskDetailGrid.appendChild(detailProject);
-  taskDetailGrid.appendChild(taskDetailSave);
-  taskDetailGrid.appendChild(taskDetailCancel);
+  taskDetailGrid.appendChild(taskDetailEdit);
+  taskDetailGrid.appendChild(taskDetailClose);
 
-  // put it together
-  mainTaskArea.appendChild(taskBox);
-  taskBox.appendChild(taskRow);
-  taskRow.appendChild(taskCheckBoxDiv);
-  taskCheckBoxDiv.appendChild(taskCheckBoxLabel);
-  taskCheckBoxLabel.appendChild(taskCheckBox);
-  taskRow.appendChild(taskItemGrid);
-  taskItemGrid.appendChild(taskTitleDisplay);
-  taskItemGrid.appendChild(taskDueDateDisplay);
-  taskItemGrid.appendChild(taskMagnify);
-  taskItemGrid.appendChild(taskEdit);
-  taskItemGrid.appendChild(taskDelete);
-  taskBox.appendChild(taskDetailArea);
-
-  // event listener for cancel button
-  taskDetailCancel.addEventListener('click', function() {
-    taskDetailArea.classList.add('hidden');
-  });
+  return taskDetailArea;
 }
 
-//END TASK DETAIL
-
-// RANDOM TASK
-function pickRandomTask() {
-  // set min and max as lowest and highest index numbers
-  var min = 0;
-  var max = allTasksArray.length-1;
-  min = Math.ceil(min);
-  max = Math.floor(max)
-  const randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
-  // generate random index number
-  console.log(allTasksArray[randomIndex]);
-  return randomIndex;
+function createEditTaskFormArea(task) {
+  let editTaskFormArea = document.createElement('div');
+  editTaskFormArea.classList.add('edittaskformarea');
+  editTaskFormArea.id = `edittaskformarea-${task.taskUUID}`;
+  editTaskFormArea.textContent = 'placeholder text';
+  return editTaskFormArea;
 }
 
-function displayARandomTask() {
-  removeChildElements(main);
-  // pick random task from allTasksArray
-  let randomIndex = pickRandomTask();
-  // create header for main area
-  fillMainHeader('Random Task');
-  // create row for random task
-  createTaskRow(allTasksArray[randomIndex]);
-}
+
+
+
+
 
 
 // DISPLAY A PROJECT IN MAIN AREA
@@ -287,7 +298,7 @@ function displayOneProject(project){
   // loop over this project's task array
   // for (var i = 0; i < projectArray[index].taskArray.length; i++) {
   for (var i = 0; i < project.taskArray.length; i++) {
-    createTaskRow(project.taskArray[i]);
+    displayTask(project.taskArray[i]);
   }
 
   // add row with an add task button that saves task to this project
@@ -329,10 +340,41 @@ function displayOneProject(project){
 
 function displayTaskDetails(task){
   // add a row to the row task?
+  // get id of task row
+  // get id of task
   // or it should already have one but it's hidden!
+  // there could be one to create task details
+  // then use a utility function to show or hide element by id
 }
 
 
 
 
-export { mainProjectLayout, removeChildElements, displayOneProject, pickRandomTask, displayARandomTask, main };
+
+// FOR LATER
+// RANDOM TASK
+// function pickRandomTask() {
+//   // set min and max as lowest and highest index numbers
+//   var min = 0;
+//   var max = allTasksArray.length-1;
+//   min = Math.ceil(min);
+//   max = Math.floor(max)
+//   const randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
+//   // generate random index number
+//   console.log(allTasksArray[randomIndex]);
+//   return randomIndex;
+// }
+
+// function displayARandomTask() {
+//   removeChildElements(main);
+//   // pick random task from allTasksArray
+//   let randomIndex = pickRandomTask();
+//   // create header for main area
+//   fillMainHeader('Random Task');
+//   // create row for random task
+//   createTaskRow(allTasksArray[randomIndex]);
+// }
+
+
+
+export { mainProjectLayout, removeChildElements, displayOneProject, main };
