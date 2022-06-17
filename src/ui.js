@@ -279,7 +279,9 @@ function createTaskDetailArea(task) {
     
       // event listener for cancel button
       taskDetailClose.addEventListener('click', function() {
-        taskDetailArea.classList.add('hidden');
+        console.log('task detail close button was clicked');
+        removeChildElements(taskDetailArea);
+        taskDetailArea.classList.add('visuallyhidden');
       });
   // put detail area together
   taskDetailArea.appendChild(taskDetailHeading);
