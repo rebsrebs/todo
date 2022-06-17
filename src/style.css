@@ -323,10 +323,10 @@ box-shadow: none;
   /* margin-top: -30px; */
 }
 
-.detailtitle {
+/* .detailtitle {
   padding: 0px;
   margin: 0px 0px 10px 0px;
-}
+} */
 
 .taskdetailgrid {
   display: grid;
@@ -413,4 +413,21 @@ box-shadow: none;
 .maintaskbox {
   display:flex;
   flex-direction:column;
+}
+
+.edittaskformarea {
+  background-color:green;
+}
+
+.visuallyhidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

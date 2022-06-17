@@ -16,8 +16,6 @@ function removeChildElements(parent) {
      parent.firstChild.remove()
   }
 }
-
-
 // LAYOUT OF MAIN AREA
 
 // LAYOUT PROJECT AREA
@@ -57,17 +55,26 @@ function displayTask(task) {
   // create task box
   const taskBox = document.createElement('div');
   taskBox.classList.add('maintaskbox');
-  console.log(task.taskUUID);
+  console.log(`The task ID is ${task.taskUUID}`);
   taskBox.id = `taskbox-${task.taskUUID}`;
-  // put task row inside task box
-  taskBox.appendChild(createTaskRow(task));
-  // put task detail area inside task box
-  taskBox.appendChild(createTaskDetailArea(task));
-  // put edit task form area inside task box
-  taskBox.appendChild(createEditTaskFormArea(task));
   // put task box in main task area
   mainTaskArea.appendChild(taskBox);
+  // create task row
+  taskBox.appendChild(createTaskRow(task));
+  // create detail row, append, and hide it
+  const taskDetailRow = document.createElement('div');
+  taskBox.appendChild(taskDetailRow);
+  taskDetailRow.id = `taskdetailrow-${task.taskUUID}`;
+  taskDetailRow.classList.add('visuallyhidden');
+  taskDetailRow.textContent = 'task detail row test';
+  // create edit row, append, and hide it
+  const taskEditRow = document.createElement('div');
+  taskBox.appendChild(taskEditRow);
+  taskEditRow.id = `taskeditrow-${task.taskUUID}`; 
+  taskEditRow.classList.add('visuallyhidden');
+  taskEditRow.textContent = 'task edit row test';
 }
+// END DISPLAY TASK IN MAIN AREA
 
 // MAKE A TASK ROW
 function createTaskRow(task) {
@@ -155,12 +162,9 @@ function createTaskRow(task) {
   myMagnify.classList.add('icon');
   myMagnify.classList.add('taskrowgriditem');
   let taskMagnify = document.createElement('div');
-  taskMagnify.classList.add('taskrowedit');
+  taskMagnify.classList.add('taskrowmagnifyicon');
   taskMagnify.appendChild(myMagnify);
-  taskMagnify.addEventListener('click', function() {
-    console.log('Magnify was clicked');
-    taskDetailArea.classList.remove('hidden');
-  });
+  console.log(`task id is ${task.taskUUID}`);
 
   // Edit icon
   const myEdit = new Image();
@@ -168,13 +172,9 @@ function createTaskRow(task) {
   myEdit.classList.add('icon');
   myEdit.classList.add('taskrowgriditem');
   let taskEdit = document.createElement('div');
-  taskEdit.classList.add('taskrowedit');
+  taskEdit.classList.add('taskrowediticon');
   taskEdit.appendChild(myEdit);
-  taskEdit.addEventListener('click', function() {
-    console.log('Edit was clicked');
-    taskEditFormContainer.classList.remove('hidden');
-  });
-
+  
   // put the row together
   taskRow.appendChild(taskCheckBoxDiv);
   taskCheckBoxDiv.appendChild(taskCheckBoxLabel);
@@ -185,6 +185,35 @@ function createTaskRow(task) {
   taskItemGrid.appendChild(taskMagnify);
   taskItemGrid.appendChild(taskEdit);
   taskItemGrid.appendChild(taskDelete);
+
+  // const theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`)
+  // console.log(`the task detail row id is ${theTaskDetailRow.id}`);
+  // const theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+  // console.log(`the task edit row id is ${theTaskEditRow.id}`);
+
+  // EVENT LISTENER - when you click magnify icon in task row to see details
+  taskMagnify.addEventListener('click', function() {
+    console.log('Magnify was clicked');
+    console.log(`task id is ${task.taskUUID}`);
+    let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+    theTaskEditRow.classList.add('visuallyhidden');
+    let theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`);
+    theTaskDetailRow.classList.remove('visuallyhidden');
+    // console.log(`the task edit row id is ${theTaskEditRow.id}`);
+    // console.log(`the task detail row id is ${theTaskDetailRow.id}`);
+  });
+  
+  // EVENT LISTENER - when you click edit icon in task row
+  taskEdit.addEventListener('click', function() {
+    console.log('Edit was clicked');
+    console.log(`task id is ${task.taskUUID}`);
+    let theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`);
+    theTaskDetailRow.classList.add('visuallyhidden');
+    let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+    theTaskEditRow.classList.remove('visuallyhidden');
+    // console.log(`the task edit row id is ${theTaskEditRow.id}`);
+    // console.log(`the task detail row id is ${theTaskDetailRow.id}`);
+  });
 
 return taskRow;
 }
@@ -197,13 +226,16 @@ function createTaskDetailArea(task) {
   taskDetailArea.classList.add('taskdetailarea');
   // taskDetailArea.classList.add('hidden');
   taskDetailArea.id = `detailarea-${task.taskUUID}`;
-  // Title Row
-  let detailTitle = document.createElement('h4');
-  detailTitle.classList.add('detailtitle');
-  detailTitle.textContent = task.tTitle;
   // Task Detail Grid
   let taskDetailGrid = document.createElement('div');
   taskDetailGrid.classList.add('taskdetailgrid');
+  // Title Row
+  let detailTitleLabel = document.createElement('p');
+  detailTitleLabel.classList.add('detaillabel');
+  detailTitleLabel.textContent = 'Title:';
+  let detailTitle = document.createElement('p');
+  detailTitle.classList.add('detailvalue');
+  detailTitle.textContent = task.tTitle;
   // Date Row
   let detailDateLabel = document.createElement('p');
   detailDateLabel.classList.add('detaillabel');
@@ -252,8 +284,9 @@ function createTaskDetailArea(task) {
         taskDetailArea.classList.add('hidden');
       });
   // put detail area together
-  taskDetailArea.appendChild(detailTitle);
   taskDetailArea.appendChild(taskDetailGrid);
+  taskDetailGrid.appendChild(detailTitleLabel);
+  taskDetailGrid.appendChild(detailTitle);
   taskDetailGrid.appendChild(detailDateLabel);
   taskDetailGrid.appendChild(detailDate);
   taskDetailGrid.appendChild(detailDescriptionLabel);
@@ -271,8 +304,9 @@ function createTaskDetailArea(task) {
 function createEditTaskFormArea(task) {
   let editTaskFormArea = document.createElement('div');
   editTaskFormArea.classList.add('edittaskformarea');
+  editTaskFormArea.classList.add('hidden');
   editTaskFormArea.id = `edittaskformarea-${task.taskUUID}`;
-  editTaskFormArea.textContent = 'placeholder text';
+  editTaskFormArea.appendChild(editTaskForm(task));
   return editTaskFormArea;
 }
 
