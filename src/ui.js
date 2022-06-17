@@ -71,7 +71,6 @@ function displayTask(task) {
   taskBox.appendChild(taskEditRow);
   taskEditRow.id = `taskeditrow-${task.taskUUID}`; 
   taskEditRow.classList.add('visuallyhidden');
-  taskEditRow.textContent = 'task edit row test';
 }
 // END DISPLAY TASK IN MAIN AREA
 

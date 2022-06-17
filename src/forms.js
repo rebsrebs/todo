@@ -290,12 +290,9 @@ function editTaskForm(task) {
 
   console.log('Running the edit task form function');
 
-  // Get task box container
-  const uniqueID = task.tBoxID;
-
   // Edit Task Form Container Div
   let editTaskFormContainer = document.createElement('div');
-  editTaskFormContainer.id = (`edittaskformcontainer-${uniqueID}`);
+  editTaskFormContainer.id = (`edittaskformcontainer-${task.taskUUID}`);
   // Header Title
   const editTaskFormHeading = document.createElement('h4');
   editTaskFormHeading.textContent = 'Edit Task:'
@@ -303,8 +300,9 @@ function editTaskForm(task) {
   // Edit Task Form
   const editTaskForm = document.createElement('form');
   editTaskForm.classList.add('taskform');
+  editTaskForm.classList.add('edittaskform');
   editTaskForm.classList.add('form');
-  editTaskForm.Id = `edittaskform-${uniqueID}`;
+  editTaskForm.Id = `edittaskform-${task.taskUUID}`;
   // create task title label
   const taskTitleLabel = document.createElement('label');
   taskTitleLabel.classList.add('formlabel');
