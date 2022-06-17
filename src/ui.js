@@ -273,11 +273,16 @@ function createTaskDetailArea(task) {
       // event listener for edit button
       taskDetailEdit.addEventListener('click', function() {
         console.log('Task detail edit button was clicked');
-        taskDetailArea.classList.add('hidden');
-        taskBox.appendChild(editTaskForm(task));
+        let theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`);
+        removeChildElements(theTaskDetailRow);
+        theTaskDetailRow.classList.add('visuallyhidden');
+        let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+        removeChildElements(theTaskEditRow);
+        theTaskEditRow.classList.remove('visuallyhidden');
+        theTaskEditRow.appendChild(editTaskForm(task));
       });
     
-      // event listener for cancel button
+      // event listener for close button
       taskDetailClose.addEventListener('click', function() {
         console.log('task detail close button was clicked');
         removeChildElements(taskDetailArea);
