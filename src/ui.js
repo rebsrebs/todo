@@ -201,7 +201,7 @@ function createTaskRow(task) {
     removeChildElements(theTaskDetailRow);
     theTaskDetailRow.classList.add('visuallyhidden');
     let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
-    removeChildElements(theTaskDetailRow);
+    removeChildElements(theTaskEditRow);
     theTaskEditRow.classList.remove('visuallyhidden');
     theTaskEditRow.appendChild(editTaskForm(task));
   });
@@ -217,6 +217,10 @@ function createTaskDetailArea(task) {
   taskDetailArea.classList.add('taskdetailarea');
   // taskDetailArea.classList.add('hidden');
   taskDetailArea.id = `detailarea-${task.taskUUID}`;
+  // create heading
+  const taskDetailHeading = document.createElement('h4');
+  taskDetailHeading.textContent = 'Task Details:'
+  taskDetailHeading.classList.add('formheading');
   // Task Detail Grid
   let taskDetailGrid = document.createElement('div');
   taskDetailGrid.classList.add('taskdetailgrid');
@@ -227,13 +231,6 @@ function createTaskDetailArea(task) {
   let detailTitle = document.createElement('p');
   detailTitle.classList.add('detailvalue');
   detailTitle.textContent = task.tTitle;
-  // Date Row
-  let detailDateLabel = document.createElement('p');
-  detailDateLabel.classList.add('detaillabel');
-  detailDateLabel.textContent = 'Due Date:';
-  let detailDate = document.createElement('p');
-  detailDate.classList.add('detailvalue');
-  detailDate.textContent = task.tDueDate;
   // Description Row
   let detailDescriptionLabel = document.createElement('p');
   detailDescriptionLabel.classList.add('detaillabel');
@@ -241,6 +238,13 @@ function createTaskDetailArea(task) {
   let detailDescription = document.createElement('p');
   detailDescription.classList.add('detailvalue');
   detailDescription.textContent = task.tDescription;
+  // Date Row
+  let detailDateLabel = document.createElement('p');
+  detailDateLabel.classList.add('detaillabel');
+  detailDateLabel.textContent = 'Due Date:';
+  let detailDate = document.createElement('p');
+  detailDate.classList.add('detailvalue');
+  detailDate.textContent = task.tDueDate;
   // Priority Row
   let detailPriorityLabel = document.createElement('p');
   detailPriorityLabel.classList.add('detaillabel');
@@ -256,6 +260,9 @@ function createTaskDetailArea(task) {
   detailProject.classList.add('detailvalue');
   detailProject.textContent = task.tAssociatedProject.pTitle;
   // Button row
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('buttons');
+  // Buttons
   let taskDetailEdit = document.createElement('button');
   taskDetailEdit.classList.add('taskdetailbutton');
   taskDetailEdit.textContent = 'Edit';
@@ -275,40 +282,26 @@ function createTaskDetailArea(task) {
         taskDetailArea.classList.add('hidden');
       });
   // put detail area together
+  taskDetailArea.appendChild(taskDetailHeading);
   taskDetailArea.appendChild(taskDetailGrid);
   taskDetailGrid.appendChild(detailTitleLabel);
   taskDetailGrid.appendChild(detailTitle);
-  taskDetailGrid.appendChild(detailDateLabel);
-  taskDetailGrid.appendChild(detailDate);
   taskDetailGrid.appendChild(detailDescriptionLabel);
   taskDetailGrid.appendChild(detailDescription);
+  taskDetailGrid.appendChild(detailDateLabel);
+  taskDetailGrid.appendChild(detailDate);
   taskDetailGrid.appendChild(detailPriorityLabel);
   taskDetailGrid.appendChild(detailPriority);
   taskDetailGrid.appendChild(detailProjectLabel);
   taskDetailGrid.appendChild(detailProject);
-  taskDetailGrid.appendChild(taskDetailEdit);
-  taskDetailGrid.appendChild(taskDetailClose);
+  taskDetailGrid.appendChild(buttonsDiv);
+  buttonsDiv.appendChild(taskDetailEdit);
+  buttonsDiv.appendChild(taskDetailClose);
 
   return taskDetailArea;
 }
 
-function createEditTaskFormArea(task) {
-  let editTaskFormArea = document.createElement('div');
-  editTaskFormArea.classList.add('edittaskformarea');
-  editTaskFormArea.classList.add('hidden');
-  editTaskFormArea.id = `edittaskformarea-${task.taskUUID}`;
-  editTaskFormArea.appendChild(editTaskForm(task));
-  return editTaskFormArea;
-}
-
-
-
-
-
-
-
 // DISPLAY A PROJECT IN MAIN AREA
-
 function displayOneProject(project){
 
   mainProjectLayout();

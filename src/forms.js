@@ -293,13 +293,14 @@ function editTaskForm(task) {
   // Edit Task Form Container Div
   let editTaskFormContainer = document.createElement('div');
   editTaskFormContainer.id = (`edittaskformcontainer-${task.taskUUID}`);
+  editTaskFormContainer.classList.add('edittaskformcontainer');
   // Header Title
   const editTaskFormHeading = document.createElement('h4');
   editTaskFormHeading.textContent = 'Edit Task:'
   editTaskFormHeading.classList.add('formheading');
   // Edit Task Form
   const editTaskForm = document.createElement('form');
-  editTaskForm.classList.add('taskform');
+  // editTaskForm.classList.add('taskform');
   editTaskForm.classList.add('edittaskform');
   editTaskForm.classList.add('form');
   editTaskForm.Id = `edittaskform-${task.taskUUID}`;
@@ -307,7 +308,7 @@ function editTaskForm(task) {
   const taskTitleLabel = document.createElement('label');
   taskTitleLabel.classList.add('formlabel');
   taskTitleLabel.setAttribute("for","ttitle");
-  taskTitleLabel.textContent = ('* Title');
+  taskTitleLabel.textContent = ('* Title:');
   // create input for project title
   const taskTitle = document.createElement('input');
   taskTitle.setAttribute("type", "text");
@@ -319,7 +320,7 @@ function editTaskForm(task) {
   const taskDescriptionLabel = document.createElement('label');
   taskDescriptionLabel.classList.add('formlabel');
   taskDescriptionLabel.setAttribute("for","tdescription");
-  taskDescriptionLabel.textContent = ('Description');
+  taskDescriptionLabel.textContent = ('Description:');
   // description input
   const taskDescription = document.createElement('textarea');
   taskDescription.setAttribute("type", "text");
@@ -330,7 +331,7 @@ function editTaskForm(task) {
   const taskDueDateLabel = document.createElement('label');
   taskDueDateLabel.classList.add('formlabel');
   taskDueDateLabel.setAttribute("for","tduedate");
-  taskDueDateLabel.textContent = ('Due Date');
+  taskDueDateLabel.textContent = ('Due Date:');
   // due date input
   const taskDueDate = document.createElement('input');
   taskDueDate.setAttribute("type", "date");
@@ -371,7 +372,7 @@ function editTaskForm(task) {
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
   taskAssociatedProjectLabel.setAttribute("for","tassociatedproject");
-  taskAssociatedProjectLabel.textContent = ('Save to Project:');
+  taskAssociatedProjectLabel.textContent = ('Project:');
   // associated project options
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "tassociatedproject");

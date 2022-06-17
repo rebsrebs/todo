@@ -126,8 +126,10 @@ body {
   accent-color: red;
 }
 
-.formlabel {
+.formlabel, .detaillabel {
   text-align: right;
+  margin-right: 10px;
+  color: rgb(86, 85, 85);
 }
 
 .buttons {
@@ -139,8 +141,9 @@ body {
 
 .requirednote {
   grid-column: 2 / 3;
-  grid-row: 6 / 7;
+  grid-row: 7 / 8;
   text-align: end;
+  margin: 0px;
 }
 
 .savebutton {
@@ -227,17 +230,18 @@ a:active {
   grid-template-rows: max-content;
 }
 
-input { width : 100%;
-border: 1px solid #333;
-box-sizing: border-box;
+input { 
+  width : 100%;
+  border: 1px solid #333;
+  box-sizing: border-box;
 }
 
 input:invalid {
-box-shadow: 0 0 5px 1px orange;
+  box-shadow: 0 0 5px 1px orange;
 }
 
 input:focus:invalid {
-box-shadow: none;
+  box-shadow: none;
 }
 
 /* TASK ROWS IN MAIN AREA */
@@ -310,7 +314,7 @@ box-shadow: none;
   display: none;
 }
 
-.taskdetailarea, .edittaskformarea {
+.taskdetailarea, .edittaskformcontainer {
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -328,26 +332,28 @@ box-shadow: none;
   margin: 0px 0px 10px 0px;
 } */
 
-.taskdetailgrid {
+.taskdetailgrid, .edittaskform {
   display: grid;
   padding: 0px;
   margin: 0px;
-  grid-template-columns: 13ch auto;
-  grid-template-rows: 20px 20px 20px 20px 20px;
+  grid-template-columns: 13ch 1fr;
+  grid-template-rows: 25px 25px 25px 25px 25px;
 }
 
 .detaillabel {
   padding: 0px;
-  margin: 0px;
+  margin-top: 0px;
+  margin-left: 0px;
   grid-column: 1 / 2;
 }
 
 .detailvalue {
+  margin-top: 0px;
   padding-left: 5px;
-  margin: 0px;
+  margin-left: 5px;
   grid-column: 2 / 3;
+  width: 100%;
 }
-
 
 .icon {
   height: 2ch;
