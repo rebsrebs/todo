@@ -1,4 +1,5 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
+import { removeChildElements } from './ui.js';
 
 function cancelButton() {
   const cancelButton = document.createElement('button');
@@ -394,6 +395,11 @@ function editTaskForm(task) {
   editTaskSubmitButton.classList.add('savebutton');
   editTaskSubmitButton.textContent = 'Save';
   editTaskSubmitButton.setAttribute("type", "button");
+  // edit task cancel button
+  const editTaskCancelButton = document.createElement('button');
+  editTaskCancelButton.classList.add('cancelbutton');
+  editTaskCancelButton.textContent = 'Cancel';
+  editTaskCancelButton.setAttribute("type", "button");
   // buttons div
   const buttonsDiv = document.createElement('div');
   buttonsDiv.classList.add('buttons');
@@ -416,9 +422,14 @@ function editTaskForm(task) {
   editTaskForm.appendChild(buttonsDiv);
   editTaskForm.appendChild(requiredNote);
   buttonsDiv.appendChild(editTaskSubmitButton);
-  buttonsDiv.appendChild(cancelButton());
+  buttonsDiv.appendChild(editTaskCancelButton);
   editTaskFormContainer.appendChild(editTaskForm);
-  
+  // event listener for when cancel is clicked
+  editTaskCancelButton.addEventListener("click", function(){
+    let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+    removeChildElements(theTaskEditRow);
+    editTaskForm.reset();
+  })
   // taskBox.appendChild(editTaskFormContainer);
   // event listener for when form is submitted
   editTaskSubmitButton.addEventListener("click", function(){
