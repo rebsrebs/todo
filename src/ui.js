@@ -149,7 +149,7 @@ function createTaskRow(task) {
   myTrash.classList.add('icon');
   myTrash.classList.add('taskrowgriditem');
   let taskDelete = document.createElement('div');
-  taskDelete.classList.add('taskrowtrash');
+  taskDelete.classList.add('taskrowicon');
   taskDelete.appendChild(myTrash);
   taskDelete.addEventListener('click', function() {
     console.log('X was clicked');
@@ -162,7 +162,7 @@ function createTaskRow(task) {
   myMagnify.classList.add('icon');
   myMagnify.classList.add('taskrowgriditem');
   let taskMagnify = document.createElement('div');
-  taskMagnify.classList.add('taskrowmagnifyicon');
+  taskMagnify.classList.add('taskrowicon');
   taskMagnify.appendChild(myMagnify);
   console.log(`task id is ${task.taskUUID}`);
 
@@ -172,7 +172,7 @@ function createTaskRow(task) {
   myEdit.classList.add('icon');
   myEdit.classList.add('taskrowgriditem');
   let taskEdit = document.createElement('div');
-  taskEdit.classList.add('taskrowediticon');
+  taskEdit.classList.add('taskrowicon');
   taskEdit.appendChild(myEdit);
   
   // put the row together

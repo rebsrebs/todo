@@ -269,7 +269,7 @@ box-shadow: none;
   color: var(--task-date-color);
 } */
 
-.taskrowtrash, .taskrowedit {
+.taskrowicon {
   align-self: center;
   justify-self: right;
   cursor: pointer;
