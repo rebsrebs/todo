@@ -66,7 +66,6 @@ function displayTask(task) {
   taskBox.appendChild(taskDetailRow);
   taskDetailRow.id = `taskdetailrow-${task.taskUUID}`;
   taskDetailRow.classList.add('visuallyhidden');
-  taskDetailRow.textContent = 'task detail row test';
   // create edit row, append, and hide it
   const taskEditRow = document.createElement('div');
   taskBox.appendChild(taskEditRow);
@@ -186,33 +185,26 @@ function createTaskRow(task) {
   taskItemGrid.appendChild(taskEdit);
   taskItemGrid.appendChild(taskDelete);
 
-  // const theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`)
-  // console.log(`the task detail row id is ${theTaskDetailRow.id}`);
-  // const theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
-  // console.log(`the task edit row id is ${theTaskEditRow.id}`);
-
   // EVENT LISTENER - when you click magnify icon in task row to see details
   taskMagnify.addEventListener('click', function() {
-    console.log('Magnify was clicked');
-    console.log(`task id is ${task.taskUUID}`);
     let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+    removeChildElements(theTaskEditRow);
     theTaskEditRow.classList.add('visuallyhidden');
     let theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`);
     theTaskDetailRow.classList.remove('visuallyhidden');
-    // console.log(`the task edit row id is ${theTaskEditRow.id}`);
-    // console.log(`the task detail row id is ${theTaskDetailRow.id}`);
+    removeChildElements(theTaskDetailRow);
+    theTaskDetailRow.appendChild(createTaskDetailArea(task));
   });
   
   // EVENT LISTENER - when you click edit icon in task row
   taskEdit.addEventListener('click', function() {
-    console.log('Edit was clicked');
-    console.log(`task id is ${task.taskUUID}`);
     let theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`);
+    removeChildElements(theTaskDetailRow);
     theTaskDetailRow.classList.add('visuallyhidden');
     let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+    removeChildElements(theTaskDetailRow);
     theTaskEditRow.classList.remove('visuallyhidden');
-    // console.log(`the task edit row id is ${theTaskEditRow.id}`);
-    // console.log(`the task detail row id is ${theTaskDetailRow.id}`);
+    theTaskEditRow.appendChild(editTaskForm(task));
   });
 
 return taskRow;
