@@ -316,7 +316,7 @@ function editTaskForm(task) {
   taskTitle.setAttribute("name", "ttitle");
   taskTitle.setAttribute("id", "ttitle");
   taskTitle.setAttribute("required", "required");
-  taskTitle.setAttribute("placeholder", task.tTitle);
+  taskTitle.setAttribute("value", task.tTitle);
   // description label
   const taskDescriptionLabel = document.createElement('label');
   taskDescriptionLabel.classList.add('formlabel');
@@ -327,7 +327,7 @@ function editTaskForm(task) {
   taskDescription.setAttribute("type", "text");
   taskDescription.setAttribute("name", "tdescription");
   taskDescription.setAttribute("id", "tdescription");
-  taskDescription.setAttribute("placeholder", task.tDescription);
+  taskDescription.setAttribute("value", task.tDescription);
   // due date label
   const taskDueDateLabel = document.createElement('label');
   taskDueDateLabel.classList.add('formlabel');
@@ -378,18 +378,18 @@ function editTaskForm(task) {
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "tassociatedproject");
   taskAssociatedProject.setAttribute("name", "tassociatedproject");
-  // for (var i = 0; i < projectArray.length; i++) {
-  //   var currentOption = document.createElement('option');
-  //   currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
-  //   currentOption.textContent = projectArray[i].pTitle;
-  //   currentOption.id = `option-${i}`;
+  for (var i = 0; i < projectArray.length; i++) {
+    var currentOption = document.createElement('option');
+    currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
+    currentOption.textContent = projectArray[i].pTitle;
+    currentOption.id = `option-${i}`;
     // if the currentOption is the same as passed project, make it preselected
-  //   if (projectArray[i].projectUUID == project.projectUUID) {
-  //     console.log('this is the project');
-  //     currentOption.setAttribute("selected", "selected");
-  //   };
-  //   taskAssociatedProject.appendChild(currentOption);
-  // }
+    if (projectArray[i].projectUUID === task.tAssociatedProject.projectUUID) {
+      console.log('this is the project');
+      currentOption.setAttribute("selected", "selected");
+    };
+    taskAssociatedProject.appendChild(currentOption);
+  }
   // submit button
   const editTaskSubmitButton = document.createElement('button');
   editTaskSubmitButton.classList.add('savebutton');
@@ -465,9 +465,9 @@ function editTaskForm(task) {
       task.tPriority = tPriority;
 
       // Update Task Row Display
-      let taskRowTitle = document.getElementById(`taskrowtitle-${uniqueID}`);
+      let taskRowTitle = document.getElementById(`taskrowtitle-${task.taskUUID}`);
       taskRowTitle.textContent = tTitle;
-      let taskRowDueDate = document.getElementById(`taskrowduedate-${uniqueID}`);
+      let taskRowDueDate = document.getElementById(`taskrowduedate-${task.taskUUID}`);
       taskRowDueDate = tDueDate;
       // still need to update priority color
 
