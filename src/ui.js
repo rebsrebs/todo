@@ -82,16 +82,16 @@ function createTaskRow(task) {
 
   // assign color based on priority
   switch (task.tPriority) {
-    case 'p1':
+    case 'Urgent':
       taskRow.classList.add('p1');
       break;
-    case 'p2':
+    case 'High':
       taskRow.classList.add('p2');
       break;
-    case 'p3':
+    case 'Medium':
       taskRow.classList.add('p3');
         break;
-    case 'p4':
+    case 'Low':
       taskRow.classList.add('p4');
         break;
   }

@@ -1,6 +1,8 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
 import { removeChildElements } from './ui.js';
 
+const priorityArray = ['Urgent', 'High', 'Medium', 'Low'];
+
 function cancelButton() {
   const cancelButton = document.createElement('button');
   cancelButton.classList.add('cancelbutton');
@@ -173,26 +175,14 @@ function ntform(project) {
   const taskPriority = document.createElement('select');
   taskPriority.setAttribute("id", "tpriority");
   taskPriority.setAttribute("name","tpriority");
-  const taskPriority1 = document.createElement('option');
-  taskPriority1.setAttribute("value","p1");
-  taskPriority1.setAttribute("id","p1");
-  taskPriority1.textContent = 'Highest';
-  const taskPriority2 = document.createElement('option');
-  taskPriority2.setAttribute("value","p2");
-  taskPriority2.setAttribute("id","p2");
-  taskPriority2.textContent = 'High';
-  const taskPriority3 = document.createElement('option');
-  taskPriority3.setAttribute("value","p3");
-  taskPriority3.setAttribute("id","p3");
-  taskPriority3.textContent = 'Medium';
-  const taskPriority4 = document.createElement('option');
-  taskPriority4.setAttribute("value","p4");
-  taskPriority4.setAttribute("id","p4");
-  taskPriority4.textContent = 'Low';
-  taskPriority.appendChild(taskPriority1);
-  taskPriority.appendChild(taskPriority2);
-  taskPriority.appendChild(taskPriority3);
-  taskPriority.appendChild(taskPriority4);
+
+  for (var i = 0; i < priorityArray.length; i++) {
+    var currentPriorityOption = document.createElement('option');
+    currentPriorityOption.setAttribute("value", `${priorityArray[i]}`);
+    currentPriorityOption.textContent = priorityArray[i];
+    currentPriorityOption.id = priorityArray[i];
+    taskPriority.appendChild(currentPriorityOption);
+  }
   // associated project label
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
@@ -349,26 +339,17 @@ function editTaskForm(task) {
   const taskPriority = document.createElement('select');
   taskPriority.setAttribute("id", "tpriority");
   taskPriority.setAttribute("name","tpriority");
-  const taskPriority1 = document.createElement('option');
-  taskPriority1.setAttribute("value","p1");
-  taskPriority1.setAttribute("id","p1");
-  taskPriority1.textContent = 'Highest';
-  const taskPriority2 = document.createElement('option');
-  taskPriority2.setAttribute("value","p2");
-  taskPriority2.setAttribute("id","p2");
-  taskPriority2.textContent = 'High';
-  const taskPriority3 = document.createElement('option');
-  taskPriority3.setAttribute("value","p3");
-  taskPriority3.setAttribute("id","p3");
-  taskPriority3.textContent = 'Medium';
-  const taskPriority4 = document.createElement('option');
-  taskPriority4.setAttribute("value","p4");
-  taskPriority4.setAttribute("id","p4");
-  taskPriority4.textContent = 'Low';
-  taskPriority.appendChild(taskPriority1);
-  taskPriority.appendChild(taskPriority2);
-  taskPriority.appendChild(taskPriority3);
-  taskPriority.appendChild(taskPriority4);
+  for (var i = 0; i < priorityArray.length; i++) {
+    var currentPriorityOption = document.createElement('option');
+    currentPriorityOption.setAttribute("value", `${priorityArray[i]}`);
+    currentPriorityOption.textContent = priorityArray[i];
+    currentPriorityOption.id = priorityArray[i];
+    // if the currentOption is the same as passed project, make it preselected
+    if (priorityArray[i] === task.tPriority) {
+      currentPriorityOption.setAttribute("selected", "selected");
+    };
+    taskPriority.appendChild(currentPriorityOption);
+  }
   // associated project label
   const taskAssociatedProjectLabel = document.createElement('label');
   taskAssociatedProjectLabel.classList.add('formlabel');
