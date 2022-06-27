@@ -87,7 +87,7 @@ class Task {
   }
 
   getAssociatedProject(){
-    return this.tAssociatedProjectStatus;
+    return this.tAssociatedProject;
   }
 
   setStatus(tStatus) {
@@ -125,6 +125,7 @@ const saveNewProject = function(){
 // FUNCTION TO SAVE NEW TASK
 const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject){
   console.log('saveNewTask function has started');
+  console.log(`The tAssociatedProject value being passed to this function is ${tAssociatedProject}`);
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
   console.log(index);
   let tStatus = 'open';
@@ -139,12 +140,15 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssocia
 
 const deleteTask = function(task) {
   console.log('delete task function has started');
+  // get associated project - shouldn't this just be an ID number?
+  console.log(`task.tAssociatedProject is ${task.tAssociatedProject}`);
+  console.log(projectArray);
+  const indexC = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
+  console.log(indexC);
   // delete task from associated project array
-  console.log(task.tAssociatedProject.taskArray);
-  const indexB = task.tAssociatedProject.taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
-  task.tAssociatedProject.removeTask(task,indexB);
-  // task.tAssociatedProject.taskArray.splice(indexB,1);
-  console.log(`Now the associated project array is ${task.tAssociatedProject.taskArray}`);  
+  console.log(projectArray[indexC]);
+  const indexB = projectArray[indexC].taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
+  projectArray[indexC].removeTask(task,indexB);
   // delete task from allTasksArray
   console.log(`All tasks array was ${allTasksArray}`);
   const indexA = allTasksArray.map(e => e.taskUUID).indexOf(task.taskUUID);

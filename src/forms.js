@@ -260,6 +260,7 @@ function ntform(project) {
       const tPriority = document.getElementById('tpriority').value;
       // save associated project which is the UUID
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
+      console.log(`When you save a new task here is the tAssociatedProject that gets passed to the save new task function: ${tAssociatedProject}`);
 
       // pass variables to save new task function
       saveNewTask(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject);
@@ -365,6 +366,7 @@ function editTaskForm(task) {
   for (var i = 0; i < projectArray.length; i++) {
     var currentOption = document.createElement('option');
     currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
+    // currentOption.setAttribute("value", `${projectArray[i]}`);
     currentOption.textContent = projectArray[i].pTitle;
     currentOption.id = `option-${i}`;
     // if the currentOption is the same as passed project, make it preselected
@@ -439,6 +441,7 @@ function editTaskForm(task) {
       // save priority
       const tPriority = document.getElementById('tpriority').value;
       // save associated project which is the UUID
+      console.log(document.getElementById('tassociatedproject').value);
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
 
       // Update Task Data

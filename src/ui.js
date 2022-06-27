@@ -1,4 +1,4 @@
-import { allTasksArray } from "./projectmanager";
+import { projectArray, allTasksArray } from "./projectmanager";
 import { v4 as uuidv4 } from 'uuid';
 import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
@@ -262,7 +262,11 @@ function createTaskDetailArea(task) {
   detailProjectLabel.textContent = 'Project:';
   let detailProject = document.createElement('p');
   detailProject.classList.add('detailvalue');
-  detailProject.textContent = task.tAssociatedProject.pTitle;
+  //added code below to fix displaying project after task has been edited
+  const index = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
+  detailProject.textContent = projectArray[index].pTitle;
+  // console.log(task.tAssociatedProject.pTitle);
+  // detailProject.textContent = task.tAssociatedProject.pTitle;
   // Button row
   const buttonsDiv = document.createElement('div');
   buttonsDiv.classList.add('buttons');
