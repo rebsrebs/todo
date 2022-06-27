@@ -1,5 +1,5 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
-import { removeChildElements, createTaskRow } from './ui.js';
+import { removeChildElements, displayOneProject, createTaskRow } from './ui.js';
 
 const priorityArray = ['Urgent', 'High', 'Medium', 'Low'];
 
@@ -370,6 +370,8 @@ function editTaskForm(task) {
     currentOption.textContent = projectArray[i].pTitle;
     currentOption.id = `option-${i}`;
     // if the currentOption is the same as passed project, make it preselected
+    var oldProject = task.tAssociatedProject.projectUUID;
+    // var oldProject = task.tAssociatedProject;
     if (projectArray[i].projectUUID === task.tAssociatedProject.projectUUID) {
       console.log('this is the project');
       currentOption.setAttribute("selected", "selected");
@@ -451,33 +453,27 @@ function editTaskForm(task) {
       task.tDueDate = tDueDate;
       task.tPriority = tPriority;
 
+      // if associated project changed - hmm sometimes this works and sometimes oldProject is undefined
+      console.log(`task.tAssociatedProject is ${task.tAssociatedProject} and oldProject is ${oldProject}`);
+      if (task.tAssociatedProject != oldProject) {
+        // get index number of old project from project array and remove task
+        const indexA = projectArray.map(e => e.projectUUID).indexOf(oldProject);
+        projectArray[indexA].removeTask(task,indexA);
+        console.log(projectArray[indexA].taskArray);
+        // get index number of new project and add task
+        const indexB = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject.projectUUID);
+        projectArray[indexB].addTask(task);
+        console.log(projectArray[indexB].taskArray);
+      }
+
       // remove task row and display it again
       editTaskForm.reset();
-      editTaskForm.remove();
-      const taskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
-      taskEditRow.classList.add('visuallyhidden');
-      const taskBox = document.getElementById(`taskbox-${task.taskUUID}`);
-      // this doesn't seem to work the second time
-      taskBox.firstElementChild.remove();
-      // oh duh it appends it at the end rather than first
-      taskBox.prepend(createTaskRow(task));
-
-
-      // make taskeditrow visually hidden
-
-      // Update Task Row Display
-      // let taskRowTitle = document.getElementById(`taskrowtitle-${task.taskUUID}`);
-      // taskRowTitle.textContent = tTitle;
-      // let taskRowDueDate = document.getElementById(`taskrowduedate-${task.taskUUID}`);
-      // taskRowDueDate = tDueDate;
-      // still need to update priority color
-
-      
-      
-      // const detailArea = document.getElementById(`detailarea-${uniqueID}`);
-      // detailArea.classList.remove('hidden');
-      // const overlay = document.getElementById('overlay');
-      // overlay.style.visibility = 'hidden';
+      // actually instead of reshowing the single task row,
+      // we should redisplay whatever project the task was saved to:
+      const indexP = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
+      console.log(`indexP is ${indexP}`)
+      displayOneProject(projectArray[indexP]);
+      // hmmm is it displaying the project before the arrays are edited?
     };
     });
 

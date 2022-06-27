@@ -166,5 +166,5 @@ const deleteTask = function(task) {
 
 }
 
-export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask };
+export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject };
 
