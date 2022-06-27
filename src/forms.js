@@ -1,5 +1,5 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
-import { removeChildElements } from './ui.js';
+import { removeChildElements, createTaskRow } from './ui.js';
 
 const priorityArray = ['Urgent', 'High', 'Medium', 'Low'];
 
@@ -451,6 +451,15 @@ function editTaskForm(task) {
       // remove task row and display it again
       editTaskForm.reset();
       editTaskForm.remove();
+      const taskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
+      taskEditRow.classList.add('visuallyhidden');
+      const taskBox = document.getElementById(`taskbox-${task.taskUUID}`);
+      // this doesn't seem to work the second time
+      taskBox.firstElementChild.remove();
+      // oh duh it appends it at the end rather than first
+      taskBox.prepend(createTaskRow(task));
+
+
       // make taskeditrow visually hidden
 
       // Update Task Row Display

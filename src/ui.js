@@ -79,6 +79,7 @@ function createTaskRow(task) {
   // create task row
   const taskRow = document.createElement('div');
   taskRow.classList.add('maintaskrow');
+  taskRow.id = (`taskrow-${task.taskUUID}`);
 
   // assign color based on priority
   switch (task.tPriority) {
@@ -363,22 +364,6 @@ function displayOneProject(project){
   mainTaskArea.appendChild(addTaskRow);
 
 }
-
-// TASK DETAIL VIEW
-
-function displayTaskDetails(task){
-  // add a row to the row task?
-  // get id of task row
-  // get id of task
-  // or it should already have one but it's hidden!
-  // there could be one to create task details
-  // then use a utility function to show or hide element by id
-}
-
-
-
-
-
 // FOR LATER
 // RANDOM TASK
 // function pickRandomTask() {
@@ -405,4 +390,4 @@ function displayTaskDetails(task){
 
 
 
-export { mainProjectLayout, removeChildElements, displayOneProject, main };
+export { mainProjectLayout, removeChildElements, displayOneProject, main, createTaskRow };
