@@ -175,7 +175,6 @@ function ntform(project) {
   const taskPriority = document.createElement('select');
   taskPriority.setAttribute("id", "tpriority");
   taskPriority.setAttribute("name","tpriority");
-
   for (var i = 0; i < priorityArray.length; i++) {
     var currentPriorityOption = document.createElement('option');
     currentPriorityOption.setAttribute("value", `${priorityArray[i]}`);
@@ -251,8 +250,11 @@ function ntform(project) {
       if (tDueDate == '') {
         tDueDate = String('No due date');
       // otherwise convert it to nicer format
-      } else {
-        tDueDate = (new Date(tDueDate)).toDateString();
+      // } else {
+      //   // tDueDate = (new Date(tDueDate)).toDateString();
+      //   var dateParts = tDueDate.split("-");
+      //   tDueDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]).toUTCString();
+      //   console.log(tDueDate);
       };
       // save priority
       const tPriority = document.getElementById('tpriority').value;
@@ -278,9 +280,7 @@ function ntform(project) {
 
 // EDIT TASK FORM
 function editTaskForm(task) {
-
   console.log('Running the edit task form function');
-
   // Edit Task Form Container Div
   let editTaskFormContainer = document.createElement('div');
   editTaskFormContainer.id = (`edittaskformcontainer-${task.taskUUID}`);
@@ -317,7 +317,8 @@ function editTaskForm(task) {
   taskDescription.setAttribute("type", "text");
   taskDescription.setAttribute("name", "tdescription");
   taskDescription.setAttribute("id", "tdescription");
-  taskDescription.setAttribute("value", task.tDescription);
+  console.log(task.tDescription);
+  taskDescription.textContent=task.tDescription;
   // due date label
   const taskDueDateLabel = document.createElement('label');
   taskDueDateLabel.classList.add('formlabel');
@@ -328,6 +329,8 @@ function editTaskForm(task) {
   taskDueDate.setAttribute("type", "date");
   taskDueDate.setAttribute("id", "tduedate");
   taskDueDate.setAttribute("name", "tduedate");
+  console.log(task.tDueDate);
+  taskDueDate.setAttribute("value", task.tDueDate);
   // const dueDateMin = new Date().toISOString().split('T')[0];
   // taskDueDate.setAttribute("min", dueDateMin);
   // priority label
@@ -430,8 +433,8 @@ function editTaskForm(task) {
       if (tDueDate == '') {
         tDueDate = String('No due date');
       // otherwise convert it to nicer format
-      } else {
-        tDueDate = (new Date(tDueDate)).toDateString();
+      // } else {
+      //   tDueDate = (new Date(tDueDate)).toDateString();
       };
       // save priority
       const tPriority = document.getElementById('tpriority').value;
@@ -445,15 +448,20 @@ function editTaskForm(task) {
       task.tDueDate = tDueDate;
       task.tPriority = tPriority;
 
+      // remove task row and display it again
+      editTaskForm.reset();
+      editTaskForm.remove();
+      // make taskeditrow visually hidden
+
       // Update Task Row Display
-      let taskRowTitle = document.getElementById(`taskrowtitle-${task.taskUUID}`);
-      taskRowTitle.textContent = tTitle;
-      let taskRowDueDate = document.getElementById(`taskrowduedate-${task.taskUUID}`);
-      taskRowDueDate = tDueDate;
+      // let taskRowTitle = document.getElementById(`taskrowtitle-${task.taskUUID}`);
+      // taskRowTitle.textContent = tTitle;
+      // let taskRowDueDate = document.getElementById(`taskrowduedate-${task.taskUUID}`);
+      // taskRowDueDate = tDueDate;
       // still need to update priority color
 
-      editTaskForm.reset();
-      // editTaskForm.remove();
+      
+      
       // const detailArea = document.getElementById(`detailarea-${uniqueID}`);
       // detailArea.classList.remove('hidden');
       // const overlay = document.getElementById('overlay');

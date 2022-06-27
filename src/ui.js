@@ -140,6 +140,9 @@ function createTaskRow(task) {
   taskDueDateDisplay.classList.add('taskrowduedate')
   taskDueDateDisplay.id = `taskrowduedate-${task.taskUUID}`;
   taskDueDateDisplay.textContent = task.tDueDate;
+  // taskDueDateDisplay.textContent = (new Date(task.tDueDate)).toDateString();
+  console.log(new Date(task.tDueDate).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}))
+  console.log(task.tDueDate);
 
   // Delete icon
   const myTrash = new Image();
