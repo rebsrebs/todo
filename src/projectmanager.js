@@ -140,11 +140,10 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssocia
 
 const deleteTask = function(task) {
   console.log('delete task function has started');
-  // get associated project - shouldn't this just be an ID number?
-  console.log(`task.tAssociatedProject is ${task.tAssociatedProject}`);
-  console.log(projectArray);
-  const indexC = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
-  console.log(indexC);
+    // remove task row from DOM
+    document.getElementById(`taskbox-${task.taskUUID}`).remove();
+  // get associated project - shouldn't this just be an ID number, why do I need to add projectUUID at the end?
+  const indexC = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject.projectUUID);
   // delete task from associated project array
   console.log(projectArray[indexC]);
   const indexB = projectArray[indexC].taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
@@ -155,8 +154,6 @@ const deleteTask = function(task) {
   console.log(indexA);
   allTasksArray.splice(indexA,1);
   console.log(`Now all tasks array is ${allTasksArray}`);
-  // remove task row from DOM
-  document.getElementById(`taskbox-${task.tBoxID}`).remove();
   // clear the values for all keys in task
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows title
