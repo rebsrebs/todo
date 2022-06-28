@@ -1,5 +1,4 @@
 import { projectArray, allTasksArray } from "./projectmanager";
-import { v4 as uuidv4 } from 'uuid';
 import { ntform } from "./forms";
 import { deleteTask } from "./projectmanager.js";
 import { editTaskForm } from "./forms";
@@ -80,7 +79,6 @@ function createTaskRow(task) {
   const taskRow = document.createElement('div');
   taskRow.classList.add('maintaskrow');
   taskRow.id = (`taskrow-${task.taskUUID}`);
-
   // assign color based on priority
   switch (task.tPriority) {
     case 'Urgent':
@@ -96,7 +94,6 @@ function createTaskRow(task) {
       taskRow.classList.add('p4');
         break;
   }
-
   // create task checkbox div inside task row
   let taskCheckBoxDiv = document.createElement('div');
   taskCheckBoxDiv.classList.add('taskcheckboxdiv');
@@ -109,32 +106,37 @@ function createTaskRow(task) {
   taskCheckBox.setAttribute("type", "checkbox");
   taskCheckBox.id=`checkbox-${task.taskUUID}`;
   taskCheckBox.classList.add('taskcheckbox');
-
+  // event listener for task checkbox
   taskCheckBox.addEventListener('change', function() {
     if (taskCheckBox.checked == true) {
       console.log("Checkbox is checked..");
       taskTitleDisplay.classList.remove('undone');
+      taskDueDateDisplay.classList.remove('undone');
       taskTitleDisplay.classList.add('completed')
+      taskDueDateDisplay.classList.add('completed')
       // change task status to closed
+      task.tStatus = 'closed';
+      console.log(`task status is ${task.tStatus}`);
     } else {
       taskTitleDisplay.classList.remove('completed');
+      taskDueDateDisplay.classList.remove('completed');
       taskTitleDisplay.classList.add('undone');
+      taskDueDateDisplay.classList.add('undone');
       console.log("Checkbox is not checked..");
       // change task status to open
+      task.tStatus = 'open';
+      console.log(`task status is ${task.tStatus}`);
     }
   });
-
   // task item grid
   let taskItemGrid = document.createElement('div');
   taskItemGrid.classList.add('taskitemgrid');
-
   // task title
   let taskTitleDisplay = document.createElement('p');
   taskTitleDisplay.classList.add('taskrowgriditem')
   taskTitleDisplay.classList.add('taskrowtitle')
   taskTitleDisplay.id = `taskrowtitle-${task.taskUUID}`;
   taskTitleDisplay.textContent = task.tTitle;
-
   // task due date
   let taskDueDateDisplay = document.createElement('p');
   taskDueDateDisplay.classList.add('taskrowgriditem')
@@ -144,7 +146,6 @@ function createTaskRow(task) {
   // taskDueDateDisplay.textContent = (new Date(task.tDueDate)).toDateString();
   console.log(new Date(task.tDueDate).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}))
   console.log(task.tDueDate);
-
   // Delete icon
   const myTrash = new Image();
   myTrash.src = Trash;
@@ -157,7 +158,6 @@ function createTaskRow(task) {
     console.log('X was clicked');
     deleteTask(task);
   });
-
   // Magnifying icon
   const myMagnify = new Image();
   myMagnify.src = Magnify;
@@ -167,7 +167,6 @@ function createTaskRow(task) {
   taskMagnify.classList.add('taskrowicon');
   taskMagnify.appendChild(myMagnify);
   console.log(`task id is ${task.taskUUID}`);
-
   // Edit icon
   const myEdit = new Image();
   myEdit.src = Edit;
@@ -176,7 +175,6 @@ function createTaskRow(task) {
   let taskEdit = document.createElement('div');
   taskEdit.classList.add('taskrowicon');
   taskEdit.appendChild(myEdit);
-  
   // put the row together
   taskRow.appendChild(taskCheckBoxDiv);
   taskCheckBoxDiv.appendChild(taskCheckBoxLabel);
@@ -187,7 +185,6 @@ function createTaskRow(task) {
   taskItemGrid.appendChild(taskMagnify);
   taskItemGrid.appendChild(taskEdit);
   taskItemGrid.appendChild(taskDelete);
-
   // EVENT LISTENER - when you click magnify icon in task row to see details
   taskMagnify.addEventListener('click', function() {
     let theTaskEditRow = document.getElementById(`taskeditrow-${task.taskUUID}`);
@@ -198,7 +195,6 @@ function createTaskRow(task) {
     removeChildElements(theTaskDetailRow);
     theTaskDetailRow.appendChild(createTaskDetailArea(task));
   });
-  
   // EVENT LISTENER - when you click edit icon in task row
   taskEdit.addEventListener('click', function() {
     let theTaskDetailRow = document.getElementById(`taskdetailrow-${task.taskUUID}`);
@@ -209,7 +205,6 @@ function createTaskRow(task) {
     theTaskEditRow.classList.remove('visuallyhidden');
     theTaskEditRow.appendChild(editTaskForm(task));
   });
-
 return taskRow;
 }
 // END MAKE A TASK ROW
@@ -265,8 +260,6 @@ function createTaskDetailArea(task) {
   //added code below to fix displaying project after task has been edited
   const index = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
   detailProject.textContent = projectArray[index].pTitle;
-  // console.log(task.tAssociatedProject.pTitle);
-  // detailProject.textContent = task.tAssociatedProject.pTitle;
   // Button row
   const buttonsDiv = document.createElement('div');
   buttonsDiv.classList.add('buttons');
@@ -277,7 +270,6 @@ function createTaskDetailArea(task) {
   let taskDetailClose = document.createElement('button');
   taskDetailClose.classList.add('taskdetailbutton');
   taskDetailClose.textContent = 'Close';
-  // event listeners
       // event listener for edit button
       taskDetailEdit.addEventListener('click', function() {
         console.log('Task detail edit button was clicked');
@@ -289,7 +281,6 @@ function createTaskDetailArea(task) {
         theTaskEditRow.classList.remove('visuallyhidden');
         theTaskEditRow.appendChild(editTaskForm(task));
       });
-    
       // event listener for close button
       taskDetailClose.addEventListener('click', function() {
         console.log('task detail close button was clicked');
@@ -312,7 +303,6 @@ function createTaskDetailArea(task) {
   taskDetailGrid.appendChild(buttonsDiv);
   buttonsDiv.appendChild(taskDetailEdit);
   buttonsDiv.appendChild(taskDetailClose);
-
   return taskDetailArea;
 }
 
@@ -329,7 +319,6 @@ function displayOneProject(project){
   fillMainDescription(project.pDescription);
 
   // loop over this project's task array
-  // for (var i = 0; i < projectArray[index].taskArray.length; i++) {
   for (var i = 0; i < project.taskArray.length; i++) {
     displayTask(project.taskArray[i]);
   }
@@ -366,8 +355,8 @@ function displayOneProject(project){
 
   // put row at the end of task list
   mainTaskArea.appendChild(addTaskRow);
-
 }
+
 // FOR LATER
 // RANDOM TASK
 // function pickRandomTask() {

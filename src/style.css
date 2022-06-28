@@ -281,6 +281,7 @@ input:focus:invalid {
 
 .completed {
   color: gray;
+  text-decoration: line-through;
 }
 
 /* ADD TASK ROW */
