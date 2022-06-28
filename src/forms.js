@@ -249,12 +249,6 @@ function ntform(project) {
       // if due date is blank, update to No due date
       if (tDueDate == '') {
         tDueDate = String('No due date');
-      // otherwise convert it to nicer format
-      // } else {
-      //   // tDueDate = (new Date(tDueDate)).toDateString();
-      //   var dateParts = tDueDate.split("-");
-      //   tDueDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]).toUTCString();
-      //   console.log(tDueDate);
       };
       // save priority
       const tPriority = document.getElementById('tpriority').value;
@@ -282,6 +276,7 @@ function ntform(project) {
 // EDIT TASK FORM
 function editTaskForm(task) {
   console.log('Running the edit task form function');
+  console.log(`task.tAssociatedProject is ${task.tAssociatedProject}`);
   // Edit Task Form Container Div
   let editTaskFormContainer = document.createElement('div');
   editTaskFormContainer.id = (`edittaskformcontainer-${task.taskUUID}`);
@@ -370,9 +365,9 @@ function editTaskForm(task) {
     currentOption.textContent = projectArray[i].pTitle;
     currentOption.id = `option-${i}`;
     // if the currentOption is the same as passed project, make it preselected
-    var oldProject = task.tAssociatedProject.projectUUID;
+    var oldProject = task.tAssociatedProject;
     // var oldProject = task.tAssociatedProject;
-    if (projectArray[i].projectUUID === task.tAssociatedProject.projectUUID) {
+    if (projectArray[i].projectUUID === task.tAssociatedProject) {
       console.log('this is the project');
       currentOption.setAttribute("selected", "selected");
     };
@@ -447,9 +442,12 @@ function editTaskForm(task) {
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
 
       // Update Task Data
+      console.log('In the editTaskForm submit button event listener, we are now updating the task with any changes.')
       task.tTitle = tTitle;
       task.tDescription = tDescription;
+      console.log(`Task's project was ${task.tAssociatedProject}`)
       task.tAssociatedProject = tAssociatedProject;
+      console.log(`Now task's associated project is ${task.tAssociatedProject}`)
       task.tDueDate = tDueDate;
       task.tPriority = tPriority;
 
@@ -461,7 +459,7 @@ function editTaskForm(task) {
         projectArray[indexA].removeTask(task,indexA);
         console.log(projectArray[indexA].taskArray);
         // get index number of new project and add task
-        const indexB = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject.projectUUID);
+        const indexB = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
         projectArray[indexB].addTask(task);
         console.log(projectArray[indexB].taskArray);
       }

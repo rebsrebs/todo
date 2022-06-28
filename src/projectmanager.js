@@ -10,12 +10,6 @@ function removeChildElements(parent){
    }
 }
 
-
-
-
-
-
-
 // PROJECT CLASS
 class Project {
   taskArray = [];
@@ -41,13 +35,15 @@ class Project {
     return this.pStatus;
   }
 
+  //this needs work too, this is what's making it an object I think.
   addTask(task) {
-    task.tAssociatedProject = this;
     this.taskArray.push(task);
   }
 
-  removeTask(task, index) {
-    task.tAssociatedProject = this;
+  // this needs work now
+  // search by mapping id in the taskArray
+  removeTask(task) {
+    const index = this.taskArray.map(e => e.taskUUID).indexOf(task.taskUUID);
     this.taskArray.splice(index, 1);
   }
 }
@@ -74,7 +70,9 @@ class Task {
   tPriority;
   tStatus;
   taskUUID;
+  tAssociatedProject;
   tBoxID;
+  
 
   constructor (tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject) {
     this.tTitle = tTitle;
@@ -125,6 +123,7 @@ const saveNewProject = function(){
 // FUNCTION TO SAVE NEW TASK
 const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject){
   console.log('saveNewTask function has started');
+  console.log(`tAssociatedProject being passed to this function is ${tAssociatedProject}`);
   let tStatus = 'open';
   const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
   // find associated project in projectArray to add task to its taskArray
@@ -144,8 +143,9 @@ const deleteTask = function(task) {
   const indexC = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject.projectUUID);
   // delete task from associated project array
   console.log(projectArray[indexC]);
-  const indexB = projectArray[indexC].taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
-  projectArray[indexC].removeTask(task,indexB);
+  // const indexB = projectArray[indexC].taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
+  // projectArray[indexC].removeTask(task,indexB);
+  projectArray[indexC].removeTask(task);
   // delete task from allTasksArray
   console.log(`All tasks array was ${allTasksArray}`);
   const indexA = allTasksArray.map(e => e.taskUUID).indexOf(task.taskUUID);
