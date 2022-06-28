@@ -125,16 +125,14 @@ const saveNewProject = function(){
 // FUNCTION TO SAVE NEW TASK
 const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject){
   console.log('saveNewTask function has started');
-  console.log(`The tAssociatedProject value being passed to this function is ${tAssociatedProject}`);
-  const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
-  console.log(index);
   let tStatus = 'open';
-  const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, projectArray[index]);
+  const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
+  // find associated project in projectArray to add task to its taskArray
+  const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
   projectArray[index].addTask(task);
+  // add task to allTasksArray
   allTasksArray.push(task);
-  console.log(projectArray[index].taskArray);
   displayOneProject(projectArray[index]);
-  console.log(allTasksArray);
 }
 // END FUNCTION TO SAVE NEW TASK
 
