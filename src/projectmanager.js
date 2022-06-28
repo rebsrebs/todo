@@ -35,13 +35,10 @@ class Project {
     return this.pStatus;
   }
 
-  //this needs work too, this is what's making it an object I think.
   addTask(task) {
     this.taskArray.push(task);
   }
 
-  // this needs work now
-  // search by mapping id in the taskArray
   removeTask(task) {
     const index = this.taskArray.map(e => e.taskUUID).indexOf(task.taskUUID);
     this.taskArray.splice(index, 1);
@@ -51,7 +48,6 @@ class Project {
 
 
 // CREATE DEFAULT CATCH ALL PROJECT
-
 const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.',undefined, 'open');
 // END DEFAULT PROJECT
 
@@ -59,8 +55,6 @@ const defaultProject = new Project('Default Project','A catch-all for tasks not 
 let projectArray = [];
 // ADD DEFAULT PROJECT TO PROJET ARRAY
 projectArray.push(defaultProject);
-
-
 
 // TASK CLASS
 class Task {
@@ -73,7 +67,6 @@ class Task {
   tAssociatedProject;
   tBoxID;
   
-
   constructor (tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject) {
     this.tTitle = tTitle;
     this.tDescription = tDescription;
@@ -98,10 +91,6 @@ class Task {
 }
 // END TASK CLASS
 
-
-
-
-
 // FUNCTION TO SAVE NEW PROJECT
 const saveNewProject = function(){
   console.log('saveNewProject function has started');
@@ -123,7 +112,6 @@ const saveNewProject = function(){
 // FUNCTION TO SAVE NEW TASK
 const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject){
   console.log('saveNewTask function has started');
-  console.log(`tAssociatedProject being passed to this function is ${tAssociatedProject}`);
   let tStatus = 'open';
   const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
   // find associated project in projectArray to add task to its taskArray
@@ -137,14 +125,10 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssocia
 
 const deleteTask = function(task) {
   console.log('delete task function has started');
-    // remove task row from DOM
-    document.getElementById(`taskbox-${task.taskUUID}`).remove();
-  // get associated project - shouldn't this just be an ID number, why do I need to add projectUUID at the end?
-  const indexC = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject.projectUUID);
-  // delete task from associated project array
-  console.log(projectArray[indexC]);
-  // const indexB = projectArray[indexC].taskArray.map(task => task.taskUUID).indexOf(task.taskUUID);
-  // projectArray[indexC].removeTask(task,indexB);
+  // remove task box from DOM
+  document.getElementById(`taskbox-${task.taskUUID}`).remove();
+  // get associated project and delete task from it
+  const indexC = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
   projectArray[indexC].removeTask(task);
   // delete task from allTasksArray
   console.log(`All tasks array was ${allTasksArray}`);
@@ -160,9 +144,6 @@ const deleteTask = function(task) {
   });
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows null
-  
-
 }
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject };
-
