@@ -16,7 +16,6 @@ function cancelButton() {
   return cancelButton;
 }
 
-
 function cancelForm() {
   let form = document.querySelector('.form')
   form.reset();
@@ -24,9 +23,7 @@ function cancelForm() {
   formcontainer.remove();
 }
 
-
 function npform() {
-
   // New Project Form Container Div
   const npFormContainer = document.createElement('div');
   npFormContainer.classList.add('formcontainer');
@@ -78,16 +75,14 @@ function npform() {
   newProjectSubmitButton.classList.add('savebutton');
   newProjectSubmitButton.setAttribute("type", "button");
   newProjectSubmitButton.textContent = 'Save';
-
   // buttons div
   const buttonsDiv = document.createElement('div');
   buttonsDiv.classList.add('buttons');
-
   // required note
   const requiredNote = document.createElement('p');
   requiredNote.classList.add('requirednote');
   requiredNote.textContent = '* = required';
-
+  // put it together
   newProjectForm.appendChild(projectTitleLabel);
   newProjectForm.appendChild(projectTitle);
   newProjectForm.appendChild(projectDescriptionLabel);
@@ -100,7 +95,6 @@ function npform() {
   buttonsDiv.appendChild(cancelButton());
   npFormContainer.appendChild(npFormHeading);
   npFormContainer.appendChild(newProjectForm);
-
   // event listener
   newProjectSubmitButton.addEventListener("click", function(){
     saveNewProject();
@@ -109,16 +103,12 @@ function npform() {
     const overlay = document.getElementById('overlay');
     overlay.style.visibility = 'hidden';
   });
-
   return npFormContainer;
 }
 
-
 // NEW TASK FORM
 function ntform(project) {
-
   console.log(`Running the new task form function and the current projectArray is ${projectArray} and the first object in it is named ${projectArray[0].pTitle} and the length is ${projectArray.length}`);
-
   // New Task Form Container Div
   const ntFormContainer = document.createElement('div');
   ntFormContainer.classList.add('formcontainer');
@@ -267,11 +257,7 @@ function ntform(project) {
 
   return ntFormContainer;
 }
-
 // END NEW TASK FORM
-
-
-
 
 // EDIT TASK FORM
 function editTaskForm(task) {
@@ -440,7 +426,6 @@ function editTaskForm(task) {
       // save associated project which is the UUID
       console.log(document.getElementById('tassociatedproject').value);
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
-
       // Update Task Data
       console.log('In the editTaskForm submit button event listener, we are now updating the task with any changes.')
       task.tTitle = tTitle;
@@ -450,28 +435,22 @@ function editTaskForm(task) {
       console.log(`Now task's associated project is ${task.tAssociatedProject}`)
       task.tDueDate = tDueDate;
       task.tPriority = tPriority;
-
-      // if associated project changed - hmm sometimes this works and sometimes oldProject is undefined
+      // if associated project changed
       console.log(`task.tAssociatedProject is ${task.tAssociatedProject} and oldProject is ${oldProject}`);
       if (task.tAssociatedProject != oldProject) {
         // get index number of old project from project array and remove task
         const indexA = projectArray.map(e => e.projectUUID).indexOf(oldProject);
-        projectArray[indexA].removeTask(task,indexA);
+        projectArray[indexA].removeTask(task);
         console.log(projectArray[indexA].taskArray);
         // get index number of new project and add task
         const indexB = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
         projectArray[indexB].addTask(task);
         console.log(projectArray[indexB].taskArray);
       }
-
-      // remove task row and display it again
       editTaskForm.reset();
-      // actually instead of reshowing the single task row,
-      // we should redisplay whatever project the task was saved to:
+      // display project that task was saved to
       const indexP = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
-      console.log(`indexP is ${indexP}`)
       displayOneProject(projectArray[indexP]);
-      // hmmm is it displaying the project before the arrays are edited?
     };
     });
 
