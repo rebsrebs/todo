@@ -1,14 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { updateProjectNavLinks} from './sidebar.js';
 import { displayOneProject } from './ui.js';
+import { setStorage, simpleCheckForStorage } from './localstorage.js';
 
-let allTasksArray = [];
-
-function removeChildElements(parent){
-   while (parent.firstChild) {
-      parent.firstChild.remove()
-   }
-}
+var projectArray = [];
+var allTasksArray = [];
 
 // PROJECT CLASS
 class Project {
@@ -46,16 +42,6 @@ class Project {
 }
 // END PROJECT CLASS
 
-
-// CREATE DEFAULT CATCH ALL PROJECT
-const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.',undefined, 'open');
-// END DEFAULT PROJECT
-
-// DEFINE PROJECT ARRAY
-let projectArray = [];
-// ADD DEFAULT PROJECT TO PROJET ARRAY
-projectArray.push(defaultProject);
-
 // TASK CLASS
 class Task {
   tTitle;
@@ -91,6 +77,32 @@ class Task {
 }
 // END TASK CLASS
 
+// function to set up projects - refactor this later
+const setUpProjects = function() {
+  if (simpleCheckForStorage() === 'yes'){
+    if (localStorage.getItem('projects') != null) {
+      const projects = JSON.parse(localStorage.getItem('projects'));
+      console.log(projects);
+      projectArray = projects;
+    } else {
+      // create default catch all project
+      const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.', undefined, 'open');
+      // add default project to project array
+      projectArray.push(defaultProject);
+    };
+    if (localStorage.getItem('tasks') != null) {
+      const tasks = JSON.parse(localStorage.getItem('tasks'));
+      console.log(tasks);
+      allTasksArray = tasks;
+    }
+  } else {
+    // create default catch all project
+    const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.', undefined, 'open');
+    // add default project to project array
+    projectArray.push(defaultProject);
+  }
+};
+
 // FUNCTION TO SAVE NEW PROJECT
 const saveNewProject = function(){
   console.log('saveNewProject function has started');
@@ -102,7 +114,7 @@ const saveNewProject = function(){
   projectArray.push(project);
   console.log(project);
   console.log([projectArray]);
-  
+  setStorage();
   // addProjectToSidebar(pTitle);
   updateProjectNavLinks();
   displayOneProject(project);
@@ -116,9 +128,12 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssocia
   const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
   // find associated project in projectArray to add task to its taskArray
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
+  console.log(index);
+  console.log(projectArray[index]);
   projectArray[index].addTask(task);
   // add task to allTasksArray
   allTasksArray.push(task);
+  setStorage();
   displayOneProject(projectArray[index]);
 }
 // END FUNCTION TO SAVE NEW TASK
@@ -144,6 +159,7 @@ const deleteTask = function(task) {
   });
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows null
+  setStorage();
 }
 
-export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject };
+export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject, setUpProjects };

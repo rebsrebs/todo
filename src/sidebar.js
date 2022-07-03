@@ -1,12 +1,10 @@
 import { npform } from './forms.js';
 import { ntform } from './forms.js';
 import { projectArray } from './projectmanager.js';
-import { v4 as uuidv4 } from 'uuid';
 import { displayOneProject } from './ui.js';
 // import { pickRandomTask } from './ui.js'
 // import { displayARandomTask } from './ui.js'
 import { removeChildElements } from './ui.js'
-
 
 function sidebar() {
 
@@ -46,6 +44,16 @@ function sidebar() {
   dueToday.classList.add('shortcutnavlink');
   dueToday.id = 'duetodaynav';
   dueToday.textContent = "Due Today";
+
+  // const clearLocal = document.createElement('a');
+  // dueToday.classList.add('navlink');
+  // dueToday.classList.add('shortcutnavlink');
+  // dueToday.id = 'clearlocalnav';
+  // dueToday.textContent = "Clear Local Storage";
+
+  // clearLocal.addEventListener('click', function(){
+  //   localStorage.clear();
+  // })
 
   // const randomTask = document.createElement('a');
   // randomTask.classList.add('navlink');
@@ -96,7 +104,6 @@ function sidebar() {
     overlay.style.visibility = 'visible';
   });
 
-
   shortcutsDiv.appendChild(shortcuts);
   shortcutsDiv.appendChild(addNewTask);
   shortcutsDiv.appendChild(home);
@@ -112,12 +119,12 @@ function sidebar() {
   return sidebar;
 }
 
-
 // FUNCTION populate sidebar project links from projectArray
 function updateProjectNavLinks() {
   // clear existing sidebar project links
   var pnavlinksection = document.getElementById('projectnavlinksection');
   removeChildElements(pnavlinksection);
+  // get projectArray from local storage?
   // create link for each project in projectArray
   for (let i = 0; i < projectArray.length; i++) {
     let currentLink = document.createElement('a');

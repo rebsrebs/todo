@@ -285,7 +285,6 @@ input:focus:invalid {
 }
 
 /* ADD TASK ROW */
-
 .addtaskrow {
   display: flex;
   align-items: center;
