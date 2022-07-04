@@ -101,7 +101,8 @@ function npform() {
     const pDescription = document.getElementById('pdescription').value;
     const pDueDate = document.getElementById('pduedate').value;
     let pStatus = 'open';
-    saveNewProject(pTitle, pDescription, pDueDate, pStatus);
+    const projectUUID = uuidv4();
+    saveNewProject(pTitle, pDescription, pDueDate, pStatus, projectUUID);
     newProjectForm.reset();
     npFormContainer.remove();
     const overlay = document.getElementById('overlay');
@@ -249,13 +250,15 @@ function ntform(project) {
       // save associated project which is the UUID
       const tAssociatedProject = document.getElementById('tassociatedproject').value;
       console.log(`When you save a new task here is the tAssociatedProject that gets passed to the save new task function: ${tAssociatedProject}`);
-
+      let tStatus = 'open'
       // pass variables to save new task function
-      saveNewTask(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject);
+      saveNewTask(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
       newTaskForm.reset();
       ntFormContainer.remove();
       const overlay = document.getElementById('overlay');
       overlay.style.visibility = 'hidden';
+      const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
+      displayOneProject(projectArray[index]);
     };
     });
 

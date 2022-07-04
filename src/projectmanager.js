@@ -15,12 +15,12 @@ class Project {
   pStatus;
   projectUUID;
 
-  constructor (pTitle, pDescription, pDueDate, pStatus) {
+  constructor (pTitle, pDescription, pDueDate, pStatus, projectUUID) {
     this.pTitle = pTitle;
     this.pDescription = pDescription;
     this.pDueDate = pDueDate;
     this.pStatus = pStatus;
-    this.projectUUID = uuidv4();
+    // this.projectUUID = uuidv4();
   }
 
   setStatus(pStatus) {
@@ -31,7 +31,6 @@ class Project {
     return this.pStatus;
   }
 
-  // apparently a project comes back from localStorage the methods do not, they never got sent there in the first place.
   addTask(task) {
     this.taskArray.push(task);
   }
@@ -78,15 +77,18 @@ class Task {
 }
 // END TASK CLASS
 
+
 // function to set up projects - refactor this later
-const setUpProjects = function() {
+const getStorage = function() {
   if (simpleCheckForStorage() === 'yes'){
     // if local storage has a projects array
     if (localStorage.getItem('projects') != null) {
       const projects = JSON.parse(localStorage.getItem('projects'));
-      console.log(projects);
-      projectArray = projects.map((project) => new Project(project.pTitle, project.pDescription, project.pDueDate, project.pStatus));
-      setStorage();
+      console.log(`projects gotten from localStorage is ${projects}`);
+      console.log(`the second object's title in projects is ${projects[1].pTitle}`);
+      projectArray = projects.map((project) => new Project(project.pTitle, project.pDescription, project.pDueDate, project.pStatus, project.projectUUID));
+      console.log(`projectArray is ${projectArray}`);
+      // setStorage();
     } else {
       // create default catch all project
       const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.', undefined, 'open');
@@ -95,8 +97,8 @@ const setUpProjects = function() {
     };
     if (localStorage.getItem('tasks') != null) {
       const tasks = JSON.parse(localStorage.getItem('tasks'));
-      console.log(tasks);
-      allTasksArray = tasks;
+      console.log(`Here are the tasks from local storage: ${tasks}`);
+      allTasksArray = tasks.map((task) => saveNewTask(task.tTitle, task.tDescription, task.tDueDate, task.tPriority, task.tStatus, task.tAssociatedProject))
     }
   } else {
     // create default catch all project
@@ -106,10 +108,13 @@ const setUpProjects = function() {
   }
 };
 
+
+
+
 // FUNCTION TO SAVE NEW PROJECT
-const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus){
+const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus, projectUUID){
   console.log('saveNewProject function has started');
-  const project = new Project(pTitle, pDescription, pDueDate, pStatus);
+  const project = new Project(pTitle, pDescription, pDueDate, pStatus, projectUUID);
   projectArray.push(project);
   console.log(project);
   console.log([projectArray]);
@@ -121,9 +126,10 @@ const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus){
 // END FUNCTION TO SAVE NEW PROJECT
 
 // FUNCTION TO SAVE NEW TASK
-const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssociatedProject){
+const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject){
+  getStorage();
   console.log('saveNewTask function has started');
-  let tStatus = 'open';
+  console.log(`tAssociatedProject passed to this is ${tAssociatedProject}`);
   const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
   // find associated project in projectArray to add task to its taskArray
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
@@ -133,7 +139,7 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tAssocia
   // add task to allTasksArray
   allTasksArray.push(task);
   setStorage();
-  displayOneProject(projectArray[index]);
+  // displayOneProject(projectArray[index]);
 }
 // END FUNCTION TO SAVE NEW TASK
 
@@ -161,4 +167,4 @@ const deleteTask = function(task) {
   setStorage();
 }
 
-export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject, setUpProjects };
+export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject, getStorage };
