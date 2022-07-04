@@ -97,7 +97,11 @@ function npform() {
   npFormContainer.appendChild(newProjectForm);
   // event listener
   newProjectSubmitButton.addEventListener("click", function(){
-    saveNewProject();
+    const pTitle = document.getElementById('ptitle').value;
+    const pDescription = document.getElementById('pdescription').value;
+    const pDueDate = document.getElementById('pduedate').value;
+    let pStatus = 'open';
+    saveNewProject(pTitle, pDescription, pDueDate, pStatus);
     newProjectForm.reset();
     npFormContainer.remove();
     const overlay = document.getElementById('overlay');

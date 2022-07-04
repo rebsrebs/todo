@@ -31,6 +31,7 @@ class Project {
     return this.pStatus;
   }
 
+  // apparently a project comes back from localStorage the methods do not, they never got sent there in the first place.
   addTask(task) {
     this.taskArray.push(task);
   }
@@ -80,10 +81,12 @@ class Task {
 // function to set up projects - refactor this later
 const setUpProjects = function() {
   if (simpleCheckForStorage() === 'yes'){
+    // if local storage has a projects array
     if (localStorage.getItem('projects') != null) {
       const projects = JSON.parse(localStorage.getItem('projects'));
       console.log(projects);
-      projectArray = projects;
+      projectArray = projects.map((project) => new Project(project.pTitle, project.pDescription, project.pDueDate, project.pStatus));
+      setStorage();
     } else {
       // create default catch all project
       const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.', undefined, 'open');
@@ -104,12 +107,8 @@ const setUpProjects = function() {
 };
 
 // FUNCTION TO SAVE NEW PROJECT
-const saveNewProject = function(){
+const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus){
   console.log('saveNewProject function has started');
-  const pTitle = document.getElementById('ptitle').value;
-  const pDescription = document.getElementById('pdescription').value;
-  const pDueDate = document.getElementById('pduedate').value;
-  let pStatus = 'open';
   const project = new Project(pTitle, pDescription, pDueDate, pStatus);
   projectArray.push(project);
   console.log(project);
