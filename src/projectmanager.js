@@ -120,7 +120,7 @@ const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus, project
   projectArray.push(project);
   console.log(project);
   console.log([projectArray]);
-  // setStorage();
+  setStorage();
   // addProjectToSidebar(pTitle);
   updateProjectNavLinks();
   displayOneProject(project);
@@ -140,7 +140,7 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tStatus,
   projectArray[index].addTask(task);
   // add task to allTasksArray
   allTasksArray.push(task);
-  // setStorage();
+  setStorage();
   // displayOneProject(projectArray[index]);
 }
 // END FUNCTION TO SAVE NEW TASK
