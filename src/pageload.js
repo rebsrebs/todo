@@ -6,7 +6,7 @@ import { mainProjectLayout } from './ui.js';
 import { getStorage } from './projectmanager.js';
 
 const pageLoad = function() {
-  getStorage();
+  // getStorage();
   const content = document.getElementById('content');
   content.appendChild(header());
   content.appendChild(sidebar());

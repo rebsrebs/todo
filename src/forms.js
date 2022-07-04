@@ -1,5 +1,6 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
 import { removeChildElements, displayOneProject, createTaskRow } from './ui.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const priorityArray = ['Urgent', 'High', 'Medium', 'Low'];
 

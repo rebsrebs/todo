@@ -20,6 +20,7 @@ class Project {
     this.pDescription = pDescription;
     this.pDueDate = pDueDate;
     this.pStatus = pStatus;
+    this.projectUUID = projectUUID;
     // this.projectUUID = uuidv4();
   }
 
@@ -98,6 +99,7 @@ const getStorage = function() {
     if (localStorage.getItem('tasks') != null) {
       const tasks = JSON.parse(localStorage.getItem('tasks'));
       console.log(`Here are the tasks from local storage: ${tasks}`);
+      // this saves new tasks and pushes them to their respective project taskArrays
       allTasksArray = tasks.map((task) => saveNewTask(task.tTitle, task.tDescription, task.tDueDate, task.tPriority, task.tStatus, task.tAssociatedProject))
     }
   } else {
@@ -118,7 +120,7 @@ const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus, project
   projectArray.push(project);
   console.log(project);
   console.log([projectArray]);
-  setStorage();
+  // setStorage();
   // addProjectToSidebar(pTitle);
   updateProjectNavLinks();
   displayOneProject(project);
@@ -138,7 +140,7 @@ const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tStatus,
   projectArray[index].addTask(task);
   // add task to allTasksArray
   allTasksArray.push(task);
-  setStorage();
+  // setStorage();
   // displayOneProject(projectArray[index]);
 }
 // END FUNCTION TO SAVE NEW TASK
@@ -164,7 +166,7 @@ const deleteTask = function(task) {
   });
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows null
-  setStorage();
+  // setStorage();
 }
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject, getStorage };
