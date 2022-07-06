@@ -15,13 +15,15 @@ class Project {
   pStatus;
   projectUUID;
 
-  constructor (pTitle, pDescription, pDueDate, pStatus, projectUUID) {
+  constructor (pTitle, pDescription, pDueDate, pStatus, projectUUID, taskArray=[]) {
     this.pTitle = pTitle;
     this.pDescription = pDescription;
     this.pDueDate = pDueDate;
     this.pStatus = pStatus;
     this.projectUUID = projectUUID;
-    // this.projectUUID = uuidv4();
+    this.taskArray = taskArray;
+    // this.taskArray = taskArray;
+    // taskArray = [];
   }
 
   setStatus(pStatus) {
@@ -84,10 +86,11 @@ const getStorage = function() {
   if (simpleCheckForStorage() === 'yes'){
     // if local storage has a projects array
     if (localStorage.getItem('projects') != null) {
+      console.log('there are projects in local storage');
       const projects = JSON.parse(localStorage.getItem('projects'));
       console.log(`projects gotten from localStorage is ${projects}`);
       console.log(`the second object's title in projects is ${projects[1].pTitle}`);
-      projectArray = projects.map((project) => new Project(project.pTitle, project.pDescription, project.pDueDate, project.pStatus, project.projectUUID));
+      projectArray = projects.map((project) => new Project(project.pTitle, project.pDescription, project.pDueDate, project.pStatus, project.projectUUID, project.taskArray));
       console.log(`projectArray is ${projectArray}`);
       // setStorage();
     } else {
@@ -97,6 +100,7 @@ const getStorage = function() {
       projectArray.push(defaultProject);
     };
     if (localStorage.getItem('tasks') != null) {
+      console.log('there are tasks in local storage')
       const tasks = JSON.parse(localStorage.getItem('tasks'));
       console.log(`Here are the tasks from local storage: ${tasks}`);
       // this saves new tasks and pushes them to their respective project taskArrays
@@ -129,15 +133,18 @@ const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus, project
 
 // FUNCTION TO SAVE NEW TASK
 const saveNewTask = function(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject){
-  getStorage();
+  // getStorage();
   console.log('saveNewTask function has started');
   console.log(`tAssociatedProject passed to this is ${tAssociatedProject}`);
   const task = new Task(tTitle, tDescription, tDueDate, tPriority, tStatus, tAssociatedProject);
   // find associated project in projectArray to add task to its taskArray
   const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
   console.log(index);
-  console.log(projectArray[index]);
+  console.log(`projectArray[index].pTitle for the task you are saving's associated project is ${projectArray[index].pTitle}`);
+  console.log(`projectArray[index].taskArray for the task you are saving's associated project is ${projectArray[index].taskArray}`);
+  // add task to project's task array
   projectArray[index].addTask(task);
+  // projectArray[index].taskArray.push(task);
   // add task to allTasksArray
   allTasksArray.push(task);
   setStorage();

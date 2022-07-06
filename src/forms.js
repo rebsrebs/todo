@@ -103,7 +103,8 @@ function npform() {
     const pDueDate = document.getElementById('pduedate').value;
     let pStatus = 'open';
     const projectUUID = uuidv4();
-    saveNewProject(pTitle, pDescription, pDueDate, pStatus, projectUUID);
+    const taskArray = [];
+    saveNewProject(pTitle, pDescription, pDueDate, pStatus, projectUUID, taskArray);
     newProjectForm.reset();
     npFormContainer.remove();
     const overlay = document.getElementById('overlay');

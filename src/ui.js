@@ -308,6 +308,7 @@ function createTaskDetailArea(task) {
 
 // DISPLAY A PROJECT IN MAIN AREA
 function displayOneProject(project){
+  console.log(`The length of the project to display's taskArray is ${project.taskArray.length}`);
 
   mainProjectLayout();
   const mainTaskArea = document.querySelector('.maintaskarea');
