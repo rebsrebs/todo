@@ -382,6 +382,23 @@ function displayOneProject(project){
 //   createTaskRow(allTasksArray[randomIndex]);
 // }
 
+// DISPLAY TASKS DUE TODAY
 
+const displayTasksDueToday = function() {
+  console.log(allTasksArray.length)
+  console.log('displayTasksDueToday has started');
+  mainProjectLayout();
+  const mainTaskArea = document.querySelector('.maintaskarea');
+  fillMainHeader('Tasks Due Today');
+  fillMainDescription('Here is a list of tasks due today.');
+  allTasksArray.forEach((task) => {
+    console.log(task.tTitle);
+    var currentTime = new Date().toISOString().split('T')[0];
+    console.log(`currentTime is ${currentTime} and task.tDueDate is ${task.tDueDate}`);
+    if (task.tDueDate <= currentTime) {
+      displayTask(task);
+    }
+  });
+}
 
-export { mainProjectLayout, removeChildElements, displayOneProject, main, createTaskRow };
+export { mainProjectLayout, removeChildElements, displayOneProject, main, createTaskRow, displayTasksDueToday };

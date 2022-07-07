@@ -1,6 +1,7 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
 import { removeChildElements, displayOneProject, createTaskRow } from './ui.js';
 import { v4 as uuidv4 } from 'uuid';
+import { setStorage } from './localstorage.js';
 
 const priorityArray = ['Urgent', 'High', 'Medium', 'Low'];
 
@@ -460,6 +461,7 @@ function editTaskForm(task) {
       // display project that task was saved to
       const indexP = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
       displayOneProject(projectArray[indexP]);
+      setStorage();
     };
     });
 

@@ -83,13 +83,14 @@ class Task {
 
 // function to set up projects - refactor this later
 const getStorage = function() {
+  // if local storage is available
   if (simpleCheckForStorage() === 'yes'){
     // if local storage has a projects array
     if (localStorage.getItem('projects') != null) {
       console.log('there are projects in local storage');
       const projects = JSON.parse(localStorage.getItem('projects'));
       console.log(`projects gotten from localStorage is ${projects}`);
-      console.log(`the second object's title in projects is ${projects[1].pTitle}`);
+      // console.log(`the second object's title in projects is ${projects[1].pTitle}`);
       projectArray = projects.map((project) => new Project(project.pTitle, project.pDescription, project.pDueDate, project.pStatus, project.projectUUID, project.taskArray));
       console.log(`projectArray is ${projectArray}`);
       // setStorage();
@@ -99,13 +100,14 @@ const getStorage = function() {
       // add default project to project array
       projectArray.push(defaultProject);
     };
-    if (localStorage.getItem('tasks') != null) {
+    // if local storage has tasks saved
+    if (localStorage.getItem('allTasks') != null) {
       console.log('there are tasks in local storage')
-      const tasks = JSON.parse(localStorage.getItem('tasks'));
+      const tasks = JSON.parse(localStorage.getItem('allTasks'));
       console.log(`Here are the tasks from local storage: ${tasks}`);
-      // this saves new tasks and pushes them to their respective project taskArrays
-      allTasksArray = tasks.map((task) => saveNewTask(task.tTitle, task.tDescription, task.tDueDate, task.tPriority, task.tStatus, task.tAssociatedProject))
-    }
+      // allTasksArray = tasks.map((task) => saveNewTask(task.tTitle, task.tDescription, task.tDueDate, task.tPriority, task.tStatus, task.tAssociatedProject))
+      allTasksArray = tasks;
+    } 
   } else {
     // create default catch all project
     const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.', undefined, 'open');
@@ -173,7 +175,7 @@ const deleteTask = function(task) {
   });
   console.log(Object.keys(task));
   console.log(task.tTitle); // shows null
-  // setStorage();
+  setStorage();
 }
 
 export { saveNewProject, saveNewTask, projectArray, allTasksArray, deleteTask, displayOneProject, getStorage };

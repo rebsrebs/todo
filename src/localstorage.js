@@ -3,6 +3,9 @@ import { projectArray, allTasksArray, Project } from "./projectmanager";
 // function to update local storage
 // run this after any time you update projectArray - deleteTask, saveTask, saveProject, editTask
 const setStorage = function(){
+  console.log('setStorage function has started.')
+  console.log(`projectArray being sent to localStorage is ${(projectArray)}`)
+  console.log(`allTasksArray being sent to localStorage is ${(allTasksArray)}`)
   localStorage.setItem('projects',JSON.stringify(projectArray))
   localStorage.setItem('allTasks',JSON.stringify(allTasksArray))
   console.log('local storage has been updated.')

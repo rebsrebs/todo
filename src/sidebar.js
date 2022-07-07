@@ -1,7 +1,7 @@
 import { npform } from './forms.js';
 import { ntform } from './forms.js';
 import { projectArray } from './projectmanager.js';
-import { displayOneProject } from './ui.js';
+import { displayOneProject, displayTasksDueToday } from './ui.js';
 // import { pickRandomTask } from './ui.js'
 // import { displayARandomTask } from './ui.js'
 import { removeChildElements } from './ui.js'
@@ -44,6 +44,11 @@ function sidebar() {
   dueToday.classList.add('shortcutnavlink');
   dueToday.id = 'duetodaynav';
   dueToday.textContent = "Due Today";
+  // event listener for new project button
+  dueToday.addEventListener('click', function() {
+    displayTasksDueToday();
+  });
+
 
   // const clearLocal = document.createElement('a');
   // dueToday.classList.add('navlink');
@@ -78,7 +83,7 @@ function sidebar() {
   addNewProject.classList.add('navlink');
   addNewProject.classList.add('newprojectadd');
   addNewProject.textContent = '+ new project';
-    // make plus sign different color ?
+  // make plus sign different color ?
 
   const projectNavLinkSection = document.createElement('div');
   projectNavLinkSection.classList.add('projectnavlinksection');
