@@ -6,7 +6,6 @@ import Trash from './images/trash-2.svg';
 import Plus from './images/plus-circle-black.svg';
 import Edit from './images/edit.svg';
 import Magnify from './images/zoom-in.svg';
-// import PlusRed from './images/plus-circle.red.svg';
 
 const main = document.getElementById('main');
 
@@ -383,12 +382,10 @@ function displayOneProject(project){
 // }
 
 // DISPLAY TASKS DUE TODAY
-
 const displayTasksDueToday = function() {
   console.log(allTasksArray.length)
   console.log('displayTasksDueToday has started');
   mainProjectLayout();
-  const mainTaskArea = document.querySelector('.maintaskarea');
   fillMainHeader('Tasks Due Today');
   fillMainDescription('Here is a list of tasks due today.');
   allTasksArray.forEach((task) => {

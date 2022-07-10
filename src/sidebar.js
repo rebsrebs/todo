@@ -1,5 +1,4 @@
-import { npform } from './forms.js';
-import { ntform } from './forms.js';
+import { npform, ntform } from './forms.js';
 import { projectArray } from './projectmanager.js';
 import { displayOneProject, displayTasksDueToday } from './ui.js';
 // import { pickRandomTask } from './ui.js'
@@ -49,7 +48,6 @@ function sidebar() {
     displayTasksDueToday();
   });
 
-
   // const clearLocal = document.createElement('a');
   // dueToday.classList.add('navlink');
   // dueToday.classList.add('shortcutnavlink');
@@ -88,7 +86,6 @@ function sidebar() {
   const projectNavLinkSection = document.createElement('div');
   projectNavLinkSection.classList.add('projectnavlinksection');
   projectNavLinkSection.id = 'projectnavlinksection';
-
 
    // event listener for new project button
   addNewProject.addEventListener('click', function() {

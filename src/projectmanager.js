@@ -99,7 +99,7 @@ const getStorage = function() {
       const defaultProject = new Project('Default Project','A catch-all for tasks not assigned to a particular project.', undefined, 'open');
       // add default project to project array
       projectArray.push(defaultProject);
-    };
+    }
     // if local storage has tasks saved
     if (localStorage.getItem('allTasks') != null) {
       console.log('there are tasks in local storage')
@@ -115,9 +115,6 @@ const getStorage = function() {
     projectArray.push(defaultProject);
   }
 };
-
-
-
 
 // FUNCTION TO SAVE NEW PROJECT
 const saveNewProject = function(pTitle, pDescription, pDueDate, pStatus, projectUUID){

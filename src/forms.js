@@ -1,5 +1,5 @@
 import { saveNewTask, projectArray, saveNewProject } from './projectmanager.js';
-import { removeChildElements, displayOneProject, createTaskRow } from './ui.js';
+import { removeChildElements, displayOneProject } from './ui.js';
 import { v4 as uuidv4 } from 'uuid';
 import { setStorage } from './localstorage.js';
 
@@ -189,16 +189,16 @@ function ntform(project) {
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "tassociatedproject");
   taskAssociatedProject.setAttribute("name", "tassociatedproject");
-  for (var i = 0; i < projectArray.length; i++) {
+  for (var j = 0; j < projectArray.length; j++) {
     var currentOption = document.createElement('option');
-    currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
-    currentOption.textContent = projectArray[i].pTitle;
-    currentOption.id = `option-${i}`;
+    currentOption.setAttribute("value", `${projectArray[j].projectUUID}`);
+    currentOption.textContent = projectArray[j].pTitle;
+    currentOption.id = `option-${j}`;
     // if the currentOption is the same as passed project, make it preselected
-    if (projectArray[i].projectUUID == project.projectUUID) {
+    if (projectArray[j].projectUUID == project.projectUUID) {
       console.log('this is the project');
       currentOption.setAttribute("selected", "selected");
-    };
+    }
     taskAssociatedProject.appendChild(currentOption);
   }
   // submit button
@@ -247,7 +247,7 @@ function ntform(project) {
       // if due date is blank, update to No due date
       if (tDueDate == '') {
         tDueDate = String('No due date');
-      };
+      }
       // save priority
       const tPriority = document.getElementById('tpriority').value;
       // save associated project which is the UUID
@@ -262,7 +262,7 @@ function ntform(project) {
       overlay.style.visibility = 'hidden';
       const index = projectArray.map(e => e.projectUUID).indexOf(tAssociatedProject);
       displayOneProject(projectArray[index]);
-    };
+    }
     });
 
   return ntFormContainer;
@@ -342,7 +342,7 @@ function editTaskForm(task) {
     // if the currentOption is the same as passed project, make it preselected
     if (priorityArray[i] === task.tPriority) {
       currentPriorityOption.setAttribute("selected", "selected");
-    };
+    }
     taskPriority.appendChild(currentPriorityOption);
   }
   // associated project label
@@ -354,19 +354,17 @@ function editTaskForm(task) {
   const taskAssociatedProject = document.createElement('select');
   taskAssociatedProject.setAttribute("id", "tassociatedproject");
   taskAssociatedProject.setAttribute("name", "tassociatedproject");
-  for (var i = 0; i < projectArray.length; i++) {
+  for (var k = 0; k < projectArray.length; k++) {
     var currentOption = document.createElement('option');
-    currentOption.setAttribute("value", `${projectArray[i].projectUUID}`);
-    // currentOption.setAttribute("value", `${projectArray[i]}`);
-    currentOption.textContent = projectArray[i].pTitle;
-    currentOption.id = `option-${i}`;
+    currentOption.setAttribute("value", `${projectArray[k].projectUUID}`);
+    currentOption.textContent = projectArray[k].pTitle;
+    currentOption.id = `option-${k}`;
     // if the currentOption is the same as passed project, make it preselected
     var oldProject = task.tAssociatedProject;
-    // var oldProject = task.tAssociatedProject;
-    if (projectArray[i].projectUUID === task.tAssociatedProject) {
+    if (projectArray[k].projectUUID === task.tAssociatedProject) {
       console.log('this is the project');
       currentOption.setAttribute("selected", "selected");
-    };
+    }
     taskAssociatedProject.appendChild(currentOption);
   }
   // submit button
@@ -430,7 +428,7 @@ function editTaskForm(task) {
       // otherwise convert it to nicer format
       // } else {
       //   tDueDate = (new Date(tDueDate)).toDateString();
-      };
+      }
       // save priority
       const tPriority = document.getElementById('tpriority').value;
       // save associated project which is the UUID
@@ -462,15 +460,10 @@ function editTaskForm(task) {
       const indexP = projectArray.map(e => e.projectUUID).indexOf(task.tAssociatedProject);
       displayOneProject(projectArray[indexP]);
       setStorage();
-    };
+    }
     });
-
   return editTaskFormContainer;
 }
-
 // END EDIT TASK FORM
-
-
-
 
 export { npform, ntform, editTaskForm };
